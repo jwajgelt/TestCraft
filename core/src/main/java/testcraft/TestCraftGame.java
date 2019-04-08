@@ -10,11 +10,11 @@ import testcraft.blocks.OneBlockyBoy;
 public class TestCraftGame extends BasicGame {
 	public static final String GAME_IDENTIFIER = "testcraft";
 
-	private Block myFirstBlock;
+	private WorldChunk myFirstChunk;
 	
 	@Override
     public void initialise() {
-	    myFirstBlock = new OneBlockyBoy();
+	    myFirstChunk = new WorldChunk(0f, 0f, new Block[64][64]);
     }
     
     @Override
@@ -29,6 +29,6 @@ public class TestCraftGame extends BasicGame {
     
     @Override
     public void render(Graphics g) {
-		g.drawSprite(myFirstBlock.getBlockSprite(), 0f, 0f);
+	    myFirstChunk.renderChunk(g);
     }
 }
