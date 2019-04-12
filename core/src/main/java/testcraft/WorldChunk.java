@@ -3,18 +3,26 @@ package testcraft;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.blocks.OneBlockyBoy;
+import testcraft.blocks.Void;
 
-class WorldChunk {
+import java.io.Serializable;
 
-    private static final float PIXEL_COUNT = 16f;   //length of a square block's side
+import java.util.Random;
+
+class WorldChunk implements Serializable {
 
     private Block[][] blocks;
     private final float chunkPosX, chunkPosY;
+    private Random randy = new Random();
 
     WorldChunk(float xPos, float yPos, Block[][] blocks){
         this.blocks = blocks;
         chunkPosX = xPos;
         chunkPosY = yPos;
+
+        for(int i = 0; i < blocks.length; i++)
+            for(int j = 0; j < blocks[i].length; j++)
+                blocks[i][j] = (randy.nextBoolean()) ? new Void() : new OneBlockyBoy();
     }
 
     void renderChunk(Graphics g){
@@ -30,11 +38,9 @@ class WorldChunk {
         for(int i = 0; i < blocks.length; i++){
             for(int j = 0; j < blocks[i].length; j++){
 
-                blocks[i][j] = new OneBlockyBoy();  //just for testing purposes
-
                 //calculate blocks world coordinates
-                float posX = (chunkPosX + j)*PIXEL_COUNT;
-                float posY = (chunkPosY + i)*PIXEL_COUNT;
+                float posX = (chunkPosX + j)*Block.PIXEL_COUNT;
+                float posY = (chunkPosY + i)*Block.PIXEL_COUNT;
 
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();
