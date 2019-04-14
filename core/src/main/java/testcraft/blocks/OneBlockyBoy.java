@@ -6,8 +6,14 @@ import testcraft.Block;
 
 public class OneBlockyBoy extends Block {
 
-    {
+    private final static OneBlockyBoy instance = new OneBlockyBoy();
+
+    private OneBlockyBoy(){
         blockSprite = new Sprite(new Texture("OneBlockyBoy.png"));
+    }
+
+    public static OneBlockyBoy getInstance(){
+        return instance;
     }
 
 }

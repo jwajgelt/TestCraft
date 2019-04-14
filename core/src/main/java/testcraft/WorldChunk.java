@@ -23,7 +23,7 @@ class WorldChunk {
 
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
-                blocks[i][j] = (randy.nextBoolean()) ? new Void() : new OneBlockyBoy();
+                blocks[i][j] = (randy.nextBoolean()) ? Void.getInstance() : OneBlockyBoy.getInstance();
     }
 
     void renderChunk(Graphics g){

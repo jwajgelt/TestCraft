@@ -8,8 +8,12 @@ public abstract class Block {
 
     protected Sprite blockSprite;
 
+    static public Block getInstance(){
+        return null;
+    }
+
     Sprite getBlockSprite(){
-        return new Sprite(blockSprite);
+        return blockSprite;
     }
 
 }
