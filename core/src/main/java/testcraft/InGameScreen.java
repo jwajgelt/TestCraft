@@ -5,6 +5,8 @@ import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
 
+import java.awt.*;
+
 public class InGameScreen extends BasicGameScreen {
     public static int ID = 1;
 

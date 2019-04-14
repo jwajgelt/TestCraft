@@ -5,6 +5,7 @@ import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
 import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.core.serialization.annotation.Field;
+import testcraft.blocks.CobblestoneBlock;
 import testcraft.blocks.OneBlockyBoy;
 import testcraft.blocks.Void;
 
@@ -27,7 +28,7 @@ class WorldChunk {
 
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
-                blocks[i][j] = (randy.nextBoolean()) ? Void.getInstance() : OneBlockyBoy.getInstance();
+                blocks[i][j] = (randy.nextBoolean()) ? Void.getInstance() : randy.nextBoolean() ? OneBlockyBoy.getInstance() : CobblestoneBlock.getInstance();
     }
 
     void renderChunk(Graphics g, float shiftX, float shiftY){
