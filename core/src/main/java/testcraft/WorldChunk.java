@@ -1,7 +1,9 @@
 package testcraft;
 
+import org.mini2Dx.core.Mdx;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
+import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.core.serialization.annotation.Field;
 import testcraft.blocks.OneBlockyBoy;
 import testcraft.blocks.Void;
@@ -10,9 +12,11 @@ import java.util.Random;
 
 class WorldChunk {
 
-    @Field private Block[][] blocks;                //array containing chunk's blocks' information
+    static int CHUNK_SIZE = 64;
 
-    @Field private final int chunkPosX, chunkPosY;  //chunk's left top corner's world coordinates
+    private Block[][] blocks;                   //array containing chunk's blocks' information
+
+    @Field final int chunkPosX, chunkPosY;      //chunk's left top corner's world coordinates
 
     private static Random randy = new Random();     //for testing purposes only
 
@@ -26,7 +30,7 @@ class WorldChunk {
                 blocks[i][j] = (randy.nextBoolean()) ? Void.getInstance() : OneBlockyBoy.getInstance();
     }
 
-    void renderChunk(Graphics g){
+    void renderChunk(Graphics g, float shiftX, float shiftY){
         /*
          * Remember the old scaling to restore later.
          *
@@ -40,8 +44,8 @@ class WorldChunk {
             for(int j = 0; j < blocks[i].length; j++){
 
                 //calculate blocks world coordinates
-                float posX = (chunkPosX + j)*Block.PIXEL_COUNT;
-                float posY = (chunkPosY + i)*Block.PIXEL_COUNT;
+                float posX = (chunkPosX + shiftX + j)*Block.PIXEL_COUNT;
+                float posY = (chunkPosY + shiftY + i)*Block.PIXEL_COUNT;
 
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();
@@ -56,6 +60,12 @@ class WorldChunk {
          *
          */
         g.scale(oldX, oldY);
+    }
+
+    String getJson() throws SerializationException{
+        String jsonChunk;
+        jsonChunk = Mdx.json.toJson(this);
+        return jsonChunk;
     }
 
 }
