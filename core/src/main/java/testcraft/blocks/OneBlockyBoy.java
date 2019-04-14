@@ -10,6 +10,7 @@ public class OneBlockyBoy extends Block {
 
     private OneBlockyBoy(){
         blockSprite = new Sprite(new Texture("OneBlockyBoy.png"));
+        blockName = "One Blocky Boi";
     }
 
     public static OneBlockyBoy getInstance(){

@@ -8,7 +8,7 @@ import org.mini2Dx.core.serialization.annotation.Field;
 import testcraft.blocks.OneBlockyBoy;
 import testcraft.blocks.Void;
 
-import java.util.Random;
+import java.util.*;
 
 class WorldChunk {
 

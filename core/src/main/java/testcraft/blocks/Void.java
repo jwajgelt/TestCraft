@@ -11,6 +11,7 @@ public class Void extends Block {
     private Void(){
         blockSprite = new Sprite(new Texture("OneBlockyBoy.png"));
         blockSprite.setAlpha(0f);
+        blockName = "Void";
     }
 
     public static Void getInstance(){
