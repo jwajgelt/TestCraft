@@ -2,20 +2,21 @@ package testcraft;
 
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
+import org.mini2Dx.core.serialization.annotation.Field;
 import testcraft.blocks.OneBlockyBoy;
 import testcraft.blocks.Void;
 
-import java.io.Serializable;
-
 import java.util.Random;
 
-class WorldChunk implements Serializable {
+class WorldChunk {
 
-    private Block[][] blocks;
-    private final float chunkPosX, chunkPosY;
-    private Random randy = new Random();
+    @Field private Block[][] blocks;                //array containing chunk's blocks' information
 
-    WorldChunk(float xPos, float yPos, Block[][] blocks){
+    @Field private final int chunkPosX, chunkPosY;  //chunk's left top corner's world coordinates
+
+    private static Random randy = new Random();     //for testing purposes only
+
+    WorldChunk(int xPos, int yPos, Block[][] blocks){
         this.blocks = blocks;
         chunkPosX = xPos;
         chunkPosY = yPos;

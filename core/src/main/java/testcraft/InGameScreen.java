@@ -1,6 +1,5 @@
 package testcraft;
 
-import org.mini2Dx.core.game.BasicGame;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
@@ -13,7 +12,7 @@ public class InGameScreen extends BasicGameScreen {
 	
 	@Override
     public void initialise(GameContainer gc) {
-	    myFirstChunk = new WorldChunk(0f, 0f, new Block[64][64]);
+	    myFirstChunk = new WorldChunk(0, 0, new Block[64][64]);
     }
     
     @Override
@@ -23,7 +22,7 @@ public class InGameScreen extends BasicGameScreen {
     
     @Override
     public void interpolate(GameContainer gc, float alpha) {
-    
+
     }
     
     @Override
