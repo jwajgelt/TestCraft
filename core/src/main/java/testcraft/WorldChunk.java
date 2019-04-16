@@ -46,8 +46,8 @@ class WorldChunk {
             for(int j = 0; j < blocks[i].length; j++){
 
                 //calculate blocks world coordinates
-                float posX = (chunkPosX + shiftX + j)*Block.PIXEL_COUNT;
-                float posY = (chunkPosY + shiftY + i)*Block.PIXEL_COUNT;
+                float posX = (chunkPosX - shiftX + j)*Block.PIXEL_COUNT;
+                float posY = (chunkPosY - shiftY + i)*Block.PIXEL_COUNT;
 
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();

@@ -13,11 +13,13 @@ public class InGameScreen extends BasicGameScreen {
     public static int ID = 1;
 
     private World world;
+    private Player player;
     private float posX, posY;       //testing purposes only
 	
 	@Override
     public void initialise(GameContainer gc) {
 	    world = new World("Default", 0, 0);
+	    player = new Player(640, 360);
 	    posX = 0f;
 	    posY = 0f;
     }
@@ -25,27 +27,26 @@ public class InGameScreen extends BasicGameScreen {
     @Override
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
-	    delta*=2;
-	    world.player.move(delta);
-        if(world.player.posX<360)
+	    player.move(delta);
+        if(player.posX<360)
         {
-            world.player.posX=360;
-            posX-=10*delta;
-        }
-        if(world.player.posX>1080)
-        {
-            world.player.posX=1080;
+            player.posX=360;
             posX+=10*delta;
         }
-        if(world.player.posY<180)
+        if(player.posX>1080)
         {
-            world.player.posY=180;
-            posY-=10*delta;
+            player.posX=1080;
+            posX-=10*delta;
         }
-        if(world.player.posY>540)
+        if(player.posY<180)
         {
-            world.player.posY=540;
+            player.posY=180;
             posY+=10*delta;
+        }
+        if(player.posY>540)
+        {
+            player.posY=540;
+            posY-=10*delta;
         }
         world.setPos((int)posX, (int)posY);
     }
@@ -59,6 +60,7 @@ public class InGameScreen extends BasicGameScreen {
     public void render(GameContainer gc, Graphics g) {
 	    g.drawRect(0, -1, 1281, 721);
         world.render(g, posX, posY);
+        player.renderPlayer(g);
     }
 
     @Override
