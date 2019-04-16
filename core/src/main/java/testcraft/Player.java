@@ -30,6 +30,14 @@ public class Player {
             posY-=150*delta;
     }
 
+    float getX(){
+        return posX;
+    }
+
+    float getY(){
+        return posY;
+    }
+
     void renderPlayer(Graphics graphics){
         playerSprite.setPosition(posX, posY);
         graphics.drawSprite(playerSprite);
