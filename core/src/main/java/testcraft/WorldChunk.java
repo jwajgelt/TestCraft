@@ -5,9 +5,7 @@ import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
 import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.core.serialization.annotation.Field;
-import testcraft.blocks.CoalBlock;
-import testcraft.blocks.CobblestoneBlock;
-import testcraft.blocks.OneBlockyBoy;
+import testcraft.blocks.*;
 import testcraft.blocks.Void;
 
 import java.util.*;
@@ -29,7 +27,7 @@ class WorldChunk {
 
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
-                blocks[i][j] = (randy.nextBoolean()) ? (randy.nextBoolean() ? Void.getInstance() : CoalBlock.getInstance()) : randy.nextBoolean() ? OneBlockyBoy.getInstance() : CobblestoneBlock.getInstance();
+                blocks[i][j] = (randy.nextBoolean()) ? (randy.nextBoolean() ? Void.getInstance() : CoalBlock.getInstance()) : randy.nextBoolean() ? DirtBlock.getInstance() : CobblestoneBlock.getInstance(randy.nextBoolean());
     }
 
     void renderChunk(Graphics g, float shiftX, float shiftY){
@@ -51,8 +49,8 @@ class WorldChunk {
 
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();
-                blockSprite.setPosition(posX, posY);
-
+                blockSprite.setPosition(posX+1, posY+1);
+                blockSprite.setScale(2f);
                 //finally, draw the sprite
                 g.drawSprite(blockSprite);
             }

@@ -28,8 +28,8 @@ public class InGameScreen extends BasicGameScreen {
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
 	    player.move(delta);
-        posX=player.getX(); //probably - half screen + half player width
-        posY=player.getY(); //same
+        posX=player.getX();
+        posY=player.getY();
         world.setPos((int)posX, (int)posY);
     }
     
