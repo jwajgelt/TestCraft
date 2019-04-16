@@ -1,5 +1,7 @@
 package testcraft;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
@@ -19,11 +21,32 @@ public class InGameScreen extends BasicGameScreen {
 	    posX = 0f;
 	    posY = 0f;
     }
-    
+
     @Override
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
-        posX += 30*delta;
-        posY += 10*delta;
+
+	    delta*=2;
+	    world.player.move(delta);
+        if(world.player.posX<360)
+        {
+            world.player.posX=360;
+            posX-=10*delta;
+        }
+        if(world.player.posX>1080)
+        {
+            world.player.posX=1080;
+            posX+=10*delta;
+        }
+        if(world.player.posY<180)
+        {
+            world.player.posY=180;
+            posY-=10*delta;
+        }
+        if(world.player.posY>540)
+        {
+            world.player.posY=540;
+            posY+=10*delta;
+        }
         world.setPos((int)posX, (int)posY);
     }
     

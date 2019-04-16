@@ -1,5 +1,6 @@
 package testcraft;
 
+import javafx.stage.Screen;
 import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.core.serialization.annotation.Field;
 import org.mini2Dx.core.graphics.Graphics;
@@ -16,6 +17,8 @@ class World {
     private final int LOADED_CHUNKS_X = 3;
     private final int LOADED_CHUNKS_Y = 3;
 
+    protected Player player;
+
     /*
     World's name used for identifying file names and location
      */
@@ -30,6 +33,7 @@ class World {
         this.worldName = worldName;
         centerX = x/ CHUNK_SIZE;
         centerY = y/ CHUNK_SIZE;
+        player=new Player(centerX+640, centerY+360);
         chunkCount = 0;
         setPos(x, y);
     }
@@ -78,6 +82,7 @@ class World {
 
     void render(Graphics g, float shiftX, float shiftY){
         for(WorldChunk chunk : chunks) chunk.renderChunk(g, -shiftX, -shiftY);
+        player.renderPlayer(g);
     }
 
 }
