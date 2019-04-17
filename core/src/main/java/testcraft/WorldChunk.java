@@ -14,11 +14,16 @@ class WorldChunk {
 
     static int CHUNK_SIZE = 64;
 
-    private Block[][] blocks;                   //array containing chunk's blocks' information
+    private Block[][] blocks;                   //array containing chunk's blocks' information first coordinate is X, second Y
 
     @Field final int chunkPosX, chunkPosY;      //chunk's left top corner's world coordinates
 
     private static Random randy = new Random();     //for testing purposes only
+
+    private Block getBlock()
+    {
+        return (randy.nextBoolean()) ? (randy.nextBoolean() ? Void.getInstance() : CoalBlock.getInstance()) : randy.nextBoolean() ? DirtBlock.getInstance() : CobblestoneBlock.getInstance(randy.nextBoolean());
+    }
 
     WorldChunk(int xPos, int yPos, Block[][] blocks){
         this.blocks = blocks;
@@ -27,8 +32,9 @@ class WorldChunk {
 
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
-                blocks[i][j] = (randy.nextBoolean()) ? (randy.nextBoolean() ? Void.getInstance() : CoalBlock.getInstance()) : randy.nextBoolean() ? DirtBlock.getInstance() : CobblestoneBlock.getInstance(randy.nextBoolean());
+                blocks[i][j] = getBlock();
     }
+
 
     void renderChunk(Graphics g, float shiftX, float shiftY){
         /*
@@ -44,8 +50,8 @@ class WorldChunk {
             for(int j = 0; j < blocks[i].length; j++){
 
                 //calculate blocks world coordinates
-                float posX = (chunkPosX - shiftX + j)*Block.PIXEL_COUNT;
-                float posY = (chunkPosY - shiftY + i)*Block.PIXEL_COUNT;
+                float posX = (chunkPosX - shiftX + i)*Block.PIXEL_COUNT;
+                float posY = (chunkPosY - shiftY + j)*Block.PIXEL_COUNT;
 
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();
@@ -60,6 +66,11 @@ class WorldChunk {
          *
          */
         g.scale(oldX, oldY);
+    }
+
+    public void setVoid (int a, int b)
+    {
+        blocks[a][b]=Void.getInstance();
     }
 
     String getJson() throws SerializationException{

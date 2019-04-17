@@ -6,6 +6,8 @@ import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
+import testcraft.blocks.*;
+import testcraft.blocks.Void;
 
 import java.awt.*;
 
@@ -24,12 +26,23 @@ public class InGameScreen extends BasicGameScreen {
 	    posY = 0f;
     }
 
+    private void inputHandler (float delta)
+    {
+        player.move(delta); //player move
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            int x=Gdx.input.getX();
+            int y=Gdx.input.getY();
+            world.findBlock((int)(x/(Block.PIXEL_COUNT)+(posX)),(int)(y/(Block.PIXEL_COUNT)+(posY))); //coordinates from pixels to chunks
+        }
+
+    }
+
     @Override
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
-	    player.move(delta);
-        posX=player.getX();
-        posY=player.getY();
+        inputHandler(delta);
+        posX=player.getX() - 640;
+        posY=player.getY() - 360;
         world.setPos((int)posX, (int)posY);
     }
     

@@ -7,6 +7,7 @@ import org.mini2Dx.core.graphics.Graphics;
 import java.util.LinkedList;
 
 import static testcraft.WorldChunk.CHUNK_SIZE;
+import static testcraft.Block.PIXEL_COUNT;
 
 class World {
 
@@ -33,6 +34,23 @@ class World {
         chunkCount = 0;
         setPos(x, y);
     }
+
+    public  void findBlock (int x,int y) //finds
+    {
+        for (WorldChunk B : chunks) {
+            if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
+            {
+                int a=x-B.chunkPosX; //block coordinates in the chunk
+                int b=y-B.chunkPosY; //block coordinates in the chunk
+                B.setVoid(a,b);
+                return;
+            }
+        }
+        System.out.println("Didn't find the chunk. Something went wrong!");
+        return;
+    }
+
+
 
     /*
     Loads and unloads chunks for new X and Y coordinates
