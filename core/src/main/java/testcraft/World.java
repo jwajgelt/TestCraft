@@ -30,6 +30,7 @@ class World {
     World(String worldName, int x, int y){
         chunks = new LinkedList<WorldChunk>();
         this.worldName = worldName;
+        new File("."+File.separator+worldName).mkdir();
         centerX = x/ CHUNK_SIZE;
         centerY = y/ CHUNK_SIZE;
         chunkCount = 0;
@@ -73,7 +74,7 @@ class World {
             }
             else{
                 try {
-                    ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
+                    ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
                     stream.writeObject(chunk);
                 } catch (IOException e){
                     e.printStackTrace();
@@ -90,7 +91,7 @@ class World {
                     int chunkPosX = (centerX - distanceX + i)*CHUNK_SIZE;
                     int chunkPosY = (centerY - distanceY + j)*CHUNK_SIZE;
                     try{
-                        ObjectInputStream stream = new ObjectInputStream(new FileInputStream(worldName+"_"+chunkPosX+"_"+chunkPosY));
+                        ObjectInputStream stream = new ObjectInputStream(new FileInputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunkPosX+"_"+chunkPosY));
                         System.out.println("RESTORING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
                         chunks.add((WorldChunk)stream.readObject());
                     } catch(FileNotFoundException e){
