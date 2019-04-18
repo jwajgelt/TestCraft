@@ -26,7 +26,7 @@ public class InGameScreen extends BasicGameScreen {
     @Override
     public void initialise(GameContainer gc) {
         world = new World("Default", 0, 0);
-        player = new Player(WIDTH/2, HEIGHT/2);
+        player = new Player(WIDTH/2/Block.PIXEL_COUNT, HEIGHT/2/Block.PIXEL_COUNT);
         posX = 0f;
         posY = 0f;
     }
