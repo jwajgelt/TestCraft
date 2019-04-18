@@ -45,8 +45,8 @@ public class InGameScreen extends BasicGameScreen {
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
         inputHandler(delta);
-        posX=player.getX() - 640;
-        posY=player.getY() - 360;
+        posX=player.getX() - 640/Block.PIXEL_COUNT;
+        posY=player.getY() - 360/Block.PIXEL_COUNT;
         world.setPos((int)posX, (int)posY);
     }
     
