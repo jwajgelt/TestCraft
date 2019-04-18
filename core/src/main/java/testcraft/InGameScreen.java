@@ -24,7 +24,7 @@ public class InGameScreen extends BasicGameScreen {
 	@Override
     public void initialise(GameContainer gc) {
 	    world = new World("Default", 0, 0);
-	    player = new Player(WIDTH/2, HEIGHT/2);
+	    player = new Player((WIDTH/2) / Block.PIXEL_COUNT,(HEIGHT/2) / Block.PIXEL_COUNT);
 	    posX = 0f;
 	    posY = 0f;
     }
@@ -33,12 +33,8 @@ public class InGameScreen extends BasicGameScreen {
     {
         player.move(delta); //player move
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            float x= (Gdx.input.getX()/(Block.PIXEL_COUNT)+(posX));//here and
-            float y= (Gdx.input.getY()/(Block.PIXEL_COUNT)+(posY));//here should be floor
-            if(x<0)
-                x-=(Block.PIXEL_COUNT-1)/Block.PIXEL_COUNT;
-            if(y<0)
-                y-=(Block.PIXEL_COUNT-1)/Block.PIXEL_COUNT;//but ifs are ok
+            float x = (float)java.lang.Math.floor((Gdx.input.getX()/(Block.PIXEL_COUNT))+(posX));//here and
+            float y = (float)java.lang.Math.floor((Gdx.input.getY()/(Block.PIXEL_COUNT))+(posY));//here should be floor
             world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
         }
 
@@ -48,9 +44,10 @@ public class InGameScreen extends BasicGameScreen {
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
         inputHandler(delta);
-        posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
-        posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
+        posX=player.getX() - (WIDTH/2) / Block.PIXEL_COUNT;
+        posY=player.getY() - (HEIGHT/2) / Block.PIXEL_COUNT;
         world.setPos((int)posX, (int)posY);
+
     }
     
     @Override

@@ -55,10 +55,10 @@ class World {
     /*
     Loads and unloads chunks for new X and Y coordinates
      */
-    void setPos(int x, int y){
+    void setPos(float x, float y){
         LinkedList<WorldChunk> forRemoval = new LinkedList<WorldChunk>();
-        centerX = (x+CHUNK_SIZE/2)/CHUNK_SIZE;
-        centerY = (y+CHUNK_SIZE/2)/CHUNK_SIZE;
+        centerX = (int)java.lang.Math.floor((x+CHUNK_SIZE/2)/CHUNK_SIZE);
+        centerY = (int)java.lang.Math.floor((y+CHUNK_SIZE/2)/CHUNK_SIZE);
         int distanceX = (LOADED_CHUNKS_X-1)/2;
         int distanceY = (LOADED_CHUNKS_Y-1)/2;
         boolean[][] loaded;
