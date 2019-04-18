@@ -21,13 +21,13 @@ public class Player {
 
     public void move(float delta){
         if(Gdx.input.isKeyPressed(Input.Keys.A))
-            posX-=10*delta;
+            posX-=30*delta;
         if(Gdx.input.isKeyPressed(Input.Keys.D))
-            posX+=10*delta;
+            posX+=30*delta;
         if(Gdx.input.isKeyPressed(Input.Keys.S))
-            posY+=10*delta;
+            posY+=30*delta;
         if(Gdx.input.isKeyPressed(Input.Keys.W))
-            posY-=10*delta;
+            posY-=30*delta;
     }
 
     float getX(){

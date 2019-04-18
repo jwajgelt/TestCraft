@@ -30,9 +30,13 @@ public class InGameScreen extends BasicGameScreen {
     {
         player.move(delta); //player move
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            int x=Gdx.input.getX();
-            int y=Gdx.input.getY();
-            world.findBlock((int)(x/(Block.PIXEL_COUNT)+(posX)),(int)(y/(Block.PIXEL_COUNT)+(posY))); //coordinates from pixels to chunks
+            float x= (Gdx.input.getX()/(Block.PIXEL_COUNT)+(posX));//here and
+            float y= (Gdx.input.getY()/(Block.PIXEL_COUNT)+(posY));//here should be floor
+            if(x<0)
+                x-=(Block.PIXEL_COUNT-1)/Block.PIXEL_COUNT;
+            if(y<0)
+                y-=(Block.PIXEL_COUNT-1)/Block.PIXEL_COUNT;//but ifs are ok
+            world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
         }
 
     }
