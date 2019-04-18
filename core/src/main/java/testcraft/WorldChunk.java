@@ -54,6 +54,10 @@ class WorldChunk implements Serializable {
                 float posX = (chunkPosX - shiftX + i)*Block.PIXEL_COUNT;
                 float posY = (chunkPosY - shiftY + j)*Block.PIXEL_COUNT;
 
+                if(posX < -Block.PIXEL_COUNT || posX > InGameScreen.WIDTH
+                || posY < -Block.PIXEL_COUNT || posY > InGameScreen.HEIGHT)
+                    continue;   //don't render things off-screen
+
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();
                 blockSprite.setPosition(posX+1, posY+1);
