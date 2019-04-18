@@ -11,8 +11,11 @@ import testcraft.blocks.Void;
 
 import java.awt.*;
 
+
 public class InGameScreen extends BasicGameScreen {
     public static int ID = 1;
+    static float WIDTH = 1280;
+    static float HEIGHT = 720;
 
     private World world;
     private Player player;
@@ -21,7 +24,7 @@ public class InGameScreen extends BasicGameScreen {
 	@Override
     public void initialise(GameContainer gc) {
 	    world = new World("Default", 0, 0);
-	    player = new Player(640, 360);
+	    player = new Player(WIDTH/2, HEIGHT/2);
 	    posX = 0f;
 	    posY = 0f;
     }
@@ -45,8 +48,8 @@ public class InGameScreen extends BasicGameScreen {
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
         inputHandler(delta);
-        posX=player.getX() - 640/Block.PIXEL_COUNT;
-        posY=player.getY() - 360/Block.PIXEL_COUNT;
+        posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
+        posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
         world.setPos((int)posX, (int)posY);
     }
     
@@ -57,7 +60,7 @@ public class InGameScreen extends BasicGameScreen {
     
     @Override
     public void render(GameContainer gc, Graphics g) {
-	    g.drawRect(0, -1, 1281, 721);
+	    g.drawRect(0, -1, WIDTH+1, HEIGHT+1);
         world.render(g, posX, posY);
         player.renderPlayer(g);
     }
