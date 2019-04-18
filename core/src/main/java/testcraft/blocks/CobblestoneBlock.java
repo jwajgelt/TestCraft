@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class CobblestoneBlock extends Block {
+import java.io.Serializable;
+
+public class CobblestoneBlock extends Block implements Serializable {
 
 
     private static Sprite[] blockSprites=new Sprite[]{

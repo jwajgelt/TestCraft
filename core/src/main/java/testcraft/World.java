@@ -4,6 +4,7 @@ import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.core.serialization.annotation.Field;
 import org.mini2Dx.core.graphics.Graphics;
 
+import java.io.*;
 import java.util.LinkedList;
 
 import static testcraft.WorldChunk.CHUNK_SIZE;
@@ -72,12 +73,13 @@ class World {
             }
             else{
                 try {
-                    System.out.println(chunk.getJson());
-                } catch (SerializationException e) {
+                    ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
+                    stream.writeObject(chunk);
+                } catch (IOException e){
                     e.printStackTrace();
                 }
                 forRemoval.add(chunk);
-                System.out.println("REMOVING CHUNK (" + chunk.chunkPosX/CHUNK_SIZE + ", " + chunk.chunkPosY/CHUNK_SIZE +")");
+                System.out.println("STORING CHUNK (" + chunk.chunkPosX/CHUNK_SIZE + ", " + chunk.chunkPosY/CHUNK_SIZE +")");
                 chunkCount--;
             }
         }
@@ -85,11 +87,23 @@ class World {
         for(int i = 0; i < loaded.length; i++)
             for(int j = 0; j < loaded[i].length; j++){
                 if(!loaded[i][j]){
-                    System.out.println("GENERATING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
-                    chunkCount++;
-                    chunks.add(new WorldChunk((centerX - distanceX + i)*CHUNK_SIZE,
-                            (centerY - distanceY + j)*CHUNK_SIZE,
-                            new Block[64][64]));
+                    int chunkPosX = (centerX - distanceX + i)*CHUNK_SIZE;
+                    int chunkPosY = (centerY - distanceY + j)*CHUNK_SIZE;
+                    try{
+                        ObjectInputStream stream = new ObjectInputStream(new FileInputStream(worldName+"_"+chunkPosX+"_"+chunkPosY));
+                        System.out.println("RESTORING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
+                        chunks.add((WorldChunk)stream.readObject());
+                    } catch(FileNotFoundException e){
+                        System.out.println("GENERATING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
+                        chunkCount++;
+                        chunks.add(new WorldChunk((centerX - distanceX + i)*CHUNK_SIZE,
+                                (centerY - distanceY + j)*CHUNK_SIZE,
+                                new Block[64][64]));
+                    } catch(IOException e){
+                        e.printStackTrace();
+                    } catch(ClassNotFoundException e){
+                        e.printStackTrace();
+                    }
                 }
             }
     }

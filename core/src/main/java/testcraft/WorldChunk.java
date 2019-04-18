@@ -8,15 +8,16 @@ import org.mini2Dx.core.serialization.annotation.Field;
 import testcraft.blocks.*;
 import testcraft.blocks.Void;
 
+import java.io.Serializable;
 import java.util.*;
 
-class WorldChunk {
+class WorldChunk implements Serializable {
 
     static int CHUNK_SIZE = 64;
 
     private Block[][] blocks;                   //array containing chunk's blocks' information first coordinate is X, second Y
 
-    @Field final int chunkPosX, chunkPosY;      //chunk's left top corner's world coordinates
+    final int chunkPosX, chunkPosY;      //chunk's left top corner's world coordinates
 
     private static Random randy = new Random();     //for testing purposes only
 
@@ -71,12 +72,6 @@ class WorldChunk {
     public void setVoid (int a, int b)
     {
         blocks[a][b]=new Void();
-    }
-
-    String getJson() throws SerializationException{
-        String jsonChunk;
-        jsonChunk = Mdx.json.toJson(this);
-        return jsonChunk;
     }
 
 }

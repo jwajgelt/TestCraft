@@ -5,7 +5,9 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class CoalBlock extends Block {
+import java.io.Serializable;
+
+public class CoalBlock extends Block implements Serializable {
 
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("CoalBlock.png"))};
     static private String blockName = "Coal Block";
