@@ -79,7 +79,7 @@ public class    MenuScreen extends BasicGameScreen {
             quitButton=addButton(500,300,new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    System.exit(-1); //don't know if it is the best option
+                    Gdx.app.exit();
                 }
             },"QUIT");
 
