@@ -6,15 +6,19 @@ import testcraft.Block;
 
 public class CobblestoneBlock extends Block {
 
-    private final static CobblestoneBlock instance1 = new CobblestoneBlock("CobblestoneBlock1.png");
-    private final static CobblestoneBlock instance2 = new CobblestoneBlock("CobblestoneBlock2.png");
 
-    private CobblestoneBlock(String spriteName){
-        blockSprite = new Sprite(new Texture(spriteName));
-        blockName = "CobbleStone";
+    private static Sprite[] blockSprites=new Sprite[]{
+            new Sprite(new Texture("CobblestoneBlock1.png")),
+            new Sprite(new Texture("CobblestoneBlock2.png"))};
+
+    private int chooseSprite;
+
+    public CobblestoneBlock(int i){
+        chooseSprite=i%blockSprites.length;
     }
 
-    public static CobblestoneBlock getInstance(boolean t){
-        return t? instance1 : instance2;
+    @Override
+    public Sprite getBlockSprite() {
+        return blockSprites[chooseSprite];
     }
 }

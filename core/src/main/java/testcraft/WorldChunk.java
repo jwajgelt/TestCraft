@@ -22,7 +22,7 @@ class WorldChunk {
 
     private Block getBlock()
     {
-        return (randy.nextBoolean()) ? (randy.nextBoolean() ? Void.getInstance() : CoalBlock.getInstance()) : randy.nextBoolean() ? DirtBlock.getInstance() : CobblestoneBlock.getInstance(randy.nextBoolean());
+        return (randy.nextBoolean()) ? (randy.nextBoolean() ? new Void() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
     }
 
     WorldChunk(int xPos, int yPos, Block[][] blocks){
@@ -70,7 +70,7 @@ class WorldChunk {
 
     public void setVoid (int a, int b)
     {
-        blocks[a][b]=Void.getInstance();
+        blocks[a][b]=new Void();
     }
 
     String getJson() throws SerializationException{

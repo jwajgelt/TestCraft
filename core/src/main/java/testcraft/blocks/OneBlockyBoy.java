@@ -1,4 +1,4 @@
-package testcraft.blocks;
+/*package testcraft.blocks;
 
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
@@ -17,4 +17,4 @@ public class OneBlockyBoy extends Block {
         return instance;
     }
 
-}
+}*/

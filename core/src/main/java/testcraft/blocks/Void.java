@@ -1,21 +1,24 @@
 package testcraft.blocks;
 
 import com.badlogic.gdx.graphics.Texture;
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Void extends Block {
 
-    private final static Void instance = new Void();
-
-    private Void(){
-        blockSprite = new Sprite(new Texture("OneBlockyBoy.png"));
-        blockSprite.setAlpha(0f);
-        blockName = "Void";
+    static private Sprite[] blockSprites = new Sprite[]{new Sprite(new Texture("VoidBlock.png"))};
+    static private String blockName = "Void";
+    private CollisionBox collisionBox;
+    public Void(){
+        collisionBox=null;
     }
 
-    public static Void getInstance(){
-        return instance;
+    public Sprite getBlockSprite() {
+        return blockSprites[0];
     }
 
 }

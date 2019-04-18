@@ -1,21 +1,25 @@
 package testcraft;
 
+import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.graphics.Sprite;
+
+import java.util.List;
+import java.util.Random;
+import java.util.RandomAccess;
 
 public abstract class Block {
 
     static final float PIXEL_COUNT = 16f;   //length of a square block's side
 
-    protected Sprite blockSprite;
-    protected String blockName;
+    static private Sprite[] blockSprites;
+    static private String blockName;
+    private CollisionBox collisionBox;
 
-    static public Block getInstance(){
-        return null;
+    CollisionBox getCollisionBox() {
+        return collisionBox;
     }
 
-    Sprite getBlockSprite(){
-        return blockSprite;
-    }
+    public abstract Sprite getBlockSprite();
 
     @Override
     public String toString(){
