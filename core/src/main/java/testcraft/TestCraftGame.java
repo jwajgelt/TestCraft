@@ -9,11 +9,12 @@ public class TestCraftGame extends ScreenBasedGame {
 	
 	@Override
     public void initialise() {
+        addScreen(new MenuScreen());
         addScreen(new InGameScreen());
     }
 
     @Override
     public int getInitialScreenId(){
-	    return InGameScreen.ID;
+	    return MenuScreen.ID;
     }
 }
