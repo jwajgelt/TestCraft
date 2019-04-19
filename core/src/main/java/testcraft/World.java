@@ -25,7 +25,7 @@ class World {
 
     private LinkedList<WorldChunk> chunks;
 
-    private int centerX, centerY, chunkCount;
+    private int centerX, centerY;
 
     World(String worldName, int x, int y){
         chunks = new LinkedList<WorldChunk>();
@@ -33,7 +33,6 @@ class World {
         new File("."+File.separator+worldName).mkdir();
         centerX = x/ CHUNK_SIZE;
         centerY = y/ CHUNK_SIZE;
-        chunkCount = 0;
         setPos(x, y);
     }
 
@@ -81,7 +80,6 @@ class World {
                 }
                 forRemoval.add(chunk);
                 System.out.println("STORING CHUNK (" + chunk.chunkPosX/CHUNK_SIZE + ", " + chunk.chunkPosY/CHUNK_SIZE +")");
-                chunkCount--;
             }
         }
         for(WorldChunk chunk : forRemoval) chunks.remove(chunk);
@@ -96,10 +94,9 @@ class World {
                         chunks.add((WorldChunk)stream.readObject());
                     } catch(FileNotFoundException e){
                         System.out.println("GENERATING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
-                        chunkCount++;
                         chunks.add(new WorldChunk((centerX - distanceX + i)*CHUNK_SIZE,
                                 (centerY - distanceY + j)*CHUNK_SIZE,
-                                new Block[64][64]));
+                                new Block[CHUNK_SIZE][CHUNK_SIZE]));
                     } catch(IOException e){
                         e.printStackTrace();
                     } catch(ClassNotFoundException e){
@@ -107,6 +104,17 @@ class World {
                     }
                 }
             }
+    }
+
+    void saveToDisk(){
+        for(WorldChunk chunk : chunks){
+            try {
+                ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
+                stream.writeObject(chunk);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     void render(Graphics g, float shiftX, float shiftY){

@@ -45,6 +45,7 @@ public class InGameScreen extends BasicGameScreen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
         {
             shouldListen=true;
+            world.saveToDisk();
             screenManager.enterGameScreen(MenuScreen.ID, new NullTransition(), new NullTransition());
         }
 
