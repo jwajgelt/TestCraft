@@ -7,6 +7,7 @@ import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
 
+import org.mini2Dx.core.screen.transition.FadeInTransition;
 import org.mini2Dx.core.screen.transition.NullTransition;
 import testcraft.blocks.*;
 import testcraft.blocks.Void;
@@ -14,7 +15,6 @@ import testcraft.blocks.Void;
 import java.awt.*;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
-import static testcraft.MenuScreen.shouldListen;
 
 
 public class InGameScreen extends BasicGameScreen {
@@ -36,17 +36,16 @@ public class InGameScreen extends BasicGameScreen {
 
     private void inputHandler (ScreenManager screenManager,float delta)
     {
+
         player.move(delta); //player move
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             float x= floor(Gdx.input.getX()/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor(Gdx.input.getY()/(Block.PIXEL_COUNT)+(posY)); //more elegant
             world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
-        {
-            shouldListen=true;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            screenManager.enterGameScreen(MenuScreen.ID, new NullTransition(), new FadeInTransition());
             world.saveToDisk();
-            screenManager.enterGameScreen(MenuScreen.ID, new NullTransition(), new NullTransition());
         }
 
     }

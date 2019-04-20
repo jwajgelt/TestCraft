@@ -3,19 +3,27 @@ package testcraft;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.game.*;
+import org.mini2Dx.core.graphics.HeadlessGraphics;
+import org.mini2Dx.core.graphics.LibGdxGraphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.FadeInTransition;
 import org.mini2Dx.core.screen.transition.FadeOutTransition;
-import org.mini2Dx.core.screen.transition.NullTransition;
+
 
 import static testcraft.TestCraftGame.multiplexer;
 
@@ -25,20 +33,21 @@ public class    MainMenuScreen extends BasicGameScreen {
 
     private static Skin skin;
     private Stage stage;
-    private  boolean newGameButton=false;
-    private  boolean quitButton=false;
+    public   boolean startGame=false;
+    public Texture bg;
 
 
-    public  boolean addButton (float x, float y, ClickListener clickListener, String text)
+
+    public  void addButton (float x, float y, ClickListener clickListener, String text)
     {
-        final TextButton button= new TextButton(text,skin,"default");
+        TextButton button= new TextButton(text,skin,"default");
         button.setHeight(100);
         button.setWidth(200);
         button.setX(x);
         button.setY(y);
         button.addListener(clickListener);
+
         stage.addActor(button);
-        return true;
     }
 
 
@@ -46,34 +55,48 @@ public class    MainMenuScreen extends BasicGameScreen {
     public void initialise(GameContainer gc) {
         try {
             skin = new Skin(Gdx.files.absolute("craftacular/skin/craftacular-ui.json"));
-        }
+            }
         catch (Exception e) {
             e.printStackTrace();
         }
-        stage = new Stage(new ScreenViewport());
-        multiplexer.addProcessor(stage);
+
+        stage = gc.createStage(new ScreenViewport());
+
+       bg = new Texture(Gdx.files.absolute("craftacular/raw/dirt.png"));
+       bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat); // <- it will be background in the future
+
+
+        addButton(500,400,new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                startGame=true;
+            }
+        },"NEW GAME");
+
+        addButton(500, 300, new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        }, "QUIT");
+
+
+    }
+    public void toGame (ScreenManager screenManager, GameContainer gc)
+    {
+        startGame=false;
+        multiplexer.removeProcessor(stage);
+        screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
+        screenManager.enterGameScreen(InGameScreen.ID, new FadeOutTransition(), new FadeInTransition());
     }
 
     @Override
-    public void update(GameContainer gc, final ScreenManager screenManager, float delta) {
-        if (!newGameButton)
-            newGameButton=addButton(500,400,new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    multiplexer.removeProcessor(stage);
-                    screenManager.enterGameScreen(InGameScreen.ID, new FadeOutTransition(),
-                            new FadeInTransition());
-                }
-            },"NEW GAME");
+    public void update(GameContainer gc,  ScreenManager screenManager, float delta) {
+        if(!multiplexer.getProcessors().contains(stage,false))
+            multiplexer.addProcessor(stage);
 
-        if(!quitButton)
-            quitButton=addButton(500,300,new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    Gdx.app.exit();
-                }
-            },"QUIT");
-
+        if(startGame)
+                toGame(screenManager,gc);
     }
 
     @Override
@@ -83,8 +106,8 @@ public class    MainMenuScreen extends BasicGameScreen {
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        stage.draw();
-        // g.drawStage(stage);// <-doesn't work, draws mirror image of stage. Problem is with mini2x i guess.
+
+        g.drawStage(stage);
     }
     @Override
     public int getId(){
