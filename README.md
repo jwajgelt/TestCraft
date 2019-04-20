@@ -12,5 +12,7 @@ __Jacek Sałata, 2019__
 * Ogarnięcie Collision
 
 
-* możliwe że przydatna strona, choć mi sięnie udało
+* możliwe że przydatna strona, choć mi się nie udało
 https://www.programcreek.com/java-api-examples/?code=Aeo-Informatik/Space-Bombs/Space-Bombs-master/core/src/inputHandling/KeyboardInputProcessor.java#
+
+Z powodu buga w LibGdxGraphics skopiowalem implementacje  LibGdxGraphics do MyGraphics a nastepnie naprawilem blad. Po więcej info patrz tu: https://github.com/mini2Dx/mini2Dx/issues/85
