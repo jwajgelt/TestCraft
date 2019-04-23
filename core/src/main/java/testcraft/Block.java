@@ -20,6 +20,8 @@ public abstract class Block implements Serializable {
         return collisionBox;
     }
 
+    public abstract boolean isSolid();
+
     public abstract Sprite getBlockSprite();
 
     @Override

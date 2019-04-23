@@ -60,7 +60,7 @@ class WorldChunk implements Serializable {
 
                 //get block sprite and set sprite coordinates
                 Sprite blockSprite = blocks[i][j].getBlockSprite();
-                blockSprite.setPosition(posX+1, posY+1);
+                blockSprite.setPosition(posX+2, posY+2);
                 blockSprite.setScale(2f);
                 //finally, draw the sprite
                 g.drawSprite(blockSprite);
@@ -73,9 +73,22 @@ class WorldChunk implements Serializable {
         g.scale(oldX, oldY);
     }
 
-    public void setVoid (int a, int b)
+    void setVoid (int a, int b)
     {
         blocks[a][b]=new Void();
     }
+
+    void setBlock(int a, int b, int c){
+        switch (c){
+            case 1:
+                blocks[a][b]=new CoalBlock(); break;
+            case 2:
+                blocks[a][b]=new CobblestoneBlock(randy.nextInt(10)); break;
+            default:
+                blocks[a][b]=new DirtBlock(); break;
+        }
+    }
+
+    boolean isBlockSolid(int a, int b){ return blocks[a][b].isSolid(); }
 
 }

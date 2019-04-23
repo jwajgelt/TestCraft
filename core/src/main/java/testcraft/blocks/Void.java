@@ -18,6 +18,11 @@ public class Void extends Block  implements Serializable {
         collisionBox=null;
     }
 
+    @Override
+    public boolean isSolid() {
+        return false;
+    }
+
     public Sprite getBlockSprite() {
         return blockSprites[0];
     }

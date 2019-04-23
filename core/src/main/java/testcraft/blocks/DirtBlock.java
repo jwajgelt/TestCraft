@@ -17,6 +17,11 @@ public class DirtBlock extends Block implements Serializable {
     public DirtBlock(){ }
 
     @Override
+    public boolean isSolid() {
+        return true;
+    }
+
+    @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
     }

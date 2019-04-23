@@ -18,6 +18,11 @@ public class CoalBlock extends Block implements Serializable {
     }
 
     @Override
+    public boolean isSolid() {
+        return true;
+    }
+
+    @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
     }

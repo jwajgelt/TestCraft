@@ -36,18 +36,50 @@ class World {
         setPos(x, y);
     }
 
-    public  void findBlock (int x,int y) //finds
+    boolean isBlockSolid (int x,int y)
     {
         for (WorldChunk B : chunks) {
             if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
+                //System.out.println(a+" "+b);
+                return B.isBlockSolid(a, b);
+            }
+        }
+        System.out.println("Didn't find the chunk. Movement");
+        return false;
+    }
+
+    void setBlock (int x,int y, int c)
+    {
+        for (WorldChunk B : chunks) {
+            if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
+            {
+                int a=x-B.chunkPosX; //block coordinates in the chunk
+                int b=y-B.chunkPosY; //block coordinates in the chunk
+                System.out.println(a+" "+b);
+                B.setBlock(a, b, c);
+                return;
+            }
+        }
+        System.out.println("Didn't find the chunk. setting");
+        return;
+    }
+
+    public  void findBlock (int x,int y)
+    {
+        for (WorldChunk B : chunks) {
+            if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
+            {
+                int a=x-B.chunkPosX; //block coordinates in the chunk
+                int b=y-B.chunkPosY; //block coordinates in the chunk
+                System.out.println(a+" "+b);
                 B.setVoid(a,b);
                 return;
             }
         }
-        System.out.println("Didn't find the chunk. Something went wrong!");
+        System.out.println("Didn't find the chunk. deleting");
         return;
     }
 
