@@ -34,12 +34,10 @@ import java.lang.reflect.Method;
 
 public class TestCraftGame extends ScreenBasedGame {
     public static final String GAME_IDENTIFIER = "testcraft";
-    public static InputMultiplexer multiplexer = new InputMultiplexer();
-    private WorldChunk myFirstChunk;
+    static InputMultiplexer multiplexer = new InputMultiplexer();
 
     @Override
     public void initialise() {
-
 
         System.out.println(graphics);
         multiplexer = new InputMultiplexer();
@@ -48,32 +46,6 @@ public class TestCraftGame extends ScreenBasedGame {
         addScreen(new InGameScreen());
         addScreen(new MainMenuScreen());
 
-        ////////////////////////////////////////////////////////////////// LITTLE CHEATING HERE:
-        Class<LibGdxGraphics> cl = LibGdxGraphics.class;
-            try {
-                Field fi = cl.getDeclaredField("spriteBatch");
-                fi.setAccessible(true);
-                SpriteBatch spriteBatch= (SpriteBatch)fi.get(graphics);
-
-
-                fi = cl.getDeclaredField("polygonSpriteBatch");
-                fi.setAccessible(true);
-                PolygonSpriteBatch polygonSpriteBatch= (PolygonSpriteBatch)fi.get(graphics);
-
-                fi = cl.getDeclaredField("shapeRenderer");
-                fi.setAccessible(true);
-                ShapeRenderer shapeRenderer= (ShapeRenderer)fi.get(graphics);
-
-                fi = cl.getDeclaredField("gameWrapper");
-                fi.setAccessible(true);
-                GameWrapper gameWrapper= ( GameWrapper)fi.get(graphics);
-                graphics= new MyGraphics(gameWrapper,spriteBatch,polygonSpriteBatch,shapeRenderer);
-
-            } catch (Exception e) {
-                System.out.println("Failed: " + e);
-            }
-        System.out.println(graphics);
-            ///////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @Override

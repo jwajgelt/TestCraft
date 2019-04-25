@@ -18,7 +18,7 @@ import static com.badlogic.gdx.math.MathUtils.floor;
 
 
 public class InGameScreen extends BasicGameScreen {
-    public static int ID = 1;
+    static int ID = 1;
     static float WIDTH = 1280;
     static float HEIGHT = 720;
 
@@ -28,10 +28,11 @@ public class InGameScreen extends BasicGameScreen {
 
     @Override
     public void initialise(GameContainer gc) {
-        world = new World("Default", 0, 0);
-        player = new Player(WIDTH/2/Block.PIXEL_COUNT, HEIGHT/2/Block.PIXEL_COUNT);
-        posX = 0f;
-        posY = 0f;
+        world = new World("Default");
+        player = world.player;
+        posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
+        posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
+        world.setPos((int)posX, (int)posY);
     }
 
     private void playerMovement(float delta){

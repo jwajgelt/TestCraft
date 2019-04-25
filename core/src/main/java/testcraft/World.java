@@ -1,6 +1,5 @@
 package testcraft;
 
-import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.core.serialization.annotation.Field;
 import org.mini2Dx.core.graphics.Graphics;
 
@@ -25,14 +24,32 @@ class World {
 
     private LinkedList<WorldChunk> chunks;
 
+    /*
+    Player's character
+     */
+    Player player;
+
     private int centerX, centerY;
 
-    World(String worldName, int x, int y){
-        chunks = new LinkedList<WorldChunk>();
+    World(String worldName){
+        float x, y;
+        try{
+            ObjectInputStream stream = new ObjectInputStream(new FileInputStream("."+File.separator+worldName+File.separator+"player.dat"));
+            player = (Player)stream.readObject();
+        } catch (FileNotFoundException e){
+            player = new Player(0f, 0f);
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            player = new Player(0f, 0f);
+        }
+        x=player.getX() - InGameScreen.WIDTH/2/Block.PIXEL_COUNT;
+        y=player.getY() - InGameScreen.HEIGHT/2/Block.PIXEL_COUNT;
+        chunks = new LinkedList<>();
         this.worldName = worldName;
+        //noinspection ResultOfMethodCallIgnored
         new File("."+File.separator+worldName).mkdir();
-        centerX = x/ CHUNK_SIZE;
-        centerY = y/ CHUNK_SIZE;
+        centerX = (int)x/ CHUNK_SIZE;
+        centerY = (int)y/ CHUNK_SIZE;
         setPos(x, y);
     }
 
@@ -64,10 +81,9 @@ class World {
             }
         }
         System.out.println("Didn't find the chunk. setting");
-        return;
     }
 
-    public  void findBlock (int x,int y)
+    void findBlock (int x,int y)
     {
         for (WorldChunk B : chunks) {
             if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
@@ -80,7 +96,6 @@ class World {
             }
         }
         System.out.println("Didn't find the chunk. deleting");
-        return;
     }
 
 
@@ -89,7 +104,7 @@ class World {
     Loads and unloads chunks for new X and Y coordinates
      */
     void setPos(float x, float y){
-        LinkedList<WorldChunk> forRemoval = new LinkedList<WorldChunk>();
+        LinkedList<WorldChunk> forRemoval = new LinkedList<>();
         centerX = (int)java.lang.Math.floor((x+CHUNK_SIZE/2)/CHUNK_SIZE);
         centerY = (int)java.lang.Math.floor((y+CHUNK_SIZE/2)/CHUNK_SIZE);
         int distanceX = (LOADED_CHUNKS_X-1)/2;
@@ -129,9 +144,7 @@ class World {
                         chunks.add(new WorldChunk((centerX - distanceX + i)*CHUNK_SIZE,
                                 (centerY - distanceY + j)*CHUNK_SIZE,
                                 new Block[CHUNK_SIZE][CHUNK_SIZE]));
-                    } catch(IOException e){
-                        e.printStackTrace();
-                    } catch(ClassNotFoundException e){
+                    } catch(IOException | ClassNotFoundException e){
                         e.printStackTrace();
                     }
                 }
@@ -146,6 +159,12 @@ class World {
             } catch (IOException e){
                 e.printStackTrace();
             }
+        }
+        try{
+            ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+"player.dat"));
+            stream.writeObject(player);
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 

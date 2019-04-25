@@ -7,9 +7,11 @@ import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
 
-public class Player {
+import java.io.Serializable;
 
-    static final float PIXEL_COUNT = 16f;
+class Player implements Serializable {
+
+    private static final float PIXEL_COUNT = 16f;
 
     //public CollisionBox collisionBox;
 
@@ -19,13 +21,18 @@ public class Player {
 
     private int chooseBlock;
 
-    private Sprite playerSprite;
+    static private Sprite playerSprite;
+
+    static{
+        playerSprite= new Sprite(new Texture("Player.png"));
+        playerSprite.setPosition(640-PIXEL_COUNT/2, 360-PIXEL_COUNT);
+    }
+
     private float posX, posY;
     Player(float posX, float posY){
         this.posX=posX;
         this.posY=posY;
         //collisionBox=new CollisionBox(posX, posY, PIXEL_COUNT-1, (PIXEL_COUNT-1)*2);
-        playerSprite= new Sprite(new Texture("Player.png"));
         System.out.println(posX+" "+posY);
 
         jumping=false;
@@ -82,7 +89,6 @@ public class Player {
     boolean isGrounded(){ return grounded; }
 
     void renderPlayer(Graphics graphics){
-        playerSprite.setPosition(640-PIXEL_COUNT/2, 360-PIXEL_COUNT);
         graphics.drawSprite(playerSprite);
     }
 }
