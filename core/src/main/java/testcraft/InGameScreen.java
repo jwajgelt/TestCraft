@@ -3,6 +3,7 @@ package testcraft;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.mini2Dx.core.game.GameContainer;
+import org.mini2Dx.core.geom.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
@@ -19,8 +20,15 @@ import static com.badlogic.gdx.math.MathUtils.floor;
 
 public class InGameScreen extends BasicGameScreen {
     static int ID = 1;
-    static float WIDTH = 1280;
-    static float HEIGHT = 720;
+
+    static final float WIDTH = 1280;
+    static final float HEIGHT = 720;
+
+    float SCREEN_WIDTH = 1280;
+    float SCREEN_HEIGHT = 720;
+    float scale = 1f;
+    float transX = 0f;
+    float transY = 0f;
 
     private World world;
     private Player player;
@@ -89,8 +97,8 @@ public class InGameScreen extends BasicGameScreen {
     {
         playerMovement(delta);//gotta create new class for movement
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            float x= floor(Gdx.input.getX()/(Block.PIXEL_COUNT)+(posX)); //
-            float y= floor(Gdx.input.getY()/(Block.PIXEL_COUNT)+(posY)); //more elegant
+            float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
+            float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
             world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -103,8 +111,8 @@ public class InGameScreen extends BasicGameScreen {
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)) player.setChooseBlock(4);
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_5)) player.setChooseBlock(5);
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-            float x= floor(Gdx.input.getX()/(Block.PIXEL_COUNT)+(posX));
-            float y= floor(Gdx.input.getY()/(Block.PIXEL_COUNT)+(posY));
+            float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
+            float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
             world.setBlock((int)x, (int)y, player.getChooseBlock());
         }
 
@@ -127,7 +135,17 @@ public class InGameScreen extends BasicGameScreen {
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        g.drawRect(0, -1, WIDTH+1, HEIGHT+1);
+        SCREEN_HEIGHT = gc.getHeight();
+        SCREEN_WIDTH = gc.getWidth();
+        float scaleX = SCREEN_WIDTH/WIDTH;
+        float scaleY = SCREEN_HEIGHT/HEIGHT;
+        scale = Math.min(scaleX, scaleY);
+        transX = -Math.max(0, (SCREEN_WIDTH-scale*WIDTH)/2)/scale;
+        transY = -Math.max(0, (SCREEN_HEIGHT-scale*HEIGHT)/2)/scale;
+        g.drawRect(-1, -1, SCREEN_WIDTH+2, SCREEN_HEIGHT+2);
+        g.setScale(scale, scale);
+        g.translate(transX, transY);
+        g.setClip(0, 0, WIDTH, HEIGHT);
         world.render(g, posX, posY);
         player.renderPlayer(g);
     }
