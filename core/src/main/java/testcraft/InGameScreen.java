@@ -85,9 +85,9 @@ public class InGameScreen extends BasicGameScreen {
         if(player.isJumping()){
             float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));
             float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
-            float y=floor((top)/(Block.PIXEL_COUNT)+(posY)+speed*3/2);
+            float y=floor((top)/(Block.PIXEL_COUNT)+(posY)+speed);
             if(!world.isBlockSolid((int)x1, (int)y) && !world.isBlockSolid((int)x2, (int)y))
-                player.jump(speed*3/2);
+                player.jump(speed);
             else
                 player.stopJump();
         }

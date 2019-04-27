@@ -51,7 +51,7 @@ class Player implements Serializable {
 
     void jump(float delta){
         jumpTime++;
-        if(jumpTime>10)
+        if(jumpTime>15) //changed that form 10 to 15 to make player able to jump on 2 blocks obstacle
         {
             jumping=false;
         }
