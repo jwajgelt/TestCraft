@@ -48,6 +48,7 @@ project(":core") {
         compile "org.mini2Dx:mini2Dx-artemis-odb:$mini2DxVersion"
         compile "org.mini2Dx:mini2Dx-ui:$mini2DxVersion"
         compile "org.mini2Dx:mini2Dx-core:$minibusVersion"
+        compile group: 'commons-io', name: 'commons-io', version: '2.5'
     }
 }
 
