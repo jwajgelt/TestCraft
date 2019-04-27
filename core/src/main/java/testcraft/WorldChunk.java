@@ -39,11 +39,6 @@ class WorldChunk implements Serializable {
 
     void renderChunk(Graphics g, float shiftX, float shiftY){
         /*
-         * Remember the old scaling to restore later.
-         *
-         */
-        float oldX = g.getScaleX(), oldY = g.getScaleY();
-        /*
          * Draw each block at integer coordinate.
          *
          */
@@ -66,11 +61,6 @@ class WorldChunk implements Serializable {
                 g.drawSprite(blockSprite);
             }
         }
-        /*
-         * Restoring the old scaling after rendering the chunk.
-         *
-         */
-        g.scale(oldX, oldY);
     }
 
     void setVoid (int a, int b)
