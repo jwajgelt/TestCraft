@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import org.apache.commons.io.FileUtils;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.game.*;
 import org.mini2Dx.core.graphics.HeadlessGraphics;
@@ -23,12 +24,18 @@ import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.FadeInTransition;
 import org.mini2Dx.core.screen.transition.FadeOutTransition;
+import org.mini2Dx.core.screen.transition.NullTransition;
+
+import java.io.File;
+import java.io.IOException;
+
 import static com.badlogic.gdx.graphics.Texture.TextureWrap.Repeat;
 import static testcraft.TestCraftGame.multiplexer;
 
 
 public class    MainMenuScreen extends MenuScreen {
     public static int ID = 2;
+    boolean load=false;
 
 
     @Override
@@ -41,21 +48,45 @@ public class    MainMenuScreen extends MenuScreen {
                 back=true;
             }
         },"NEW GAME");
-        addButton(300, new ClickListener() {
+        addButton(300,new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                load=true;
+            }
+        },"LOAD GAME");
+        addButton(200, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
             }
         }, "QUIT");
     }
-
+    @Override
     public void goBack (ScreenManager screenManager, GameContainer gc)
     {
         back=false;
+        File dest = new File("Default");
+        FileUtils.deleteQuietly(dest);
+        try {
+            FileUtils.forceMkdir(dest);
+        }
+        catch (IOException e)
+        {
+           e.printStackTrace();
+        }
+
         multiplexer.removeProcessor(stage);
         screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
-        screenManager.enterGameScreen(InGameScreen.ID, new FadeOutTransition(), new FadeInTransition());
+        screenManager.enterGameScreen(InGameScreen.ID, new FadeOutTransition(), new FadeInTransition()); //problems with scaling here
     }
+
+    public void goLoad (ScreenManager screenManager)
+    {
+        load=false;
+        multiplexer.removeProcessor(stage);
+        screenManager.enterGameScreen(LoadGameScreen.ID, new NullTransition(), new NullTransition());
+    }
+
 
     @Override
     public void update(GameContainer gc,  ScreenManager screenManager, float delta) {
@@ -64,6 +95,8 @@ public class    MainMenuScreen extends MenuScreen {
 
         if(back)
                 goBack(screenManager,gc);
+        if(load)
+            goLoad(screenManager);
     }
 
     @Override

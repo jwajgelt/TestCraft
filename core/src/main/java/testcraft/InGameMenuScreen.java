@@ -32,6 +32,7 @@ public class   InGameMenuScreen extends MenuScreen {
 
     public static int ID = 3;
     private  boolean toMainMenu=false;
+    private  boolean save=false;
 
 
     @Override
@@ -44,13 +45,19 @@ public class   InGameMenuScreen extends MenuScreen {
                 back=true;
             }
         },"RESUME");
-        addButton(300,new ClickListener(){
+        addButton( 300, new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                save=true;
+            }
+        }, "SAVE");
+        addButton(200,new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 toMainMenu=true;
             }
         },"TO MENU");
-        addButton( 200, new ClickListener() {
+        addButton( 100, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
@@ -60,17 +67,24 @@ public class   InGameMenuScreen extends MenuScreen {
 
 
     @Override
-    public void goBack (ScreenManager screenManager)
+    public void goBack (ScreenManager screenManager, GameContainer gameContainer)
     {
         back=false;
         multiplexer.removeProcessor(stage);
         screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
     }
+
     public void goToMainMenu(ScreenManager screenManager)
     {
         toMainMenu=false;
         multiplexer.removeProcessor(stage);
         screenManager.enterGameScreen(MainMenuScreen.ID, new NullTransition(), new NullTransition());
+    }
+    void goSave(ScreenManager screenManager)
+    {
+        save=false;
+        multiplexer.removeProcessor(stage);
+        screenManager.enterGameScreen(SaveGameScreen.ID, new NullTransition(), new NullTransition());
     }
 
     @Override
@@ -80,9 +94,11 @@ public class   InGameMenuScreen extends MenuScreen {
             multiplexer.addProcessor(stage);
 
         if(back || Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
-            goBack(screenManager);
+            goBack(screenManager,gc);
         if(toMainMenu)
             goToMainMenu(screenManager);
+        if(save)
+            goSave(screenManager);
 
     }
 

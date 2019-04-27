@@ -16,12 +16,17 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import org.apache.commons.io.FileUtils;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.game.*;
 import org.mini2Dx.core.graphics.TextureRegion;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
 
 import static com.badlogic.gdx.graphics.Texture.TextureWrap.Repeat;
 import static testcraft.TestCraftGame.multiplexer;
@@ -58,14 +63,14 @@ public abstract  class  MenuScreen extends BasicGameScreen {
 
     public  void addButton ( float y, ClickListener clickListener, String text)
     {
-        addButton(WIDTH/2-100,y,100,200,clickListener,text);
+        addButton(WIDTH/2-100,y,100,210,clickListener,text);
     }
 
 
 
 
-    public void goBack(ScreenManager screenManager)
-    {}
+    abstract  public void goBack(ScreenManager screenManager,GameContainer gameContainer);
+
 
 
     @Override
@@ -81,6 +86,12 @@ public abstract  class  MenuScreen extends BasicGameScreen {
         bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         bgRegion = new TextureRegion(bg);
         bgRegion.setRegion(0, 0, WIDTH, HEIGHT);
+        /*
+        Table root = new Table(skin);
+        root.setFillParent(true);
+        root.setBackground(skin.getTiledDrawable("dirt"));
+        stage.addActor(root);
+        */
     }
 
 
@@ -114,6 +125,61 @@ public abstract  class  MenuScreen extends BasicGameScreen {
 
     @Override
     abstract public int getId();
+
+     class SaveLoadButton extends TextButton
+    {
+        final int a;
+        final boolean save;
+        SaveLoadButton(float x,float y,float height, float width,  Skin skin, boolean e, int b)
+        {
+            super("", skin);
+            setHeight(height);
+            setWidth(width);
+            setX(x);
+            setY(y);
+            a=b;
+            save=e;
+            update();
+            super.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    File dest = new File("Default");
+                    File source =new File("Saves/"+a);
+
+                    if(save)
+                    {
+                        source = new File("Default");
+                        dest =new File("Saves/"+a);
+                    }
+
+                    try {
+                        FileUtils.deleteQuietly(dest);
+                        FileUtils.forceMkdir(dest);
+                        FileUtils.copyDirectory(source, dest);
+                        dest.setLastModified(System.currentTimeMillis());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if(save)
+                        update();
+                    else
+                        back=true;
+                }
+            });
+
+        }
+        void update () {
+            File file = new File("Saves/" + a);
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(file.lastModified());
+            //System.out.println(cal.getTime());
+            super.setText("SLOT " + a + "\n " + String.format("%02d", cal.get(Calendar.HOUR_OF_DAY)) + ":" + String.format("%02d", cal.get(Calendar.MINUTE)) + ":" + String.format("%02d", cal.get(Calendar.SECOND)) + "\n" + String.format("%02d", cal.get(Calendar.DAY_OF_MONTH)) + "." + String.format("%02d",(cal.get(Calendar.MONTH) + 1)));
+
+          //  System.out.println("SLOT " + a + "\n " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND) + "\n" + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1));
+        }
+
+    }
+
 
 
 }

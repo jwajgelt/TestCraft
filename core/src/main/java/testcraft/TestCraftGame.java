@@ -45,6 +45,8 @@ public class TestCraftGame extends ScreenBasedGame {
         addScreen(new testcraft.InGameMenuScreen());
         addScreen(new InGameScreen());
         addScreen(new MainMenuScreen());
+        addScreen(new SaveGameScreen());
+        addScreen(new LoadGameScreen());
 
     }
 
