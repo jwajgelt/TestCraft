@@ -152,7 +152,7 @@ class World {
     }
 
     void saveToDisk(){
-        //System.out.println("Saving the world!");
+        System.out.println("Saving the world!");
         for(WorldChunk chunk : chunks){
             try {
                 ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
