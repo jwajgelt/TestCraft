@@ -115,7 +115,7 @@ class World {
             int relativeX = chunk.chunkPosX/CHUNK_SIZE - centerX;
             int relativeY = chunk.chunkPosY/CHUNK_SIZE - centerY;
             if(-distanceX <= relativeX && relativeX <= distanceX
-            && -distanceY <= relativeY && relativeY <= distanceY){
+                    && -distanceY <= relativeY && relativeY <= distanceY){
                 loaded[relativeX + distanceX][relativeY + distanceY] = true;
             }
             else{
@@ -152,6 +152,7 @@ class World {
     }
 
     void saveToDisk(){
+        System.out.println("Saving the world!");
         for(WorldChunk chunk : chunks){
             try {
                 ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));

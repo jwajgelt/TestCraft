@@ -28,6 +28,7 @@ public class    MenuScreen extends BasicGameScreen {
     private Stage stage;
     private  Stage background;
     public   boolean startGame=false;
+    public boolean toMainMenu=false;
 
 
     public  void addButton (float x, float y, ClickListener clickListener, String text)
@@ -59,7 +60,16 @@ public class    MenuScreen extends BasicGameScreen {
             }
         },"RESUME");
 
-        addButton(500, 300, new ClickListener() {
+        addButton(500,300,new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                toMainMenu=true;
+            }
+        },"TO MENU");
+
+
+
+        addButton(500, 200, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
@@ -76,14 +86,24 @@ public class    MenuScreen extends BasicGameScreen {
         multiplexer.removeProcessor(stage);
         screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
     }
+    public void M (ScreenManager screenManager)
+    {
+        toMainMenu=false;
+        multiplexer.removeProcessor(stage);
+        screenManager.enterGameScreen(MainMenuScreen.ID, new NullTransition(), new NullTransition());
+
+    }
 
     @Override
     public void update(GameContainer gc,  ScreenManager screenManager, float delta) {
         if(!multiplexer.getProcessors().contains(stage,false))
             multiplexer.addProcessor(stage);
+        stage.getViewport().update(width, height, true);
 
         if(startGame || Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
             toGame(screenManager);
+        if(toMainMenu)
+            M(screenManager);
     }
 
     @Override
@@ -93,8 +113,7 @@ public class    MenuScreen extends BasicGameScreen {
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        stage.draw();
-       // g.drawStage(stage);// <-doesn't work, draws mirror image of stage. Problem is with mini2x i guess.
+        g.drawStage(stage);
     }
     @Override
     public int getId(){
