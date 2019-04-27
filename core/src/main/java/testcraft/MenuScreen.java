@@ -49,6 +49,9 @@ public abstract  class  MenuScreen extends BasicGameScreen {
     float scale = 1f;
     float transX = 0f;
     float transY = 0f;
+    static final float BUTTONWIDTH=210;
+    static final float BUTTONHEIGHT=100;
+
 
     public  void addButton ( float x,float y,float height, float width, ClickListener clickListener, String text)
     {
@@ -63,7 +66,7 @@ public abstract  class  MenuScreen extends BasicGameScreen {
 
     public  void addButton ( float y, ClickListener clickListener, String text)
     {
-        addButton(WIDTH/2-100,y,100,210,clickListener,text);
+        addButton((WIDTH-BUTTONWIDTH)/2,y,BUTTONHEIGHT,BUTTONWIDTH,clickListener,text);
     }
 
 

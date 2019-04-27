@@ -60,6 +60,11 @@ public class    MainMenuScreen extends MenuScreen {
                 Gdx.app.exit();
             }
         }, "QUIT");
+        Label label=new Label("TESTCR=FT", skin, "title");
+        label.setX((WIDTH-label.getPrefWidth())/2);
+        label.setY(HEIGHT-200);
+        stage.addActor(label);
+        System.out.println(label.getPrefHeight()+" "+label.getPrefWidth());
     }
     @Override
     public void goBack (ScreenManager screenManager, GameContainer gc)
