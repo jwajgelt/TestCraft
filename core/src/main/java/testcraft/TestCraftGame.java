@@ -42,7 +42,7 @@ public class TestCraftGame extends ScreenBasedGame {
         System.out.println(graphics);
         multiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(multiplexer);
-        addScreen(new MenuScreen());
+        addScreen(new testcraft.InGameMenuScreen());
         addScreen(new InGameScreen());
         addScreen(new MainMenuScreen());
 

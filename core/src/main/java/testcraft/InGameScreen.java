@@ -102,7 +102,7 @@ public class InGameScreen extends BasicGameScreen {
             world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            screenManager.enterGameScreen(MenuScreen.ID, new NullTransition(), new FadeInTransition());
+            screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());
             world.saveToDisk();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)) player.setChooseBlock(1);//setting which block you can place
