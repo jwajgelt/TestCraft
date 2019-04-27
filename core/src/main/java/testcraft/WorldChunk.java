@@ -21,9 +21,11 @@ class WorldChunk implements Serializable {
 
     private static Random randy = new Random();     //for testing purposes only
 
-    private Block getBlock()
+    private Block getBlock(int yPos)
     {
-        return (randy.nextBoolean()) ? (randy.nextBoolean() ? new Void() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
+        if(yPos<2)
+            return  new Void();
+        return (randy.nextBoolean()) ? (randy.nextBoolean() ?  new DirtBlock() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
     }
 
     WorldChunk(int xPos, int yPos, Block[][] blocks){
@@ -33,7 +35,8 @@ class WorldChunk implements Serializable {
 
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
-                blocks[i][j] = getBlock();
+                blocks[i][j] = getBlock(yPos+j);
+            System.out.println(yPos);
     }
 
 
