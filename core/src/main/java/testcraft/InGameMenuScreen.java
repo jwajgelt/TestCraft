@@ -93,7 +93,7 @@ public class   InGameMenuScreen extends MenuScreen {
         if(!multiplexer.getProcessors().contains(stage,false))
             multiplexer.addProcessor(stage);
 
-        if(back || Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+        if(back || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
             goBack(screenManager,gc);
         if(toMainMenu)
             goToMainMenu(screenManager);

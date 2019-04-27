@@ -103,7 +103,7 @@ public class InGameScreen extends BasicGameScreen {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());
-            world.saveToDisk();
+            //world.saveToDisk();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)) player.setChooseBlock(1);//setting which block you can place
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) player.setChooseBlock(2);//1-coal, 2-cobble, other-dirt
