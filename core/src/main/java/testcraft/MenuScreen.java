@@ -49,7 +49,7 @@ public abstract  class  MenuScreen extends BasicGameScreen {
     float scale = 1f;
     float transX = 0f;
     float transY = 0f;
-    static final float BUTTONWIDTH=210;
+    static final float BUTTONWIDTH=230;
     static final float BUTTONHEIGHT=100;
 
 

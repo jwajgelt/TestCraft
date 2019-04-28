@@ -36,7 +36,7 @@ class WorldChunk implements Serializable {
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
                 blocks[i][j] = getBlock(yPos+j);
-            System.out.println(yPos);
+
     }
 
 

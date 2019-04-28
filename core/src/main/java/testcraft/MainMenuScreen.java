@@ -64,7 +64,6 @@ public class    MainMenuScreen extends MenuScreen {
         label.setX((WIDTH-label.getPrefWidth())/2);
         label.setY(HEIGHT-200);
         stage.addActor(label);
-        System.out.println(label.getPrefHeight()+" "+label.getPrefWidth());
     }
     @Override
     public void goBack (ScreenManager screenManager, GameContainer gc)
