@@ -119,7 +119,8 @@ public abstract  class  MenuScreen extends BasicGameScreen {
         transY = -Math.max(0, (SCREEN_HEIGHT-scale*HEIGHT)/2)/scale;
         g.drawRect(-1, -1, SCREEN_WIDTH+2, SCREEN_HEIGHT+2);
         g.setScale(scale, scale);
-        g.translate(transX, transY);      //copy-pasted from InGameScreen
+        g.translate(transX, transY);
+        g.setClip(0, 0, WIDTH, HEIGHT);  //copy-pasted from InGameScreen
 
         g.drawTextureRegion(bgRegion,0,0);
         stage.getViewport().update(gc.getWidth(), gc.getHeight(), false);
