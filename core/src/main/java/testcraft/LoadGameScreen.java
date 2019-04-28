@@ -37,10 +37,10 @@ public class LoadGameScreen extends   MenuScreen {
     @Override
     public void goBack (ScreenManager screenManager, GameContainer gc)
     {
+        screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
         back=false;
         multiplexer.removeProcessor(stage);
-        screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
-        screenManager.enterGameScreen(InGameScreen.ID, new FadeOutTransition(), new FadeInTransition()); //problems with scaling here
+        screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
     }
     public void gotoMainMenu (ScreenManager screenManager)
     {

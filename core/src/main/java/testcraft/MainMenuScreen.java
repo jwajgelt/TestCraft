@@ -78,10 +78,9 @@ public class    MainMenuScreen extends MenuScreen {
         {
            e.printStackTrace();
         }
-
-        multiplexer.removeProcessor(stage);
         screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
-        screenManager.enterGameScreen(InGameScreen.ID, new FadeOutTransition(), new FadeInTransition()); //problems with scaling here
+        multiplexer.removeProcessor(stage);
+        screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
     }
 
     public void goLoad (ScreenManager screenManager)
