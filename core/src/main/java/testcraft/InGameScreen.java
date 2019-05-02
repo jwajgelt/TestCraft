@@ -3,17 +3,11 @@ package testcraft;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.mini2Dx.core.game.GameContainer;
-import org.mini2Dx.core.geom.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
 
-import org.mini2Dx.core.screen.transition.FadeInTransition;
 import org.mini2Dx.core.screen.transition.NullTransition;
-import testcraft.blocks.*;
-import testcraft.blocks.Void;
-
-import java.awt.*;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
 
@@ -24,11 +18,9 @@ public class InGameScreen extends BasicGameScreen {
     static final float WIDTH = 1280;
     static final float HEIGHT = 720;
 
-    float SCREEN_WIDTH = 1280;
-    float SCREEN_HEIGHT = 720;
-    float scale = 1f;
-    float transX = 0f;
-    float transY = 0f;
+    private float scale = 1f;
+    private float transX = 0f;
+    private float transY = 0f;
 
     private World world;
     private Player player;
@@ -63,8 +55,8 @@ public class InGameScreen extends BasicGameScreen {
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        SCREEN_HEIGHT = gc.getHeight();
-        SCREEN_WIDTH = gc.getWidth();
+        float SCREEN_HEIGHT = gc.getHeight();
+        float SCREEN_WIDTH = gc.getWidth();
         float scaleX = SCREEN_WIDTH/WIDTH;
         float scaleY = SCREEN_HEIGHT/HEIGHT;
         scale = Math.min(scaleX, scaleY);

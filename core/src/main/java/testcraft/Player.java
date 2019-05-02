@@ -13,9 +13,10 @@ class Player implements Serializable {
 
     private static final float PIXEL_COUNT = 16f;
 
-    private static final float PLAYER_SPEED_HORIZONTAL=0.3f;
-    private static final int MAX_MULTI=30;
-    private static final float PLAYER_SPEED_VERTICAL = 0.35f;
+    private static final float PLAYER_SPEED_HORIZONTAL=2f;
+    private static final int MAX_HORIZONTAL_MULTI=5;
+    private static final int MAX_VERTICAL_MULTI=15;
+    private static final float PLAYER_SPEED_VERTICAL = 1.5f;
 
 
     private int chooseBlock;
@@ -58,7 +59,7 @@ class Player implements Serializable {
     }
 
     void triggerJump(){
-        speedMultiplierVertical=-MAX_MULTI;
+        speedMultiplierVertical=-MAX_VERTICAL_MULTI;
         grounded=false;
     }
 
@@ -67,12 +68,12 @@ class Player implements Serializable {
     }
 
     void increaseHorizontalSpeed(){
-        if(speedMultiplierHorizontal<MAX_MULTI)
+        if(speedMultiplierHorizontal<MAX_HORIZONTAL_MULTI)
             speedMultiplierHorizontal+=2;
     }
 
     void decreaseHorizontalSpeed(){
-        if(speedMultiplierHorizontal>-MAX_MULTI)
+        if(speedMultiplierHorizontal>-MAX_HORIZONTAL_MULTI)
             speedMultiplierHorizontal-=2;
     }
 
@@ -91,7 +92,7 @@ class Player implements Serializable {
     }
 
     void decreaseVerticalSpeed(){
-        if(speedMultiplierVertical>-2*MAX_MULTI){
+        if(speedMultiplierVertical>-2*MAX_VERTICAL_MULTI){
             speedMultiplierVertical++;
         }
     }
