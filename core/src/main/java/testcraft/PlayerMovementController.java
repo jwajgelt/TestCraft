@@ -18,8 +18,8 @@ public class PlayerMovementController {
         this.player=player;
     }
 
-    private float left=640-Block.PIXEL_COUNT/2+1;
-    private float right=640+Block.PIXEL_COUNT/2-1;
+    private float left=640-Block.PIXEL_COUNT/2+2;
+    private float right=640+Block.PIXEL_COUNT/2;
     private float top=360-Block.PIXEL_COUNT-1;
     private float bot=360+Block.PIXEL_COUNT+1;
 
