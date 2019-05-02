@@ -19,11 +19,12 @@ public class PlayerMovementController {
     }
 
     private float left=640-Block.PIXEL_COUNT/2+2;
-    private float right=640+Block.PIXEL_COUNT/2;
-    private float top=360-Block.PIXEL_COUNT-1;
-    private float bot=360+Block.PIXEL_COUNT+1;
+    private float right=640+Block.PIXEL_COUNT/2-1;
+    private float top=360-Block.PIXEL_COUNT+1;
+    private float bot=360+Block.PIXEL_COUNT-1;
 
     private void moveHorizontal(float delta, float posX, float posY){
+        player.stopHorizontal(1);
         float y1= floor((top)/(Block.PIXEL_COUNT)+(posY));//top to bot
         float y2= floor((bot)/(Block.PIXEL_COUNT)+(posY));
         float y3= floor(((top+2*bot)/3)/(Block.PIXEL_COUNT)+(posY));
@@ -34,9 +35,9 @@ public class PlayerMovementController {
             && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)){
             player.moveHorizontal(delta*player.getHorizontalSpeed());
         }else{
-            player.stopHorizontal(3);
+            player.stopHorizontal(2);
         }
-        player.stopHorizontal(1);
+
     }
 
     private void moveVertical(float delta, float posX, float posY){
@@ -49,7 +50,7 @@ public class PlayerMovementController {
         else{
             if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) )
                 player.groundHim();
-            player.stopVertical(10);
+            player.stopVertical(3);
         }
 
     }

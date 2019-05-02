@@ -29,9 +29,7 @@ class Player implements Serializable {
 
     private float posX, posY;
 
-    private boolean jumping;
     private boolean grounded;
-    private int jumpTime;
 
     private int speedMultiplierHorizontal;
     private int speedMultiplierVertical;
@@ -44,9 +42,7 @@ class Player implements Serializable {
         speedMultiplierHorizontal=0;
         speedMultiplierVertical=0;
 
-        jumping=false;
         grounded=true;
-        jumpTime=0;
         chooseBlock=1;
     }
 
@@ -130,7 +126,7 @@ class Player implements Serializable {
         grounded=true;
     }
 
-    boolean isGrounded(){return grounded;}
+    boolean isGrounded(){return (grounded && speedMultiplierVertical==0);}
 
     void renderPlayer(Graphics graphics){
         graphics.drawSprite(playerSprite);
