@@ -13,8 +13,9 @@ class Player implements Serializable {
 
     private static final float PIXEL_COUNT = 16f;
 
-    private static final float PLAYER_SPEED=0.3f;
+    private static final float PLAYER_SPEED_HORIZONTAL=0.3f;
     private static final int MAX_MULTI=30;
+    private static final float PLAYER_SPEED_VERTICAL = 0.35f;
 
 
     private int chooseBlock;
@@ -34,9 +35,6 @@ class Player implements Serializable {
     private int speedMultiplierHorizontal;
     private int speedMultiplierVertical;
 
-
-
-
     Player(float posX, float posY){
         this.posX=posX;
         this.posY=posY;
@@ -55,45 +53,17 @@ class Player implements Serializable {
         posX+=delta;
     }
 
-    void fall(float delta){
+    void moveVertical(float delta){
         posY+=delta;
-        if(speedMultiplierVertical<2*MAX_MULTI){
-            speedMultiplierVertical++;
-        }
-        grounded=false;
-    }
-
-    void jump(float delta){
-        jumpTime++;
-        if(jumpTime==9 || jumpTime==12 || jumpTime==15){
-            speedMultiplierVertical--;
-        }
-        if(jumpTime>15) //changed that form 10 to 15 to make player able to jump on 2 blocks obstacle
-        {
-            jumping=false;
-        }
-        posY-=delta;
-    }
-
-    void stopJump(){
-        jumping=false;
-        speedMultiplierVertical=0;
-    }
-
-    void groundHim(){
-        grounded=true;
-        speedMultiplierVertical=0;
     }
 
     void triggerJump(){
-        jumping=true;
+        speedMultiplierVertical=-MAX_MULTI;
         grounded=false;
-        speedMultiplierVertical=MAX_MULTI;
-        jumpTime=0;
     }
 
     float getHorizontalSpeed(){
-        return speedMultiplierHorizontal*PLAYER_SPEED;
+        return speedMultiplierHorizontal*PLAYER_SPEED_HORIZONTAL;
     }
 
     void increaseHorizontalSpeed(){
@@ -101,13 +71,16 @@ class Player implements Serializable {
             speedMultiplierHorizontal+=2;
     }
 
-    void deacreseHorizontalSpeed(){
+    void decreaseHorizontalSpeed(){
         if(speedMultiplierHorizontal>-MAX_MULTI)
             speedMultiplierHorizontal-=2;
     }
 
     void stopHorizontal(int a){
+
         while(a>0) {
+            if(speedMultiplierHorizontal==0)
+                return;
             if (speedMultiplierHorizontal < 0)
                 speedMultiplierHorizontal++;
             if (speedMultiplierHorizontal > 0) {
@@ -117,8 +90,27 @@ class Player implements Serializable {
         }
     }
 
+    void decreaseVerticalSpeed(){
+        if(speedMultiplierVertical>-2*MAX_MULTI){
+            speedMultiplierVertical++;
+        }
+    }
+
+    void stopVertical(int a){
+        while(a>0) {
+            if(speedMultiplierVertical==0)
+                return;
+            if (speedMultiplierVertical < 0)
+                speedMultiplierVertical++;
+            if (speedMultiplierVertical > 0) {
+                speedMultiplierVertical--;
+            }
+            a--;
+        }
+    }
+
     float getVerticalSpeed(){
-        return speedMultiplierVertical*PLAYER_SPEED;
+        return speedMultiplierVertical*PLAYER_SPEED_VERTICAL;
     }
 
     void setChooseBlock(int a){ chooseBlock=a; }
@@ -133,9 +125,11 @@ class Player implements Serializable {
         return posY;
     }
 
-    boolean isJumping(){ return jumping; }
+    void groundHim(){
+        grounded=true;
+    }
 
-    boolean isGrounded(){ return grounded; }
+    boolean isGrounded(){return grounded;}
 
     void renderPlayer(Graphics graphics){
         graphics.drawSprite(playerSprite);

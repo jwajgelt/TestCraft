@@ -20,8 +20,8 @@ public class PlayerMovementController {
 
     private float left=640-Block.PIXEL_COUNT/2+1;
     private float right=640+Block.PIXEL_COUNT/2-1;
-    private float top=360-Block.PIXEL_COUNT+1;
-    private float bot=360+Block.PIXEL_COUNT-1;
+    private float top=360-Block.PIXEL_COUNT-1;
+    private float bot=360+Block.PIXEL_COUNT+1;
 
     private void moveHorizontal(float delta, float posX, float posY){
         float y1= floor((top)/(Block.PIXEL_COUNT)+(posY));//top to bot
@@ -39,31 +39,29 @@ public class PlayerMovementController {
         player.stopHorizontal(1);
     }
 
-    void KeyboardInput(float delta, float posX, float posY){
-        float speed=10*delta;
-
-        if(!player.isJumping()){
-            float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));
-            float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
-            float y=floor((bot)/(Block.PIXEL_COUNT)+(posY)+speed);
-            if(!world.isBlockSolid((int)x1, (int)y) && !world.isBlockSolid((int)x2, (int)y))
-                player.fall(speed);
-            else
+    private void moveVertical(float delta, float posX, float posY){
+        float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));//left to right
+        float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
+        float y1=floor((bot)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);//bot to top
+        float y2=floor((top)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
+        if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x2, (int)y2))
+            player.moveVertical(player.getVerticalSpeed()*delta);
+        else{
+            if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) )
                 player.groundHim();
+            player.stopVertical(10);
         }
+
+    }
+
+    void KeyboardInput(float delta, float posX, float posY){
+
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && player.isGrounded())
         {
             player.triggerJump();
         }
-        if(player.isJumping()){
-            float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));
-            float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
-            float y=floor((top)/(Block.PIXEL_COUNT)+(posY)+speed);
-            if(!world.isBlockSolid((int)x1, (int)y) && !world.isBlockSolid((int)x2, (int)y))
-                player.jump(speed);
-            else
-                player.stopJump();
-        }
+        player.decreaseVerticalSpeed();
+        moveVertical(delta, posX, posY);
 
         //move horizontal
         posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
@@ -71,7 +69,7 @@ public class PlayerMovementController {
 
         if(Gdx.input.isKeyPressed(Input.Keys.A))
         {
-            player.deacreseHorizontalSpeed();
+            player.decreaseHorizontalSpeed();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D))
         {
