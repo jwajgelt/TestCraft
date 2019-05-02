@@ -13,9 +13,9 @@ public class Void extends Block  implements Serializable {
 
     static private Sprite[] blockSprites = new Sprite[]{new Sprite(new Texture("VoidBlock.png"))};
     static private String blockName = "Void";
-    private CollisionBox collisionBox;
+
     public Void(){
-        collisionBox=null;
+
     }
 
     @Override

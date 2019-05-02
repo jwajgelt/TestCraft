@@ -77,6 +77,8 @@ class WorldChunk implements Serializable {
                 blocks[a][b]=new CoalBlock(); break;
             case 2:
                 blocks[a][b]=new CobblestoneBlock(randy.nextInt(10)); break;
+            case 3:
+                blocks[a][b]=new WoodBlock(); break;
             default:
                 blocks[a][b]=new DirtBlock(); break;
         }

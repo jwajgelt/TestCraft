@@ -60,7 +60,6 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
-                //System.out.println(a+" "+b);
                 return B.isBlockSolid(a, b);
             }
         }
@@ -75,7 +74,6 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
-               // System.out.println(a+" "+b);
                 B.setBlock(a, b, c);
                 return;
             }
@@ -90,7 +88,6 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
-               // System.out.println(a+" "+b);
                 B.setVoid(a,b);
                 return;
             }

@@ -4,10 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class OneBlockyBoy extends Block {
+public class WoodBlock extends Block {
 
-    static private Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("OneBlockyBoy.png"))};
-    static private String blockName = "BlockyBoy";
+    private static Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("WoodBlock.png"))};
+    private static String blockName = "Wood";
+
+    public WoodBlock(){
+
+    }
 
     @Override
     public boolean isSolid() {

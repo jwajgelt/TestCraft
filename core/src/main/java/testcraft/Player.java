@@ -13,8 +13,6 @@ class Player implements Serializable {
 
     private static final float PIXEL_COUNT = 16f;
 
-    //public CollisionBox collisionBox;
-
     private boolean jumping;
     private boolean grounded;
     private int jumpTime;
@@ -24,7 +22,7 @@ class Player implements Serializable {
     static private Sprite playerSprite;
 
     static{
-        playerSprite= new Sprite(new Texture("Player.png"));
+        playerSprite=new Sprite(new Texture("Player.png"));
         playerSprite.setPosition(640-PIXEL_COUNT/2, 360-PIXEL_COUNT);
     }
 
@@ -32,7 +30,6 @@ class Player implements Serializable {
     Player(float posX, float posY){
         this.posX=posX;
         this.posY=posY;
-        //collisionBox=new CollisionBox(posX, posY, PIXEL_COUNT-1, (PIXEL_COUNT-1)*2);
         System.out.println(posX+" "+posY);
 
         jumping=false;

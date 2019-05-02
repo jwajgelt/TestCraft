@@ -14,11 +14,6 @@ public abstract class Block implements Serializable {
 
     static private Sprite[] blockSprites;
     static private String blockName;
-    private CollisionBox collisionBox;
-
-    CollisionBox getCollisionBox() {
-        return collisionBox;
-    }
 
     public abstract boolean isSolid();
 

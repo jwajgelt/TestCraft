@@ -12,8 +12,6 @@ public class DirtBlock extends Block implements Serializable {
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("DirtBlock.png"))};
     private static String blockName = "Dirt";
 
-    private CollisionBox collisionBox;
-
     public DirtBlock(){ }
 
     @Override

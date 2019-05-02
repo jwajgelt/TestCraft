@@ -11,7 +11,6 @@ public class CoalBlock extends Block implements Serializable {
 
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("CoalBlock.png"))};
     static private String blockName = "Coal Block";
-    private CollisionBox collisionBox;
 
     public CoalBlock(){
 
