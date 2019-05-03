@@ -3,15 +3,20 @@ package testcraft;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
-
+import com.badlogic.gdx.math.Intersector;
 import java.io.Serializable;
 
 class Player implements Serializable {
 
     private static final float PIXEL_COUNT = 16f;
+    private  static  final float HEIGHT=PIXEL_COUNT*2-2;
+    private  static  final float WIDTH=PIXEL_COUNT-2;
+
 
     private static final float PLAYER_SPEED_HORIZONTAL=2f;
     private static final int MAX_HORIZONTAL_MULTI=5;
@@ -144,5 +149,23 @@ class Player implements Serializable {
 
     public Equipment getEquipment() {
         return equipment;
+    }
+
+    public boolean isAccesible (Rectangle A)
+    {
+        float epsilon=12; //because of problems with accuracy
+
+       // System.out.println(posX+" "+posY);
+       // System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
+        Rectangle P= new Rectangle((posX*Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
+        Rectangle Q = new Rectangle((posX-1)*Block.PIXEL_COUNT-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
+        Rectangle R = new Rectangle(posX*Block.PIXEL_COUNT-WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
+        Rectangle tab [] = new Rectangle[3];
+        for (int i =0;i<3;i++)
+                tab[i]= new Rectangle(0,0,0,0);
+       Intersector.intersectRectangles(A,P, tab[0]); Intersector.intersectRectangles(A,Q,tab[1]); Intersector.intersectRectangles(A,R,tab[2]);
+        for (Rectangle r :tab)
+            System.out.println(r.area());
+        return (!(tab[0].area()>epsilon) && (tab[1].area()>epsilon || tab[2].area()>epsilon ));
     }
 }

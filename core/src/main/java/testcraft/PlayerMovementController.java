@@ -85,9 +85,13 @@ public class PlayerMovementController {
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
-             Block block=  world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
-            if(block!= null && !(block instanceof Void))
-                player.getEquipment().addItem(block.getClass(),1);
+
+            if(player.isAccesible(world.getRectangle((int)x,(int)y)))
+            {
+                Block block = world.findBlock((int) x, (int) y);
+                if (block != null && !(block instanceof Void))
+                    player.getEquipment().addItem(block.getClass(), 1);
+            }
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());
@@ -100,8 +104,9 @@ public class PlayerMovementController {
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
-            if(!world.isBlockSolid((int)x,(int)y))
-                world.setBlock((int)x, (int)y, player.getChooseBlock());
+            if(player.isAccesible(world.getRectangle((int)x,(int)y)) || Gdx.input.isKeyPressed(Input.Keys.G) )
+             if(!world.isBlockSolid((int)x,(int)y))
+                 world.setBlock((int)x, (int)y, player.getChooseBlock());
         }
     }
 

@@ -1,5 +1,6 @@
 package testcraft;
 
+import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.Mdx;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
@@ -64,6 +65,12 @@ class WorldChunk implements Serializable {
                 g.drawSprite(blockSprite);
             }
         }
+    }
+    Rectangle getRectangle(int a, int b)
+    {
+       // System.out.println(chunkPosX+" "+chunkPosY);
+        System.out.println((chunkPosX+a+" "+((chunkPosY+b))));
+        return new Rectangle((chunkPosX+a)*Block.PIXEL_COUNT,(chunkPosY+b)*Block.PIXEL_COUNT, 1*Block.PIXEL_COUNT,1 *Block.PIXEL_COUNT);
     }
 
     Block setVoid (int a, int b)

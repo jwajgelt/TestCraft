@@ -3,8 +3,10 @@ package testcraft;
 import org.mini2Dx.core.serialization.annotation.Field;
 import org.mini2Dx.core.graphics.Graphics;
 
+import java.awt.*;
 import java.io.*;
 import java.util.LinkedList;
+import com.badlogic.gdx.math.Rectangle;
 
 import static testcraft.WorldChunk.CHUNK_SIZE;
 import static testcraft.Block.PIXEL_COUNT;
@@ -53,6 +55,20 @@ class World {
         setPos(x, y);
     }
 
+
+   Rectangle getRectangle(int x, int y) {
+        for (WorldChunk B : chunks) {
+            if (B.chunkPosX <= x && (B.chunkPosX + CHUNK_SIZE) > x && B.chunkPosY <= y && (B.chunkPosY + CHUNK_SIZE) > y) //check if chunk contain given  coordinates
+            {
+                int a = x - B.chunkPosX; //block coordinates in the chunk
+                int b = y - B.chunkPosY; //block coordinates in the chunk
+                return B.getRectangle(a, b);
+            }
+        }
+        System.out.println("Didn't find Rectangle.");
+        return null;
+    }
+
     boolean isBlockSolid (int x,int y)
     {
         for (WorldChunk B : chunks) {
@@ -74,6 +90,7 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
+                B.getRectangle(a,b);
                 B.setBlock(a, b, c);
                 return;
             }
