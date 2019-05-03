@@ -82,6 +82,8 @@ public class PlayerMovementController {
     }
 
     void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale){
+
+
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
@@ -99,6 +101,8 @@ public class PlayerMovementController {
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.E))
             screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C))
+           player.wypiszLewyDolnyRog();
 
 
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {

@@ -156,7 +156,7 @@ class Player implements Serializable {
         float epsilon=12; //because of problems with accuracy
 
        // System.out.println(posX+" "+posY);
-       // System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
+     //  System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
         Rectangle P= new Rectangle((posX*Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
         Rectangle Q = new Rectangle((posX-1)*Block.PIXEL_COUNT-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
         Rectangle R = new Rectangle(posX*Block.PIXEL_COUNT-WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
@@ -164,8 +164,12 @@ class Player implements Serializable {
         for (int i =0;i<3;i++)
                 tab[i]= new Rectangle(0,0,0,0);
        Intersector.intersectRectangles(A,P, tab[0]); Intersector.intersectRectangles(A,Q,tab[1]); Intersector.intersectRectangles(A,R,tab[2]);
-      //  for (Rectangle r :tab)
-           // System.out.println(r.area());
-        return (!(tab[0].area()>epsilon) && (tab[1].area()>epsilon || tab[2].area()>epsilon ));
+       // for (Rectangle r :tab)
+      //     System.out.println(r.area());
+        return (!(tab[0].area()>0) && (tab[1].area()>epsilon || tab[2].area()>epsilon ));
+    }
+    void wypiszLewyDolnyRog()
+    {
+        System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
     }
 }
