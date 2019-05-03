@@ -86,7 +86,7 @@ public class PlayerMovementController {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
 
-            if(player.isAccesible(world.getRectangle((int)x,(int)y)))
+            if(player.isAccesible(world.getRectangle((int)x,(int)y)) || Gdx.input.isKeyPressed(Input.Keys.G))
             {
                 Block block = world.findBlock((int) x, (int) y);
                 if (block != null && !(block instanceof Void))
