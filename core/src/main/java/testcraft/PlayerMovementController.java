@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.blocks.Void;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
 import static testcraft.InGameScreen.WIDTH;
@@ -84,21 +85,23 @@ public class PlayerMovementController {
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
-            world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
+             Block block=  world.findBlock((int)x,(int)y); //coordinates from pixels to chunks
+            if(block!= null && !(block instanceof Void))
+                player.getEquipment().addItem(block.getClass(),1);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());
             world.saveToDisk();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)) player.setChooseBlock(1);//setting which block you can place
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) player.setChooseBlock(2);//1-coal, 2-cobble, 3-wood, other-dirt
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)) player.setChooseBlock(3);//
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)) player.setChooseBlock(4);
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_5)) player.setChooseBlock(5);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
+
+
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
-            world.setBlock((int)x, (int)y, player.getChooseBlock());
+            if(!world.isBlockSolid((int)x,(int)y))
+                world.setBlock((int)x, (int)y, player.getChooseBlock());
         }
     }
 

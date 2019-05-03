@@ -6,6 +6,7 @@ import testcraft.Block;
 
 public class OneBlockyBoy extends Block {
 
+    static  private  Texture texture = new Texture("OneBlockyBoy.png");
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("OneBlockyBoy.png"))};
     static private String blockName = "BlockyBoy";
 
@@ -17,5 +18,10 @@ public class OneBlockyBoy extends Block {
     @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
+    }
+    @Override
+    public  Texture getTexture()
+    {
+        return texture;
     }
 }

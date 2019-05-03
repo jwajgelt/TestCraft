@@ -66,22 +66,17 @@ class WorldChunk implements Serializable {
         }
     }
 
-    void setVoid (int a, int b)
+    Block setVoid (int a, int b)
     {
+        Block X= blocks[a][b];
         blocks[a][b]=new Void();
+        return X;
     }
 
-    void setBlock(int a, int b, int c){
-        switch (c){
-            case 1:
-                blocks[a][b]=new CoalBlock(); break;
-            case 2:
-                blocks[a][b]=new CobblestoneBlock(randy.nextInt(10)); break;
-            case 3:
-                blocks[a][b]=new WoodBlock(); break;
-            default:
-                blocks[a][b]=new DirtBlock(); break;
-        }
+    void setBlock(int a, int b, Block c){
+        if(c!=null)
+            blocks[a][b]=c;
+
     }
 
     boolean isBlockSolid(int a, int b){ return blocks[a][b].isSolid(); }

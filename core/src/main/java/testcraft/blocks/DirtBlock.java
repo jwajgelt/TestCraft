@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 public class DirtBlock extends Block implements Serializable {
 
+
+    private static Texture texture = new Texture("DirtBlock.png");
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("DirtBlock.png"))};
     private static String blockName = "Dirt";
 
@@ -22,5 +24,10 @@ public class DirtBlock extends Block implements Serializable {
     @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
+    }
+    @Override
+    public  Texture getTexture()
+    {
+        return texture;
     }
 }

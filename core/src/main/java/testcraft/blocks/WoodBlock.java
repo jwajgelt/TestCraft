@@ -6,6 +6,7 @@ import testcraft.Block;
 
 public class WoodBlock extends Block {
 
+    static private Texture texture =new Texture("WoodBlock.png");
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(new Texture("WoodBlock.png"))};
     private static String blockName = "Wood";
 
@@ -21,5 +22,10 @@ public class WoodBlock extends Block {
     @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
+    }
+    @Override
+    public  Texture getTexture()
+    {
+        return texture;
     }
 }

@@ -34,6 +34,8 @@ class Player implements Serializable {
     private int speedMultiplierHorizontal;
     private int speedMultiplierVertical;
 
+    public Equipment equipment;
+
     Player(float posX, float posY){
         this.posX=posX;
         this.posY=posY;
@@ -44,6 +46,7 @@ class Player implements Serializable {
 
         grounded=true;
         chooseBlock=1;
+        equipment= new Equipment();
     }
 
     void moveHorizontal(float delta){
@@ -110,9 +113,16 @@ class Player implements Serializable {
         return speedMultiplierVertical*PLAYER_SPEED_VERTICAL;
     }
 
-    void setChooseBlock(int a){ chooseBlock=a; }
 
-    int getChooseBlock(){ return chooseBlock; }
+    Block getChooseBlock(){
+        GameItem gameItem=equipment.getItem();
+        if(gameItem instanceof  Block) {
+            equipment.removeItem(1);
+            //System.out.println(equipment.getQuantity(equipment.getChosenItemn()));
+            return (Block) gameItem;
+        }
+        return null;
+    }
 
     float getX(){
         return posX;
@@ -130,5 +140,9 @@ class Player implements Serializable {
 
     void renderPlayer(Graphics graphics){
         graphics.drawSprite(playerSprite);
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
     }
 }

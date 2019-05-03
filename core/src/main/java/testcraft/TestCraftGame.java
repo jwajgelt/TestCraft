@@ -41,11 +41,12 @@ public class TestCraftGame extends ScreenBasedGame {
 
         multiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(multiplexer);
-        addScreen(new testcraft.InGameMenuScreen());
         addScreen(new InGameScreen());
+        addScreen(new InGameMenuScreen());
         addScreen(new MainMenuScreen());
         addScreen(new SaveGameScreen());
         addScreen(new LoadGameScreen());
+        addScreen(new EquipmentScreen());
 
     }
 

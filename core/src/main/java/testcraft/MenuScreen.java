@@ -33,33 +33,20 @@ import static testcraft.TestCraftGame.multiplexer;
 
 
 
-public abstract  class  MenuScreen extends BasicGameScreen {
+public abstract  class  MenuScreen extends TestCraftScreen{
 
-
-    protected  static Skin skin;
-    protected Stage stage;
     public boolean back=false;
     public Texture bg;
     TextureRegion bgRegion;
-
-    static final float WIDTH = 1280; //copy-pasted from InGameScreen
-    static final float HEIGHT = 720;
-    float SCREEN_WIDTH = 1280;
-    float SCREEN_HEIGHT = 720;
-    float scale = 1f;
-    float transX = 0f;
-    float transY = 0f;
     static final float BUTTONWIDTH=230;
     static final float BUTTONHEIGHT=100;
 
 
     public  void addButton ( float x,float y,float height, float width, ClickListener clickListener, String text)
     {
-        final TextButton button= new TextButton(text,skin,"default");
-        button.setHeight(height);
-        button.setWidth(width);
-        button.setX(x);
-        button.setY(y);
+        TextButton button= new TextButton(text,skin,"default");
+        button.setSize(width, height);
+        button.setPosition(x,y);
         button.addListener(clickListener);
         stage.addActor(button);
     }
@@ -70,21 +57,13 @@ public abstract  class  MenuScreen extends BasicGameScreen {
     }
 
 
-
-
     abstract  public void goBack(ScreenManager screenManager,GameContainer gameContainer);
 
 
 
     @Override
     public void initialise(GameContainer gc) {
-        try {
-            skin = new Skin(Gdx.files.absolute("craftacular/skin/craftacular-ui.json"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        stage = gc.createStage(new ExtendViewport(WIDTH,HEIGHT));
+        super.initialise(gc);
         bg = new Texture(Gdx.files.absolute("craftacular/raw/dirt.png"));
         bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         bgRegion = new TextureRegion(bg);
@@ -109,21 +88,8 @@ public abstract  class  MenuScreen extends BasicGameScreen {
     @Override
     public void render(GameContainer gc, Graphics g) {
 
-
-        SCREEN_HEIGHT = gc.getHeight();
-        SCREEN_WIDTH = gc.getWidth();
-        float scaleX = SCREEN_WIDTH/WIDTH;
-        float scaleY = SCREEN_HEIGHT/HEIGHT;
-        scale = Math.min(scaleX, scaleY);
-        transX = -Math.max(0, (SCREEN_WIDTH-scale*WIDTH)/2)/scale;
-        transY = -Math.max(0, (SCREEN_HEIGHT-scale*HEIGHT)/2)/scale;
-        g.drawRect(-1, -1, SCREEN_WIDTH+2, SCREEN_HEIGHT+2);
-        g.setScale(scale, scale);
-        g.translate(transX, transY);
-        g.setClip(0, 0, WIDTH, HEIGHT);  //copy-pasted from InGameScreen
-
+        super.render(gc,g);
         g.drawTextureRegion(bgRegion,0,0);
-        stage.getViewport().update(gc.getWidth(), gc.getHeight(), false);
         g.drawStage(stage);
     }
 
