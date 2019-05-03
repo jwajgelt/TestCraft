@@ -151,7 +151,7 @@ class Player implements Serializable {
         return equipment;
     }
 
-    public boolean isAccesible (Rectangle A)
+    public boolean isReachable (Rectangle A)
     {
         float epsilon=12; //because of problems with accuracy
 
@@ -164,8 +164,8 @@ class Player implements Serializable {
         for (int i =0;i<3;i++)
                 tab[i]= new Rectangle(0,0,0,0);
        Intersector.intersectRectangles(A,P, tab[0]); Intersector.intersectRectangles(A,Q,tab[1]); Intersector.intersectRectangles(A,R,tab[2]);
-        for (Rectangle r :tab)
-            System.out.println(r.area());
+      //  for (Rectangle r :tab)
+           // System.out.println(r.area());
         return (!(tab[0].area()>epsilon) && (tab[1].area()>epsilon || tab[2].area()>epsilon ));
     }
 }

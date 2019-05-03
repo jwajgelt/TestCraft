@@ -68,8 +68,7 @@ class WorldChunk implements Serializable {
     }
     Rectangle getRectangle(int a, int b)
     {
-       // System.out.println(chunkPosX+" "+chunkPosY);
-        System.out.println((chunkPosX+a+" "+((chunkPosY+b))));
+
         return new Rectangle((chunkPosX+a)*Block.PIXEL_COUNT,(chunkPosY+b)*Block.PIXEL_COUNT, 1*Block.PIXEL_COUNT,1 *Block.PIXEL_COUNT);
     }
 
