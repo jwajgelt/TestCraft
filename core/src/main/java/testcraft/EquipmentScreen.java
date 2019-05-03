@@ -83,8 +83,8 @@ public class EquipmentScreen extends TestCraftScreen {
     }
     @Override
     public void render(GameContainer gc, Graphics g) {
-        super.render(gc,g);
         screenManager.getGameScreen(InGameScreen.ID).render(gc,g);
+        stage.getViewport().update(gc.getWidth(), gc.getHeight(), false);
         g.drawStage(stage);
     }
 
