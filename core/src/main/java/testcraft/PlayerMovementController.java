@@ -95,7 +95,7 @@ public class PlayerMovementController {
             {
                 Block block = world.findBlock((int) x, (int) y);
                 if (block != null && !(block instanceof Void))
-                    player.getEquipment().addItem(block.getClass(), 1);
+                    player.getEquipment().addItem(block.getItem(), 1);
             }
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

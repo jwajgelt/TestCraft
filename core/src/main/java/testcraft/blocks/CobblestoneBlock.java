@@ -3,24 +3,48 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
+import testcraft.BlockItem;
 
 import java.io.Serializable;
 
 public class CobblestoneBlock extends Block implements Serializable {
 
-   private static  Texture texture =new Texture("CobblestoneBlock1.png");
+    static private int Id = 2;
+    private static Texture texture = new Texture("CobblestoneBlock1.png");
     private static Sprite[] blockSprites=new Sprite[]{
-            new Sprite(new Texture("CobblestoneBlock1.png")),
+            new Sprite(texture),
             new Sprite(new Texture("CobblestoneBlock2.png"))};
 
     private int chooseSprite;
-    public CobblestoneBlock ()
+
     {
-        chooseSprite=0;
+        item = new BlockItem() {
+
+            @Override
+            public Texture getTexture() {
+                return texture;
+            }
+
+            @Override
+            public int getId() {
+                return Id;
+            }
+
+            @Override
+            public Block getBlock() {
+                return getNewBlock();
+            }
+
+        };
     }
 
     public CobblestoneBlock(int i){
         chooseSprite=i%blockSprites.length;
+    }
+
+    public CobblestoneBlock ()
+    {
+        this(0);
     }
 
     @Override
@@ -32,9 +56,9 @@ public class CobblestoneBlock extends Block implements Serializable {
     public Sprite getBlockSprite() {
         return blockSprites[chooseSprite];
     }
+
     @Override
-    public  Texture getTexture()
-    {
-        return texture;
+    public Block getNewBlock(){
+        return new CobblestoneBlock();
     }
 }

@@ -1,14 +1,11 @@
 package testcraft;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
-import com.badlogic.gdx.math.Intersector;
+
 import java.io.Serializable;
 
 class Player implements Serializable {
@@ -123,10 +120,10 @@ class Player implements Serializable {
 
     Block getChooseBlock(){
         GameItem gameItem=equipment.getItem();
-        if(gameItem instanceof  Block) {
+        if(gameItem instanceof  BlockItem) {
             equipment.removeItem(1);
             //System.out.println(equipment.getQuantity(equipment.getChosenItemn()));
-            return (Block) gameItem;
+            return ((BlockItem)gameItem).getBlock();
         }
         return null;
     }

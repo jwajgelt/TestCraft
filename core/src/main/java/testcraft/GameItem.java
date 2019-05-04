@@ -4,7 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.io.Serializable;
 
+public interface GameItem extends Serializable {
 
-public interface    GameItem   {
-     Texture getTexture();
+    Texture getTexture();
+
+    int getId();
+
 }
