@@ -19,7 +19,7 @@ public class PlayerMovementController {
         this.player=player;
     }
 
-    private float left=640-Block.PIXEL_COUNT/2+2;
+    private float left=640-Block.PIXEL_COUNT/2+1;
     private float right=640+Block.PIXEL_COUNT/2-1;
     private float top=360-Block.PIXEL_COUNT+1;
     private float bot=360+Block.PIXEL_COUNT-1;
@@ -46,12 +46,15 @@ public class PlayerMovementController {
         float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
         float y1=floor((bot)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);//bot to top
         float y2=floor((top)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
-        if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x2, (int)y2))
+        float y3= floor(((top+2*bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
+        float y4= floor(((2*top+bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
+        if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
+                && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4))
             player.moveVertical(player.getVerticalSpeed()*delta);
         else{
             if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) )
                 player.groundHim();
-            player.stopVertical(3);
+            player.stopVertical();
         }
 
     }

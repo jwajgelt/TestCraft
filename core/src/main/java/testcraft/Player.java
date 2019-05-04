@@ -39,7 +39,7 @@ class Player implements Serializable {
     private int speedMultiplierHorizontal;
     private int speedMultiplierVertical;
 
-    public Equipment equipment;
+    private Equipment equipment;
 
     Player(float posX, float posY){
         this.posX=posX;
@@ -60,6 +60,7 @@ class Player implements Serializable {
 
     void moveVertical(float delta){
         posY+=delta;
+        System.out.println(speedMultiplierVertical);
     }
 
     void triggerJump(){
@@ -96,13 +97,14 @@ class Player implements Serializable {
     }
 
     void decreaseVerticalSpeed(){
-        if(speedMultiplierVertical>-2*MAX_VERTICAL_MULTI){
+        if(speedMultiplierVertical<2*MAX_VERTICAL_MULTI){
             speedMultiplierVertical++;
         }
     }
 
-    void stopVertical(int a){
-        while(a>0) {
+    void stopVertical(){
+        speedMultiplierVertical=0;
+        /*while(a>0) {
             if(speedMultiplierVertical==0)
                 return;
             if (speedMultiplierVertical < 0)
@@ -111,7 +113,7 @@ class Player implements Serializable {
                 speedMultiplierVertical--;
             }
             a--;
-        }
+        }*/
     }
 
     float getVerticalSpeed(){
@@ -154,13 +156,12 @@ class Player implements Serializable {
     public boolean isReachable (Rectangle A)
     {
         float epsilon=12; //because of problems with accuracy
-
        // System.out.println(posX+" "+posY);
      //  System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
         Rectangle P= new Rectangle((posX*Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
         Rectangle Q = new Rectangle((posX-1)*Block.PIXEL_COUNT-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
         Rectangle R = new Rectangle(posX*Block.PIXEL_COUNT-WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
-        Rectangle tab [] = new Rectangle[3];
+        Rectangle[] tab = new Rectangle[3];
         for (int i =0;i<3;i++)
                 tab[i]= new Rectangle(0,0,0,0);
        Intersector.intersectRectangles(A,P, tab[0]); Intersector.intersectRectangles(A,Q,tab[1]); Intersector.intersectRectangles(A,R,tab[2]);
