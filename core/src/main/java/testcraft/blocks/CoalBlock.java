@@ -9,31 +9,10 @@ import java.io.Serializable;
 
 public class CoalBlock extends Block implements Serializable {
 
-    static private Texture texture = new Texture("CoalBlock.png");
-    static private int Id = 3;
-    static private Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
-    static private String blockName = "Coal Block";
-
-    {
-        item = new BlockItem() {
-
-            @Override
-            public Texture getTexture() {
-                return texture;
-            }
-
-            @Override
-            public int getId() {
-                return Id;
-            }
-
-            @Override
-            public Block getBlock() {
-                return getNewBlock();
-            }
-
-        };
-    }
+    private static Texture texture = new Texture("CoalBlock.png");
+    private static int Id = 3;
+    private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
+    private static String blockName = "Coal Block";
 
     public CoalBlock(){
         super();
@@ -52,6 +31,11 @@ public class CoalBlock extends Block implements Serializable {
     @Override
     public Block getNewBlock(){
         return new CoalBlock();
+    }
+
+    @Override
+    public int getId() {
+        return Id;
     }
 
 }

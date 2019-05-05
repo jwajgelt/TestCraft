@@ -11,9 +11,9 @@ import java.util.List;
 
 public class Void extends Block  implements Serializable {
 
-    static int Id = 0;
-    static private Texture texture = new Texture("VoidBlock.png");
-    static private Sprite[] blockSprites = new Sprite[]{new Sprite(texture)};
+    private static int Id = 0;
+    private static Texture texture = new Texture("VoidBlock.png");
+    private static Sprite[] blockSprites = new Sprite[]{new Sprite(texture)};
     static String blockName = "Void";
 
     public Void(){
@@ -32,6 +32,11 @@ public class Void extends Block  implements Serializable {
     @Override
     public Block getNewBlock(){
         return new Void();
+    }
+
+    @Override
+    public int getId() {
+        return Id;
     }
 
 }
