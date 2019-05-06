@@ -7,6 +7,8 @@ import java.awt.*;
 import java.io.*;
 import java.util.LinkedList;
 import com.badlogic.gdx.math.Rectangle;
+import org.nustaq.serialization.FSTObjectInput;
+import org.nustaq.serialization.FSTObjectOutput;
 
 import static testcraft.WorldChunk.CHUNK_SIZE;
 import static testcraft.Block.PIXEL_COUNT;
@@ -113,6 +115,21 @@ class World {
         return  null;
     }
 
+    public WorldChunk myreadMethod(InputStream stream) throws Exception //because in.raeadObject throws Exception
+    {
+        FSTObjectInput in = new FSTObjectInput(stream);
+        WorldChunk  result = (WorldChunk)in.readObject(WorldChunk.class);
+        in.close();
+        return result;
+    }
+
+    public void mywriteMethod( OutputStream stream, WorldChunk  toWrite ) throws IOException //copy-pasted from tutorial: https://github.com/RuedigerMoeller/fast-serialization/wiki/Serialization
+    {
+        FSTObjectOutput out = new FSTObjectOutput(stream);
+        out.writeObject( toWrite, WorldChunk .class );
+        out.close();
+    }
+
 
 
     /*
@@ -136,7 +153,8 @@ class World {
             else{
                 try {
                     ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
-                    stream.writeObject(chunk);
+                    mywriteMethod(stream,chunk); //FASTER SERIALIZATION
+                   // stream.writeObject(chunk);
                 } catch (IOException e){
                     e.printStackTrace();
                 }
@@ -153,13 +171,14 @@ class World {
                     try{
                         ObjectInputStream stream = new ObjectInputStream(new FileInputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunkPosX+"_"+chunkPosY));
                         System.out.println("RESTORING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
-                        chunks.add((WorldChunk)stream.readObject());
+                        chunks.add(myreadMethod(stream)); //FASTER SERIALIZATON
+                       // chunks.add((WorldChunk)stream.readObject());
                     } catch(FileNotFoundException e){
                         System.out.println("GENERATING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
                         chunks.add(new WorldChunk((centerX - distanceX + i)*CHUNK_SIZE,
                                 (centerY - distanceY + j)*CHUNK_SIZE,
                                 new Block[CHUNK_SIZE][CHUNK_SIZE]));
-                    } catch(IOException | ClassNotFoundException e){
+                    } catch (Exception e){
                         e.printStackTrace();
                     }
                 }
