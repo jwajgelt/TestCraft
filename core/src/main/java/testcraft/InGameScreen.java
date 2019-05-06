@@ -34,6 +34,7 @@ public class InGameScreen extends TestCraftScreen {
         posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
         posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
         world.setPos((int)posX, (int)posY);
+        world.update(delta);
     }
 
     @Override

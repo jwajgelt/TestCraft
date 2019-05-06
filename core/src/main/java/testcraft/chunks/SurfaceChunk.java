@@ -49,11 +49,10 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
             //top level should be grassy dirt
             blocks[i][surfaceLevel[i]] = new GrassDirtBlock();
             //throw some grass blocks on top
-            if(randy.nextInt(2) == 0) blocks[i][surfaceLevel[i]-1] = new GrassBlock();
+            if(randy.nextInt(5) == 0) blocks[i][surfaceLevel[i]-1] = new GrassBlock();
             for(int j = surfaceLevel[i]+1; j < CHUNK_SIZE; j++){
                 blocks[i][j] = (j < surfaceLevel[i]+2) ? new DirtBlock() : (randy.nextBoolean()) ? (randy.nextBoolean() ? new DirtBlock() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
             }
         }
     }
-
 }

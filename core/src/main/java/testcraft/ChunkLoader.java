@@ -85,7 +85,7 @@ public class ChunkLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new WorldChunk(chunkX, chunkY);
+        return new SkyChunk(chunkX, chunkY);
     }
 
     /*

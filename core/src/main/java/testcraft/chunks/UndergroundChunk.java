@@ -21,5 +21,4 @@ public class UndergroundChunk extends WorldChunk implements Serializable {
             }
         }
     }
-
 }

@@ -3,11 +3,15 @@ package testcraft;
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
+import testcraft.blocks.DirtBlock;
+import testcraft.blocks.GrassBlock;
+import testcraft.blocks.GrassDirtBlock;
 import testcraft.blocks.Void;
 
 import java.io.Serializable;
+import java.util.Random;
 
-public class WorldChunk implements Serializable {
+public abstract class WorldChunk implements Serializable {
 
     public static int CHUNK_SIZE = 64;
 
@@ -75,6 +79,28 @@ public class WorldChunk implements Serializable {
 
     }
 
-    boolean isBlockSolid(int a, int b){ return blocks[a][b].isSolid(); }
+    boolean isBlockSolid(int a, int b){
+        return blocks[a][b].isSolid();
+    }
+
+    public void update(){
+        //place to check some block-specific updates
+        //not pretty, should figure something better out
+        for(int i = 0; i < CHUNK_SIZE; i++){
+            for(int j = 0; j < CHUNK_SIZE; j++){
+                Block block = blocks[i][j];
+                if(block instanceof GrassDirtBlock){
+                    if(j > 0){
+                        if(blocks[i][j-1].isSolid()) blocks[i][j] = new DirtBlock();
+                        else if(blocks[i][j-1] instanceof Void && new Random().nextInt(500) == 0) blocks[i][j-1] = new GrassBlock();
+                    }
+                } else if(block instanceof DirtBlock){
+                    if(j > 0 && !blocks[i][j-1].isSolid() && new Random().nextInt(20) == 0) blocks[i][j] = new GrassDirtBlock();
+                } else if(block instanceof GrassBlock){
+                    if(j < CHUNK_SIZE-1 && !blocks[i][j+1].isSolid()) blocks[i][j] = new Void();
+                }
+            }
+        }
+    }
 
 }

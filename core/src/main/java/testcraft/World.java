@@ -21,6 +21,8 @@ class World {
      */
     private List<WorldChunk> chunks;
     private ChunkLoader chunkLoader;
+    private float updateCounter = 0;
+    private final float updateConst = 0.5f;
 
     /*
     Player's character
@@ -111,6 +113,17 @@ class World {
      */
     void setPos(float x, float y) {
         chunkLoader.loadChunks(x, y);
+    }
+
+    /*
+    Update chunks
+     */
+    void update(float delta){
+        updateCounter += delta;
+        if(updateCounter > updateConst){
+            for(WorldChunk chunk : chunks) chunk.update();
+            updateCounter = 0;
+        }
     }
 
     void saveToDisk(){
