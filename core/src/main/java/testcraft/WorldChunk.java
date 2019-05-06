@@ -3,9 +3,7 @@ package testcraft;
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
-import testcraft.blocks.CoalBlock;
-import testcraft.blocks.CobblestoneBlock;
-import testcraft.blocks.DirtBlock;
+import testcraft.blocks.*;
 import testcraft.blocks.Void;
 
 import java.io.Serializable;
@@ -23,8 +21,15 @@ class WorldChunk implements Serializable {
 
     private Block getBlock(int yPos)
     {
-        if(yPos<2)
+        if(yPos<0)
             return  new Void();
+        if(yPos==0)
+            return randy.nextBoolean() ? new Void(): new GrassBlock();
+
+        if(yPos==2)
+            return new DirtBlock();
+        if(yPos==1)
+            return new GrassDirtBlock();
         return (randy.nextBoolean()) ? (randy.nextBoolean() ?  new DirtBlock() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
     }
 
@@ -36,6 +41,8 @@ class WorldChunk implements Serializable {
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
                 blocks[i][j] = getBlock(yPos+j);
+
+
 
     }
 
