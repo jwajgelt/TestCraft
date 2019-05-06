@@ -99,9 +99,8 @@ class Player implements Serializable {
         }
     }
 
-    void stopVertical(){
-        speedMultiplierVertical=0;
-        /*while(a>0) {
+    void stopVertical(int a){
+        while(a>0) {
             if(speedMultiplierVertical==0)
                 return;
             if (speedMultiplierVertical < 0)
@@ -110,7 +109,7 @@ class Player implements Serializable {
                 speedMultiplierVertical--;
             }
             a--;
-        }*/
+        }
     }
 
     float getVerticalSpeed(){

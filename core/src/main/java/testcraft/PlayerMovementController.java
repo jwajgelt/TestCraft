@@ -54,7 +54,7 @@ public class PlayerMovementController {
         else{
             if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) )
                 player.groundHim();
-            player.stopVertical();
+            player.stopVertical(12);
         }
 
     }
