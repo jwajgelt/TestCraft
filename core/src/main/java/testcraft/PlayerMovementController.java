@@ -7,8 +7,8 @@ import org.mini2Dx.core.screen.transition.NullTransition;
 import testcraft.blocks.Void;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
-import static testcraft.InGameScreen.WIDTH;
 import static testcraft.InGameScreen.HEIGHT;
+import static testcraft.InGameScreen.WIDTH;
 
 public class PlayerMovementController {
     private World world;

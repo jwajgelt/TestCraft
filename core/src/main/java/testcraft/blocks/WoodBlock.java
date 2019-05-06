@@ -3,7 +3,6 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.BlockItem;
 
 public class WoodBlock extends Block {
 

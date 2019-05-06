@@ -1,16 +1,15 @@
 package testcraft;
 
 import com.badlogic.gdx.math.Rectangle;
-import org.mini2Dx.core.Mdx;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
-import org.mini2Dx.core.serialization.SerializationException;
-import org.mini2Dx.core.serialization.annotation.Field;
-import testcraft.blocks.*;
+import testcraft.blocks.CoalBlock;
+import testcraft.blocks.CobblestoneBlock;
+import testcraft.blocks.DirtBlock;
 import testcraft.blocks.Void;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Random;
 
 class WorldChunk implements Serializable {
 

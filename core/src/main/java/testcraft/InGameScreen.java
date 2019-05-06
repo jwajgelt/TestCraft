@@ -1,15 +1,8 @@
 package testcraft;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
-import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
-
-import org.mini2Dx.core.screen.transition.NullTransition;
-
-import static com.badlogic.gdx.math.MathUtils.floor;
 
 
 public class InGameScreen extends TestCraftScreen {

@@ -1,17 +1,15 @@
 package testcraft;
 
-import org.mini2Dx.core.serialization.annotation.Field;
-import org.mini2Dx.core.graphics.Graphics;
-
-import java.awt.*;
-import java.io.*;
-import java.util.LinkedList;
 import com.badlogic.gdx.math.Rectangle;
+import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.core.serialization.annotation.Field;
 import org.nustaq.serialization.FSTObjectInput;
 import org.nustaq.serialization.FSTObjectOutput;
 
+import java.io.*;
+import java.util.LinkedList;
+
 import static testcraft.WorldChunk.CHUNK_SIZE;
-import static testcraft.Block.PIXEL_COUNT;
 
 class World {
 
