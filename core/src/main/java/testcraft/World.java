@@ -2,36 +2,30 @@ package testcraft;
 
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
-import org.mini2Dx.core.serialization.annotation.Field;
-import org.nustaq.serialization.FSTObjectInput;
-import org.nustaq.serialization.FSTObjectOutput;
 
 import java.io.*;
 import java.util.LinkedList;
+import java.util.List;
 
 import static testcraft.WorldChunk.CHUNK_SIZE;
 
 class World {
 
     /*
-    Height and width of the loaded rectangle of chunks
-     */
-    private final int LOADED_CHUNKS_X = 3;
-    private final int LOADED_CHUNKS_Y = 3;
-
-    /*
     World's name used for identifying file names and location
      */
-    @Field private final String worldName;
+    final String worldName;
 
-    private LinkedList<WorldChunk> chunks;
+    /*
+    Fields related to the world's chunks
+     */
+    private List<WorldChunk> chunks;
+    private ChunkLoader chunkLoader;
 
     /*
     Player's character
      */
     Player player;
-
-    private int centerX, centerY;
 
     World(String worldName){
         float x, y;
@@ -46,12 +40,11 @@ class World {
         }
         x=player.getX() - InGameScreen.WIDTH/2/Block.PIXEL_COUNT;
         y=player.getY() - InGameScreen.HEIGHT/2/Block.PIXEL_COUNT;
-        chunks = new LinkedList<>();
         this.worldName = worldName;
         //noinspection ResultOfMethodCallIgnored
         new File("."+File.separator+worldName).mkdir();
-        centerX = (int)x/ CHUNK_SIZE;
-        centerY = (int)y/ CHUNK_SIZE;
+        chunks = new LinkedList<>();
+        chunkLoader = new ChunkLoader(this, chunks);
         setPos(x, y);
     }
 
@@ -113,74 +106,11 @@ class World {
         return  null;
     }
 
-    public WorldChunk myreadMethod(InputStream stream) throws Exception //because in.raeadObject throws Exception
-    {
-        FSTObjectInput in = new FSTObjectInput(stream);
-        WorldChunk  result = (WorldChunk)in.readObject(WorldChunk.class);
-        in.close();
-        return result;
-    }
-
-    public void mywriteMethod( OutputStream stream, WorldChunk  toWrite ) throws IOException //copy-pasted from tutorial: https://github.com/RuedigerMoeller/fast-serialization/wiki/Serialization
-    {
-        FSTObjectOutput out = new FSTObjectOutput(stream);
-        out.writeObject( toWrite, WorldChunk .class );
-        out.close();
-    }
-
-
-
     /*
     Loads and unloads chunks for new X and Y coordinates
      */
-    void setPos(float x, float y){
-        LinkedList<WorldChunk> forRemoval = new LinkedList<>();
-        centerX = (int)java.lang.Math.floor((x+CHUNK_SIZE/2)/CHUNK_SIZE);
-        centerY = (int)java.lang.Math.floor((y+CHUNK_SIZE/2)/CHUNK_SIZE);
-        int distanceX = (LOADED_CHUNKS_X-1)/2;
-        int distanceY = (LOADED_CHUNKS_Y-1)/2;
-        boolean[][] loaded;
-        loaded = new boolean[LOADED_CHUNKS_X][LOADED_CHUNKS_Y];
-        for(WorldChunk chunk : chunks){
-            int relativeX = chunk.chunkPosX/CHUNK_SIZE - centerX;
-            int relativeY = chunk.chunkPosY/CHUNK_SIZE - centerY;
-            if(-distanceX <= relativeX && relativeX <= distanceX
-                    && -distanceY <= relativeY && relativeY <= distanceY){
-                loaded[relativeX + distanceX][relativeY + distanceY] = true;
-            }
-            else{
-                try {
-                    ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunk.chunkPosX+"_"+chunk.chunkPosY));
-                    mywriteMethod(stream,chunk); //FASTER SERIALIZATION
-                   // stream.writeObject(chunk);
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-                forRemoval.add(chunk);
-                System.out.println("STORING CHUNK (" + chunk.chunkPosX/CHUNK_SIZE + ", " + chunk.chunkPosY/CHUNK_SIZE +")");
-            }
-        }
-        for(WorldChunk chunk : forRemoval) chunks.remove(chunk);
-        for(int i = 0; i < loaded.length; i++)
-            for(int j = 0; j < loaded[i].length; j++){
-                if(!loaded[i][j]){
-                    int chunkPosX = (centerX - distanceX + i)*CHUNK_SIZE;
-                    int chunkPosY = (centerY - distanceY + j)*CHUNK_SIZE;
-                    try{
-                        ObjectInputStream stream = new ObjectInputStream(new FileInputStream("."+File.separator+worldName+File.separator+worldName+"_"+chunkPosX+"_"+chunkPosY));
-                        System.out.println("RESTORING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
-                        chunks.add(myreadMethod(stream)); //FASTER SERIALIZATON
-                       // chunks.add((WorldChunk)stream.readObject());
-                    } catch(FileNotFoundException e){
-                        System.out.println("GENERATING CHUNK (" + (centerX - distanceX + i) + ", " + (centerY - distanceY + j) +")");
-                        chunks.add(new WorldChunk((centerX - distanceX + i)*CHUNK_SIZE,
-                                (centerY - distanceY + j)*CHUNK_SIZE,
-                                new Block[CHUNK_SIZE][CHUNK_SIZE]));
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
+    void setPos(float x, float y) {
+        chunkLoader.loadChunks(x, y);
     }
 
     void saveToDisk(){

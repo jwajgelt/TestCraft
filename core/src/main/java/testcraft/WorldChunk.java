@@ -3,47 +3,31 @@ package testcraft;
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
-import testcraft.blocks.*;
 import testcraft.blocks.Void;
 
 import java.io.Serializable;
-import java.util.Random;
 
-class WorldChunk implements Serializable {
+public class WorldChunk implements Serializable {
 
-    static int CHUNK_SIZE = 64;
+    public static int CHUNK_SIZE = 64;
 
-    private Block[][] blocks;                   //array containing chunk's blocks' information first coordinate is X, second Y
+    protected Block[][] blocks;                       //array containing chunk's blocks' information first coordinate is X, second Y
 
-    final int chunkPosX, chunkPosY;      //chunk's left top corner's world coordinates
+    final int chunkPosX, chunkPosY;                 //chunk's left top corner's world coordinates
 
-    private static Random randy = new Random();     //for testing purposes only
-
-    private Block getBlock(int yPos)
-    {
-        if(yPos<0)
-            return  new Void();
-        if(yPos==0)
-            return randy.nextBoolean() ? new Void(): new GrassBlock();
-
-        if(yPos==2)
-            return new DirtBlock();
-        if(yPos==1)
-            return new GrassDirtBlock();
-        return (randy.nextBoolean()) ? (randy.nextBoolean() ?  new DirtBlock() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
-    }
-
-    WorldChunk(int xPos, int yPos, Block[][] blocks){
+    public WorldChunk(int xPos, int yPos, Block[][] blocks){
         this.blocks = blocks;
         chunkPosX = xPos;
         chunkPosY = yPos;
 
         for(int i = 0; i < blocks.length; i++)
             for(int j = 0; j < blocks[i].length; j++)
-                blocks[i][j] = getBlock(yPos+j);
+                blocks[i][j] = new Void();
 
+    }
 
-
+    public WorldChunk(int xPos, int yPos){
+        this(xPos, yPos, new Block[CHUNK_SIZE][CHUNK_SIZE]);
     }
 
 

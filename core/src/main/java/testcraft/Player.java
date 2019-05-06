@@ -57,7 +57,7 @@ class Player implements Serializable {
 
     void moveVertical(float delta){
         posY+=delta;
-        System.out.println(speedMultiplierVertical);
+        //System.out.println(speedMultiplierVertical);      //Co to jest za spam w ogóle ~Juliusz
     }
 
     void triggerJump(){
