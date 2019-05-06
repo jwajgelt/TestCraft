@@ -12,27 +12,6 @@ public class OneBlockyBoy extends Block {
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     static String blockName = "BlockyBoy";
 
-    {
-        item = new BlockItem() {
-
-            @Override
-            public Texture getTexture() {
-                return texture;
-            }
-
-            @Override
-            public int getId() {
-                return Id;
-            }
-
-            @Override
-            public Block getBlock() {
-                return getNewBlock();
-            }
-
-        };
-    }
-
     @Override
     public boolean isSolid() {
         return true;
@@ -46,5 +25,10 @@ public class OneBlockyBoy extends Block {
     @Override
     public Block getNewBlock(){
         return new OneBlockyBoy();
+    }
+
+    @Override
+    public int getId() {
+        return Id;
     }
 }

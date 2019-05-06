@@ -7,31 +7,10 @@ import testcraft.BlockItem;
 
 public class WoodBlock extends Block {
 
-    static private int Id = 4;
+    private static int Id = 4;
     private static Texture texture = new Texture("WoodBlock.png");
     private static Sprite[] blockSprites = new Sprite[]{new Sprite(texture)};
     private static String blockName = "Wood";
-
-    {
-        item = new BlockItem() {
-
-            @Override
-            public Texture getTexture() {
-                return texture;
-            }
-
-            @Override
-            public int getId() {
-                return Id;
-            }
-
-            @Override
-            public Block getBlock() {
-                return getNewBlock();
-            }
-
-        };
-    }
 
     public WoodBlock(){
     }
@@ -49,6 +28,11 @@ public class WoodBlock extends Block {
     @Override
     public Block getNewBlock(){
         return new WoodBlock();
+    }
+
+    @Override
+    public int getId() {
+        return Id;
     }
 
 }
