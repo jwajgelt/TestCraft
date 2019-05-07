@@ -1,5 +1,6 @@
 package testcraft.chunks;
 
+import testcraft.Block;
 import testcraft.ChunkLoader;
 import testcraft.WorldChunk;
 import testcraft.blocks.CoalBlock;
@@ -11,14 +12,45 @@ import java.util.Random;
 
 public class UndergroundChunk extends WorldChunk implements Serializable {
 
-    Random randy = new Random();
+    private Random randy = new Random();
 
     public UndergroundChunk(int xPos, int yPos, ChunkLoader chunkLoader){
         super(xPos, yPos);
         for(int i = 0; i < CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){
-                blocks[i][j] = (randy.nextBoolean()) ? (randy.nextBoolean() ? new DirtBlock() : new CoalBlock()) : randy.nextBoolean() ? new DirtBlock() : new CobblestoneBlock(randy.nextInt(10));
+                blocks[i][j] = new CobblestoneBlock(randy.nextInt(10));
             }
+        }
+
+        for(int i=0; i<CHUNK_SIZE; i++){
+            for(int j = 0; j < CHUNK_SIZE; j++){
+                if(randy.nextInt(15)==0){
+                    createCluster(i, j, 3);
+                }
+                if(randy.nextInt(25)==0){
+                    createCluster(i, j, 1);
+                }
+            }
+        }
+    }
+
+    private void createCluster(int i, int j, int c){
+        if(i>0)
+            blocks[i-1][j]=pickBlock(c);
+        if(i<CHUNK_SIZE-1)
+            blocks[i+1][j]=pickBlock(c);
+        blocks[i][j]=pickBlock(c);
+        if(j>0)
+            blocks[i][j-1]=pickBlock(c);
+        if(j<CHUNK_SIZE-1)
+            blocks[i][j+1]=pickBlock(c);
+    }
+
+    private Block pickBlock(int c){
+        switch (c){
+            case 1: return new DirtBlock();
+            case 3: return new CoalBlock();
+            default: return new CobblestoneBlock();
         }
     }
 }

@@ -53,6 +53,7 @@ class Player implements Serializable {
 
     void moveHorizontal(float delta){
         posX+=delta;
+        //System.out.println(speedMultiplierHorizontal);
     }
 
     void moveVertical(float delta){

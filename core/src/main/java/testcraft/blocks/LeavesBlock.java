@@ -6,7 +6,7 @@ import testcraft.Block;
 
 public class LeavesBlock extends Block {
 
-    private static Texture texture = new Texture("Leaves.png");
+    private static Texture texture = new Texture("LeavesBlock.png");
     private static int Id = 5;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Leaves Block";
