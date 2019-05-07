@@ -69,8 +69,9 @@ public class ChunkLoader {
      */
 
     private WorldChunk loadChunk(int chunkX, int chunkY){
+        String filename = "." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunkX + "_" + chunkY;
         try{
-            ObjectInputStream stream = new ObjectInputStream(new FileInputStream("." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunkX + "_" + chunkY));
+            InputStream stream = new FileInputStream(filename);
             System.out.println("RESTORING CHUNK (" + chunkX/CHUNK_SIZE + ", " + chunkY/CHUNK_SIZE + ")");
             return myReadMethod(stream);
         } catch (FileNotFoundException e){
@@ -94,7 +95,8 @@ public class ChunkLoader {
 
     private void saveChunk(WorldChunk chunk){
         try {
-            ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunk.chunkPosX + "_" + chunk.chunkPosY));
+            String filename = "." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunk.chunkPosX + "_" + chunk.chunkPosY;
+            OutputStream stream = new FileOutputStream(filename);
             myWriteMethod(stream, chunk); //FASTER SERIALIZATION
             // stream.writeObject(chunk);
         } catch (IOException e) {
@@ -134,16 +136,16 @@ public class ChunkLoader {
 
     public static WorldChunk myReadMethod(InputStream stream) throws Exception //because in.readObject throws Exception
     {
-        FSTObjectInput in = new FSTObjectInput(stream);
-        WorldChunk result = (WorldChunk)in.readObject(WorldChunk.class);
+        ObjectInputStream in = new ObjectInputStream(stream);
+        WorldChunk result = (WorldChunk)in.readObject();
         in.close();
         return result;
     }
 
     public static void myWriteMethod(OutputStream stream, WorldChunk toWrite) throws IOException //copy-pasted from tutorial: https://github.com/RuedigerMoeller/fast-serialization/wiki/Serialization
     {
-        FSTObjectOutput out = new FSTObjectOutput(stream);
-        out.writeObject(toWrite, WorldChunk.class);
+        ObjectOutputStream out = new ObjectOutputStream(stream);
+        out.writeObject(toWrite);
         out.close();
     }
 }
