@@ -18,17 +18,17 @@ public class UndergroundChunk extends WorldChunk implements Serializable {
         super(xPos, yPos);
         for(int i = 0; i < CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){
-                blocks[i][j] = new CobblestoneBlock(randy.nextInt(10));
+                blocks[i][j] = new DirtBlock();
             }
         }
 
         for(int i=0; i<CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){
+                if(randy.nextInt(5)==0){
+                    createCluster(i, j, 2);
+                }
                 if(randy.nextInt(15)==0){
                     createCluster(i, j, 3);
-                }
-                if(randy.nextInt(25)==0){
-                    createCluster(i, j, 1);
                 }
             }
         }
@@ -48,9 +48,9 @@ public class UndergroundChunk extends WorldChunk implements Serializable {
 
     private Block pickBlock(int c){
         switch (c){
-            case 1: return new DirtBlock();
+            case 2: return new CobblestoneBlock();
             case 3: return new CoalBlock();
-            default: return new CobblestoneBlock();
+            default: return new DirtBlock();
         }
     }
 }
