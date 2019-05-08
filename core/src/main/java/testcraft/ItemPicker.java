@@ -19,7 +19,7 @@ public class ItemPicker {
 
                 @Override
                 public Texture getTexture() {
-                    return block.getBlockSprite().getTexture();
+                    return block.getTexture();
                 }
 
                 @Override

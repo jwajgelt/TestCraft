@@ -4,11 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class GrassDirtBlock extends Block {
+public class GrassDirtBlock extends DirtBlock {
 
-    private static int Id = 8;
-    private static Texture texture = new Texture("GrassDirtBlock.png");
-    private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
+    //private static int Id = 8;
+    private static Texture grassTexture = new Texture("GrassDirtBlock.png");
+    private static Sprite[] blockSprites=new Sprite[]{new Sprite(grassTexture)};
     private static String blockName = "Grass Block";
 
     public GrassDirtBlock(){}
@@ -21,15 +21,5 @@ public class GrassDirtBlock extends Block {
     @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
-    }
-
-    @Override
-    public Block getNewBlock() {
-        return new GrassDirtBlock();
-    }
-
-    @Override
-    public int getId() {
-        return Id;
     }
 }

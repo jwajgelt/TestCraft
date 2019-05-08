@@ -24,6 +24,11 @@ public class GrassBlock extends Block {
     }
 
     @Override
+    public Texture getTexture() {
+        return texture;
+    }
+
+    @Override
     public Block getNewBlock() {
         return new GrassBlock();
     }

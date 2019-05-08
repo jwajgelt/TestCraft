@@ -2,8 +2,6 @@ package testcraft;
 
 // Handles loading and unloading of chunks for the World class
 
-import org.nustaq.serialization.FSTObjectInput;
-import org.nustaq.serialization.FSTObjectOutput;
 import testcraft.chunks.SkyChunk;
 import testcraft.chunks.SurfaceChunk;
 import testcraft.chunks.UndergroundChunk;
@@ -81,8 +79,8 @@ public class ChunkLoader {
             else if(chunkY/CHUNK_SIZE > 0) return new UndergroundChunk(chunkX, chunkY, this);
             else return new SkyChunk(chunkX, chunkY);
         } catch (RuntimeException e){
-            System.out.println("First load problem with deserialization, if this happens somewhere later down the line, uncomment the line below");
-            //e.printStackTrace();
+            //System.out.println("First load problem with deserialization, if this happens somewhere later down the line, uncomment the line below");
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

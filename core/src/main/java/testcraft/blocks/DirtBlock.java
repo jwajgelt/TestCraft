@@ -27,6 +27,11 @@ public class DirtBlock extends Block implements Serializable {
     }
 
     @Override
+    public Texture getTexture() {
+        return texture;
+    }
+
+    @Override
     public Block getNewBlock(){
         return new DirtBlock();
     }

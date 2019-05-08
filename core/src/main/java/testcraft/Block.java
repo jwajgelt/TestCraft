@@ -18,6 +18,8 @@ public abstract class Block implements Serializable {
 
     public abstract Sprite getBlockSprite();
 
+    public abstract Texture getTexture();
+
     @Override
     public String toString(){
         return blockName;

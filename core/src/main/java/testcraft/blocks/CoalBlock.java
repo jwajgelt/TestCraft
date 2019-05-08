@@ -28,6 +28,11 @@ public class CoalBlock extends Block implements Serializable {
     }
 
     @Override
+    public Texture getTexture() {
+        return texture;
+    }
+
+    @Override
     public Block getNewBlock(){
         return new CoalBlock();
     }
