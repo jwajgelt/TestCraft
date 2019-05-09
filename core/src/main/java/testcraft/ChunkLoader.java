@@ -142,7 +142,7 @@ public class ChunkLoader {
 
     static final FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
 
-    public void configuration()
+    public void configuration() //should make serialization faster a bit
     {
         conf.registerClass(CoalBlock.class, CobblestoneBlock.class, DirtBlock.class, GrassBlock.class, GrassDirtBlock.class,LeavesBlock.class,LogBlock.class,LogBlock.class,WoodBlock.class, Void.class);
     }
@@ -151,7 +151,7 @@ public class ChunkLoader {
     public  WorldChunk myReadMethod(InputStream stream) throws Exception //because in.readObject throws Exception
     {
 
-        FSTObjectInput in = new FSTObjectInput(stream);
+        FSTObjectInput in = new FSTObjectInput(stream,conf);
         WorldChunk result = (WorldChunk)in.readObject();
         in.close();
         return result;
@@ -159,7 +159,7 @@ public class ChunkLoader {
 
     public static void myWriteMethod(OutputStream stream, WorldChunk toWrite) throws IOException //copy-pasted from tutorial: https://github.com/RuedigerMoeller/fast-serialization/wiki/Serialization
     {
-        FSTObjectOutput out = new FSTObjectOutput(stream);
+        FSTObjectOutput out = new FSTObjectOutput(stream,conf);
         out.writeObject( toWrite );
         out.close();
     }
