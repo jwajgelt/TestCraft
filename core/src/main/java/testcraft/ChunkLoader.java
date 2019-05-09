@@ -2,6 +2,11 @@ package testcraft;
 
 // Handles loading and unloading of chunks for the World class
 
+import org.nustaq.serialization.FSTConfiguration;
+import org.nustaq.serialization.FSTObjectInput;
+import org.nustaq.serialization.FSTObjectOutput;
+import testcraft.blocks.*;
+import testcraft.blocks.Void;
 import testcraft.chunks.SkyChunk;
 import testcraft.chunks.SurfaceChunk;
 import testcraft.chunks.UndergroundChunk;
@@ -23,6 +28,7 @@ public class ChunkLoader {
     public final World world;
     public final List<WorldChunk> chunks;
 
+
     /*
     Holds chunks ready to be removed
      */
@@ -31,6 +37,7 @@ public class ChunkLoader {
     ChunkLoader(World world, List<WorldChunk> chunks){
         this.chunks = chunks;
         this.world = world;
+        configuration();
     }
 
     void loadChunks(float x, float y){
@@ -91,7 +98,7 @@ public class ChunkLoader {
     Saving chunks to disk
      */
 
-    private void saveChunk(WorldChunk chunk){
+    public void saveChunk(WorldChunk chunk){
         try {
             String filename = "." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunk.chunkPosX + "_" + chunk.chunkPosY;
             OutputStream stream = new FileOutputStream(filename);
@@ -132,9 +139,19 @@ public class ChunkLoader {
     Fast serialization and deserialization, courtesy of Jacek Salata
      */
 
-    public static WorldChunk myReadMethod(InputStream stream) throws Exception //because in.readObject throws Exception
+
+    static final FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
+
+    public void configuration()
     {
-        ObjectInputStream in = new ObjectInputStream(stream);
+        conf.registerClass(CoalBlock.class, CobblestoneBlock.class, DirtBlock.class, GrassBlock.class, GrassDirtBlock.class,LeavesBlock.class,LogBlock.class,LogBlock.class,WoodBlock.class, Void.class);
+    }
+
+
+    public  WorldChunk myReadMethod(InputStream stream) throws Exception //because in.readObject throws Exception
+    {
+
+        FSTObjectInput in = new FSTObjectInput(stream);
         WorldChunk result = (WorldChunk)in.readObject();
         in.close();
         return result;
@@ -142,8 +159,8 @@ public class ChunkLoader {
 
     public static void myWriteMethod(OutputStream stream, WorldChunk toWrite) throws IOException //copy-pasted from tutorial: https://github.com/RuedigerMoeller/fast-serialization/wiki/Serialization
     {
-        ObjectOutputStream out = new ObjectOutputStream(stream);
-        out.writeObject(toWrite);
+        FSTObjectOutput out = new FSTObjectOutput(stream);
+        out.writeObject( toWrite );
         out.close();
     }
 }
