@@ -80,7 +80,7 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
 
         for(int i=0; i<CHUNK_SIZE; i++){
             for(int j = surfaceLevel[i]+4; j < CHUNK_SIZE; j++){
-                if(randy.nextInt(15)==0){
+                if(randy.nextInt(CHUNK_SIZE-j+4)==0){
                     createCluster(i, j, 2);
                 }
                 if(randy.nextInt(25)==0){
