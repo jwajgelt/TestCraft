@@ -85,7 +85,7 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
-                B.getRectangle(a,b);
+                 B.getRectangle(a,b);
                 B.setBlock(a, b, c);
                 return;
             }

@@ -150,11 +150,9 @@ class Player implements Serializable {
         return equipment;
     }
 
-    public boolean isReachable (Rectangle A)
+    public boolean isReachable (Rectangle A,boolean isSolid)
     {
-        float epsilon=12; //because of problems with accuracy
-       // System.out.println(posX+" "+posY);
-     //  System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
+        float epsilon=1; //because of problems with accuracy
         Rectangle P= new Rectangle((posX*Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
         Rectangle Q = new Rectangle((posX-1)*Block.PIXEL_COUNT-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
         Rectangle R = new Rectangle(posX*Block.PIXEL_COUNT-WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
@@ -162,9 +160,7 @@ class Player implements Serializable {
         for (int i =0;i<3;i++)
                 tab[i]= new Rectangle(0,0,0,0);
        Intersector.intersectRectangles(A,P, tab[0]); Intersector.intersectRectangles(A,Q,tab[1]); Intersector.intersectRectangles(A,R,tab[2]);
-       // for (Rectangle r :tab)
-      //     System.out.println(r.area());
-        return (!(tab[0].area()>0) && (tab[1].area()>epsilon || tab[2].area()>epsilon ));
+        return ( ( (!(tab[0].area()>0)) || !isSolid)&& (tab[1].area()>epsilon || tab[2].area()>epsilon ));
     }
     void wypiszLewyDolnyRog()
     {

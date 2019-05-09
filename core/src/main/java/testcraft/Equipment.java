@@ -45,6 +45,11 @@ public class Equipment implements Serializable {
     void removeItem(int qua) {
         removeItem(chosenItem,qua);
     }
+    boolean isSolid ()
+    {
+        return (getItem()!=null && getItem() instanceof  BlockItem && ((BlockItem)getItem()).getBlock().isSolid());
+
+    }
 
     GameItem getItem() {
         return getItem(chosenItem);
