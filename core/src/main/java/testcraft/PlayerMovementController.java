@@ -19,10 +19,10 @@ public class PlayerMovementController {
         this.player=player;
     }
 
-    private float left=640-Block.PIXEL_COUNT/2+1;
-    private float right=640+Block.PIXEL_COUNT/2-1;
-    private float top=360-Block.PIXEL_COUNT+1;
-    private float bot=360+Block.PIXEL_COUNT-1;
+    private float left=640-Block.PIXEL_COUNT/2+1-0.01f;
+    private float right=640+Block.PIXEL_COUNT/2-1+0.01f;
+    private float top=360-Block.PIXEL_COUNT+1-0.01f;
+    private float bot=360+Block.PIXEL_COUNT-1+0.01f;
 
     private void moveHorizontal(float delta, float posX, float posY){
         player.stopHorizontal(1);
@@ -49,9 +49,10 @@ public class PlayerMovementController {
         float y3= floor(((top+2*bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
         float y4= floor(((2*top+bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
         if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
-                && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4))
-            player.moveVertical(player.getVerticalSpeed()*delta);
-        else{
+                && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)) {
+            player.moveVertical(player.getVerticalSpeed() * delta);
+            player.decreaseVerticalSpeed();
+        }else{
             if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) )
                 player.groundHim();
             player.stopVertical(12);
@@ -61,17 +62,7 @@ public class PlayerMovementController {
 
     void KeyboardInput(float delta, float posX, float posY){
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && player.isGrounded())
-        {
-            player.triggerJump();
-        }
-        player.decreaseVerticalSpeed();
-        moveVertical(delta, posX, posY);
-
         //move horizontal
-        posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
-        posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
-
         if(Gdx.input.isKeyPressed(Input.Keys.A))
         {
             player.decreaseHorizontalSpeed();
@@ -81,6 +72,16 @@ public class PlayerMovementController {
             player.increaseHorizontalSpeed();
         }
         moveHorizontal(delta, posX, posY);
+
+        posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
+        posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && player.isGrounded())
+        {
+            player.triggerJump();
+        }
+        player.decreaseVerticalSpeed();
+        moveVertical(delta, posX, posY);
 
     }
 
