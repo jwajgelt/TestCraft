@@ -17,8 +17,8 @@ class Player implements Serializable {
 
     private static final float PLAYER_SPEED_HORIZONTAL=2f;
     private static final int MAX_HORIZONTAL_MULTI=5;
-    private static final int MAX_VERTICAL_MULTI=15;
-    private static final float PLAYER_SPEED_VERTICAL = 1.5f;
+    private static final int MAX_VERTICAL_MULTI=30;
+    private static final float PLAYER_SPEED_VERTICAL = 0.75f;
 
 
     private int chooseBlock;

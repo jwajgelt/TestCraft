@@ -4,6 +4,7 @@ import testcraft.Block;
 import testcraft.ChunkLoader;
 import testcraft.WorldChunk;
 import testcraft.blocks.*;
+import testcraft.blocks.Void;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -80,7 +81,7 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
 
         for(int i=0; i<CHUNK_SIZE; i++){
             for(int j = surfaceLevel[i]+4; j < CHUNK_SIZE; j++){
-                if(randy.nextInt(CHUNK_SIZE-j+4)==0){
+                if(randy.nextInt(CHUNK_SIZE-j+2)==0){
                     createCluster(i, j, 2);
                 }
                 if(randy.nextInt(25)==0){
@@ -104,9 +105,10 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
 
     private Block pickBlock(int c){
         switch (c){
+            case 1: return new DirtBlock();
             case 2: return new CobblestoneBlock();
             case 3: return new CoalBlock();
-            default: return new DirtBlock();
+            default: return new Void();
         }
     }
 }
