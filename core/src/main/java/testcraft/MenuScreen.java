@@ -53,12 +53,6 @@ public abstract  class  MenuScreen extends TestCraftScreen{
         bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         bgRegion = new TextureRegion(bg);
         bgRegion.setRegion(0, 0, WIDTH, HEIGHT);
-        /*
-        Table root = new Table(skin);
-        root.setFillParent(true);
-        root.setBackground(skin.getTiledDrawable("dirt"));
-        stage.addActor(root);
-        */
     }
 
 

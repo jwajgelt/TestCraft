@@ -56,6 +56,7 @@ public class   InGameMenuScreen extends MenuScreen {
     {
         back=false;
         multiplexer.removeProcessor(stage);
+        screenManager.getGameScreen(InGameScreen.ID).initialise(gameContainer);
         screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
     }
 
