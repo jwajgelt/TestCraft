@@ -107,7 +107,8 @@ public class PlayerMovementController {
             screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
         if(Gdx.input.isKeyJustPressed(Input.Keys.C))
            player.wypiszLewyDolnyRog();
-
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S))
+            player.wypisz_speed();
 
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
