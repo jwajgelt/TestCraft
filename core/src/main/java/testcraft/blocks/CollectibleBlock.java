@@ -15,6 +15,11 @@ public abstract class CollectibleBlock extends Block implements Harvestable {
     }
 
     @Override
+    public int getQuantity() {
+        return 1;
+    }
+
+    @Override
     public boolean checkTool(GameItem tool) {
         return true;
     }

@@ -98,10 +98,10 @@ public class PlayerMovementController {
             {
                 Block block = world.findBlock(x, y);
                 if (block instanceof Destroyable) {
-                    world.setBlock(x, y, new Void());           //"destroy" the block, i.e. set to Void
-                }
-                if (block instanceof Harvestable && ((Harvestable)block).checkTool(player.getEquipment().getItem())) {
-                    player.getEquipment().addItem(((Harvestable)block).getItem(), 1);           //harvest the block, giving adding its item to the player
+                    world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void
+                    if (block instanceof Harvestable && ((Harvestable)block).checkTool(player.getEquipment().getItem())) {
+                        player.getEquipment().addItem(((Harvestable)block).getItem(), ((Harvestable)block).getQuantity());  //harvest the block, giving its item to the player
+                    }
                 }
             }
         }

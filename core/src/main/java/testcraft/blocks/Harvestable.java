@@ -7,8 +7,10 @@ import testcraft.GameItem;
 
 public interface Harvestable extends Destroyable {
 
-    public BlockItem getItem();
+    //return harvested item and its quantity
+    GameItem getItem();
+    int getQuantity();
 
-    public boolean checkTool(GameItem tool);      //to be changed to ToolItem once implemented
+    boolean checkTool(GameItem tool);      //to be changed to ToolItem once implemented
 
 }
