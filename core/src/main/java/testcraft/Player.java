@@ -17,13 +17,13 @@ class Player implements Serializable {
     private  static  final float WIDTH=PIXEL_COUNT-2;
 
 
-    private static final float PLAYER_SPEED_HORIZONTAL=2f;
+    private static final float PLAYER_SPEED_HORIZONTAL=2.25f;
     private static final int MAX_HORIZONTAL_MULTI=5;
-    private static final int MAX_VERTICAL_MULTI=15;
-    private static final float PLAYER_SPEED_VERTICAL = 1.5f;
+    private static final int MAX_VERTICAL_MULTI=25;
+    private static final float PLAYER_SPEED_VERTICAL = 1f;
 
 
-    private int chooseBlock;
+    //private int chooseBlock; //to chyba juz nie jest potrzebne
 
     static private Sprite playerSprite;
     static{
@@ -49,7 +49,7 @@ class Player implements Serializable {
         speedMultiplierVertical=0;
 
         grounded=true;
-        chooseBlock=1;
+        //chooseBlock=1;
         equipment= new Equipment();
     }
 
@@ -154,10 +154,10 @@ class Player implements Serializable {
 
     public boolean isReachable (Rectangle A,boolean isSolid)
     {
-        float epsilon=1; //because of problems with accuracy
-        Rectangle P= new Rectangle((posX* Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
-        Rectangle Q = new Rectangle((posX-1)* Block.PIXEL_COUNT -WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
-        Rectangle R = new Rectangle(posX* Block.PIXEL_COUNT -WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
+        float epsilon=1; //because of problems with accuracy, equals to one square pixel
+        Rectangle P= new Rectangle((posX*Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
+        Rectangle Q = new Rectangle((posX-1)*Block.PIXEL_COUNT-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
+        Rectangle R = new Rectangle(posX*Block.PIXEL_COUNT-WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
         Rectangle[] tab = new Rectangle[3];
         for (int i =0;i<3;i++)
                 tab[i]= new Rectangle(0,0,0,0);
@@ -166,6 +166,10 @@ class Player implements Serializable {
     }
     void wypiszLewyDolnyRog()
     {
-        System.out.println("POZYCJA: "+((posX* Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
+        System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
+    }
+    void wypisz_speed ()
+    {
+        System.out.println(getVerticalSpeed()+" "+getHorizontalSpeed());
     }
 }

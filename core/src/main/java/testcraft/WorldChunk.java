@@ -100,12 +100,22 @@ public abstract class WorldChunk implements Serializable {
                         else if(blocks[i][j-1] instanceof Void && new Random().nextInt(500) == 0) blocks[i][j-1] = new GrassBlock();
                     }
                 } else if(block instanceof DirtBlock){
-                    if(j > 0 && !blocks[i][j-1].isSolid() && new Random().nextInt(20) == 0) blocks[i][j] = new GrassDirtBlock();
+                    if(checkGrass(i-1, j) || checkGrass(i+1, j)){
+                        if(j > 0 && !blocks[i][j-1].isSolid() && new Random().nextInt(20)==0) blocks[i][j] = new GrassDirtBlock();
+                    }
                 } else if(block instanceof GrassBlock){
                     if(j < CHUNK_SIZE-1 && !blocks[i][j+1].isSolid()) blocks[i][j] = new Void();
                 }
             }
         }
+    }
+
+    private boolean checkGrass(int i, int j){
+        if(i<0 || i >=CHUNK_SIZE)
+            return false;
+        if(j<1 || j >=CHUNK_SIZE-1)
+            return false;
+        return blocks[i][j] instanceof GrassDirtBlock || blocks[i][j - 1] instanceof GrassDirtBlock || blocks[i][j + 1] instanceof GrassDirtBlock;
     }
 
 }
