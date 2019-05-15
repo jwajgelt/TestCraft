@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class GrassBlock extends Block {
+public class GrassBlock extends Block implements Destroyable {
 
     private static int Id = 9;
     private static Texture texture = new Texture("GrassyBlock.png");
@@ -36,5 +36,10 @@ public class GrassBlock extends Block {
     @Override
     public int getId() {
         return Id;
+    }
+
+    @Override
+    public float getDurability() {
+        return 0;
     }
 }

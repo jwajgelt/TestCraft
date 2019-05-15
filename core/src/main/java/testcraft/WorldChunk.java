@@ -66,17 +66,22 @@ public abstract class WorldChunk implements Serializable {
         return new Rectangle((chunkPosX+a)*Block.PIXEL_COUNT,(chunkPosY+b)*Block.PIXEL_COUNT, 1*Block.PIXEL_COUNT,1 *Block.PIXEL_COUNT);
     }
 
-    Block setVoid (int a, int b)
+    //I'd say unnecessary - implemented getBlock to get blocks[x][y], can then be set using setBlock to 'new Void()'    ~Wajgelt
+    /*Block setVoid (int a, int b)
     {
         Block X= blocks[a][b];
         blocks[a][b]=new Void();
         return X;
+    }*/
+
+    //Function to get block from chunk by its chunk coordinates
+    Block getBlock(int x, int y){
+        return blocks[x][y];
     }
 
     void setBlock(int a, int b, Block c){
         if(c!=null)
             blocks[a][b]=c;
-
     }
 
     boolean isBlockSolid(int a, int b){

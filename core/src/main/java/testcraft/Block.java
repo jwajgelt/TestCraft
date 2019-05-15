@@ -25,10 +25,6 @@ public abstract class Block implements Serializable {
         return blockName;
     }
 
-    public BlockItem getItem(){
-        return ItemPicker.getBlockItem(this);
-    }
-
     public abstract Block getNewBlock();
 
     public abstract int getId();

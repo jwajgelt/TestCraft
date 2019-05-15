@@ -8,9 +8,11 @@ import org.mini2Dx.core.graphics.Sprite;
 
 import java.io.Serializable;
 
+import static testcraft.Block.PIXEL_COUNT;
+
+
 class Player implements Serializable {
 
-    private static final float PIXEL_COUNT = 16f;
     private  static  final float HEIGHT=PIXEL_COUNT*2-2;
     private  static  final float WIDTH=PIXEL_COUNT-2;
 
@@ -153,9 +155,9 @@ class Player implements Serializable {
     public boolean isReachable (Rectangle A,boolean isSolid)
     {
         float epsilon=1; //because of problems with accuracy
-        Rectangle P= new Rectangle((posX*Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
-        Rectangle Q = new Rectangle((posX-1)*Block.PIXEL_COUNT-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
-        Rectangle R = new Rectangle(posX*Block.PIXEL_COUNT-WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
+        Rectangle P= new Rectangle((posX* Block.PIXEL_COUNT)-WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH,HEIGHT);
+        Rectangle Q = new Rectangle((posX-1)* Block.PIXEL_COUNT -WIDTH/2, posY*PIXEL_COUNT-HEIGHT/2, WIDTH+2*PIXEL_COUNT,HEIGHT);
+        Rectangle R = new Rectangle(posX* Block.PIXEL_COUNT -WIDTH/2, (posY-1)*PIXEL_COUNT-HEIGHT/2,WIDTH,HEIGHT+2*PIXEL_COUNT);
         Rectangle[] tab = new Rectangle[3];
         for (int i =0;i<3;i++)
                 tab[i]= new Rectangle(0,0,0,0);
@@ -164,6 +166,6 @@ class Player implements Serializable {
     }
     void wypiszLewyDolnyRog()
     {
-        System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
+        System.out.println("POZYCJA: "+((posX* Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
     }
 }

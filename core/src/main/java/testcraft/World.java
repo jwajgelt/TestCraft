@@ -2,6 +2,8 @@ package testcraft;
 
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
+import testcraft.blocks.Destroyable;
+import testcraft.blocks.Void;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -100,8 +102,9 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
-               return B.setVoid(a,b);
-
+                Block result = B.getBlock(a, b);
+                if(result instanceof Destroyable) B.setBlock(a, b, new Void());
+                return result;
             }
         }
         System.out.println("Didn't find the chunk. deleting");

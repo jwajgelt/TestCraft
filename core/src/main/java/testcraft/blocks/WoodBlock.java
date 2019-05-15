@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class WoodBlock extends Block {
+public class WoodBlock extends CollectibleBlock {
 
     private static int Id = 4;
     private static Texture texture = new Texture("WoodBlock.png");
@@ -39,4 +39,8 @@ public class WoodBlock extends Block {
         return Id;
     }
 
+    @Override
+    public float getDurability() {
+        return 0;
+    }
 }

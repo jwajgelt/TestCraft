@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
-public class LogBlock extends Block {
+public class LogBlock extends CollectibleBlock {
 
     private static Texture texture = new Texture("LogBlock.png");
     private static int Id = 6;
@@ -36,5 +36,10 @@ public class LogBlock extends Block {
     @Override
     public int getId() {
         return Id;
+    }
+
+    @Override
+    public float getDurability() {
+        return 0;
     }
 }

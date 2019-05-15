@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.blocks.Harvestable;
 import testcraft.blocks.Void;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
@@ -94,8 +95,9 @@ public class PlayerMovementController {
             if(player.isReachable(world.getRectangle((int)x,(int)y),world.isBlockSolid((int)x,(int)y)) || Gdx.input.isKeyPressed(Input.Keys.G))
             {
                 Block block = world.findBlock((int) x, (int) y);
-                if (block != null && !(block instanceof Void))
-                    player.getEquipment().addItem(block.getItem(), 1);
+                if (block instanceof Harvestable) {
+                    player.getEquipment().addItem(((Harvestable)block).getItem(), 1);
+                }
             }
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

@@ -6,7 +6,7 @@ import testcraft.Block;
 
 import java.io.Serializable;
 
-public class CobblestoneBlock extends Block implements Serializable {
+public class CobblestoneBlock extends CollectibleBlock implements Serializable {
 
     private static int Id = 2;
     private static Texture texture = new Texture("CobblestoneBlock1.png");
@@ -48,5 +48,10 @@ public class CobblestoneBlock extends Block implements Serializable {
     @Override
     public int getId() {
         return Id;
+    }
+
+    @Override
+    public float getDurability() {
+        return 0;
     }
 }

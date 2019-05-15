@@ -1,6 +1,7 @@
 package testcraft;
 
 import com.badlogic.gdx.graphics.Texture;
+import testcraft.blocks.CollectibleBlock;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,7 +13,7 @@ public class ItemPicker {
 
     static private Map<Integer, GameItem> itemMap = new TreeMap<>();
 
-    static public BlockItem getBlockItem(final Block block){
+    static public BlockItem getBlockItem(final CollectibleBlock block){
         final int id = block.getId();
         if(!itemMap.containsKey(id) || itemMap.get(id) == null)
             itemMap.put(id, new BlockItem(){
