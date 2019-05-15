@@ -15,15 +15,13 @@ class Player implements Serializable {
 
     private  static  final float HEIGHT=PIXEL_COUNT*2-2;
     private  static  final float WIDTH=PIXEL_COUNT-2;
+    public static float PLAYER_HP=100;
 
 
     private static final float PLAYER_SPEED_HORIZONTAL=2.25f;
     private static final int MAX_HORIZONTAL_MULTI=5;
     private static final int MAX_VERTICAL_MULTI=25;
     private static final float PLAYER_SPEED_VERTICAL = 1f;
-
-
-    //private int chooseBlock; //to chyba juz nie jest potrzebne
 
     static private Sprite playerSprite;
     static{
@@ -39,6 +37,7 @@ class Player implements Serializable {
     private int speedMultiplierVertical;
 
     private Equipment equipment;
+    protected Hp hp = new Hp(PLAYER_HP);
 
     Player(float posX, float posY){
         this.posX=posX;
@@ -49,7 +48,6 @@ class Player implements Serializable {
         speedMultiplierVertical=0;
 
         grounded=true;
-        //chooseBlock=1;
         equipment= new Equipment();
     }
 
@@ -118,6 +116,8 @@ class Player implements Serializable {
     float getVerticalSpeed(){
         return speedMultiplierVertical*PLAYER_SPEED_VERTICAL;
     }
+    Hp getHp()
+    {return  hp;}
 
 
     Block getChooseBlock(){

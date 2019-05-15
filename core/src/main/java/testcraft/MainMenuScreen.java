@@ -20,7 +20,6 @@ public class    MainMenuScreen extends MenuScreen {
     public static int ID = 2;
     boolean load=false;
 
-
     @Override
     public void initialise(GameContainer gc) {
         super.initialise(gc);

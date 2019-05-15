@@ -19,6 +19,7 @@ public class TestCraftGame extends ScreenBasedGame {
         addScreen(new SaveGameScreen());
         addScreen(new LoadGameScreen());
         addScreen(new EquipmentScreen());
+        addScreen(new GameOverScreen());
 
     }
 
