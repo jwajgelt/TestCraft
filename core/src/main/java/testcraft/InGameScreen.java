@@ -43,7 +43,7 @@ public class InGameScreen extends TestCraftScreen {
         healthBar.setValue(player.getHp().getHealthPoints());
         if(player.getHp().isDead())
            screenManager.enterGameScreen(GameOverScreen.ID, new NullTransition(), new NullTransition());
-     //  player.getHp().change(-1f); //<- testing if player will die
+      player.getHp().change(-0.1f); //<- testing if player will die
     }
 
     @Override
