@@ -124,7 +124,7 @@ class Player implements Serializable {
         GameItem gameItem=equipment.getItem();
         if(gameItem instanceof  BlockItem) {
             equipment.removeItem(1);
-            //System.out.println(equipment.getQuantity(equipment.getChosenItemn()));
+            //System.out.println(equipment.getQuantity(equipment.getChosenItem()));
             return ((BlockItem)gameItem).getBlock();
         }
         return null;

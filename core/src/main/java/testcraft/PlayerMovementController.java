@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.blocks.Destroyable;
 import testcraft.blocks.Harvestable;
 import testcraft.blocks.Void;
 
@@ -90,14 +91,17 @@ public class PlayerMovementController {
 
 
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
-            float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
+            int x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
+            int y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
 
-            if(player.isReachable(world.getRectangle((int)x,(int)y),world.isBlockSolid((int)x,(int)y)) || Gdx.input.isKeyPressed(Input.Keys.G))
+            if(player.isReachable(world.getRectangle(x, y),world.isBlockSolid(x, y)) || Gdx.input.isKeyPressed(Input.Keys.G))
             {
-                Block block = world.findBlock((int) x, (int) y);
-                if (block instanceof Harvestable) {
-                    player.getEquipment().addItem(((Harvestable)block).getItem(), 1);
+                Block block = world.findBlock(x, y);
+                if (block instanceof Destroyable) {
+                    world.setBlock(x, y, new Void());           //"destroy" the block, i.e. set to Void
+                }
+                if (block instanceof Harvestable && ((Harvestable)block).checkTool(player.getEquipment().getItem())) {
+                    player.getEquipment().addItem(((Harvestable)block).getItem(), 1);           //harvest the block, giving adding its item to the player
                 }
             }
         }

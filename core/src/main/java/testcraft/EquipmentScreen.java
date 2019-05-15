@@ -125,7 +125,7 @@ public class EquipmentScreen extends TestCraftScreen {
         {
             label.setVisible(true);
             itemImage.setVisible(true);
-            setBackground( (number==equipment.getChosenItemn()) ? skin.getDrawable("button-hover") : skin.getDrawable("cell"));
+            setBackground( (number==equipment.getChosenItem()) ? skin.getDrawable("button-hover") : skin.getDrawable("cell"));
             if(!equipment.available(number))
             {
                 itemImage.setVisible(false);

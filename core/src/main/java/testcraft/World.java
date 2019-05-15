@@ -87,7 +87,7 @@ class World {
             {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
-                 B.getRectangle(a,b);
+                B.getRectangle(a,b);
                 B.setBlock(a, b, c);
                 return;
             }
@@ -103,7 +103,7 @@ class World {
                 int a=x-B.chunkPosX; //block coordinates in the chunk
                 int b=y-B.chunkPosY; //block coordinates in the chunk
                 Block result = B.getBlock(a, b);
-                if(result instanceof Destroyable) B.setBlock(a, b, new Void());
+                //if(result instanceof Destroyable) B.setBlock(a, b, new Void());                             //findBlock probably shouldn't be used for destructing the block? Maybe use setBlock instead?
                 return result;
             }
         }

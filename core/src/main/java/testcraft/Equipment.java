@@ -102,7 +102,7 @@ public class Equipment implements Serializable {
         return quantity[pos];
     }
 
-    int getChosenItemn() {
+    int getChosenItem() {
         return chosenItem;
     }
 
