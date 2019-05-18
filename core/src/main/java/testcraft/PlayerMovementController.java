@@ -108,6 +108,7 @@ public class PlayerMovementController {
                 }
             }
         }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());
             world.saveToDisk();
