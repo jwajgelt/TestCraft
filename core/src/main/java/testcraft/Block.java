@@ -14,6 +14,8 @@ public abstract class Block implements Serializable {
     static protected Sprite[] blockSprites;
     static String blockName;
 
+    public void update(){}
+
     public abstract boolean isSolid();
 
     public abstract Sprite getBlockSprite();

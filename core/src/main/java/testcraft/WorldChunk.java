@@ -91,6 +91,7 @@ public abstract class WorldChunk implements Serializable {
         //not pretty, should figure something better out
         for(int i = 0; i < CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){
+                blocks[i][j].update();
                 Block block = blocks[i][j];
                 if(block instanceof GrassDirtBlock){
                     if(j > 0){
@@ -103,6 +104,7 @@ public abstract class WorldChunk implements Serializable {
                     }
                 } else if(block instanceof GrassBlock){
                     if(j < CHUNK_SIZE-1 && !blocks[i][j+1].isSolid()) blocks[i][j] = new Void();
+
                 }
             }
         }
