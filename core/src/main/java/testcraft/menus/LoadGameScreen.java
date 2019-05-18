@@ -1,4 +1,4 @@
-package testcraft;
+package testcraft.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,6 +9,7 @@ import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.InGameScreen;
 
 import static testcraft.TestCraftGame.multiplexer;
 

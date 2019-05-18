@@ -1,4 +1,4 @@
-package testcraft;
+package testcraft.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +11,7 @@ import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.TextureRegion;
 import org.mini2Dx.core.screen.ScreenManager;
+import testcraft.TestCraftScreen;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.Calendar;
 
 
 
-public abstract  class  MenuScreen extends TestCraftScreen{
+public abstract  class  MenuScreen extends TestCraftScreen {
 
     public boolean back=false;
     public Texture bg;

@@ -1,24 +1,25 @@
-package testcraft;
+package testcraft.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import org.apache.commons.io.FileUtils;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
-
-import java.io.File;
-import java.io.IOException;
+import testcraft.InGameScreen;
 
 import static testcraft.TestCraftGame.multiplexer;
 
 
-public class    MainMenuScreen extends MenuScreen {
-    public static int ID = 2;
-    boolean load=false;
+
+public class   InGameMenuScreen extends MenuScreen {
+
+    public static int ID = 3;
+    private  boolean toMainMenu=false;
+    private  boolean save=false;
+
 
     @Override
     public void initialise(GameContainer gc) {
@@ -29,59 +30,63 @@ public class    MainMenuScreen extends MenuScreen {
             public void clicked(InputEvent event, float x, float y) {
                 back=true;
             }
-        },"NEW GAME");
-        addButton(300,new ClickListener(){
+        },"RESUME");
+        addButton( 300, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                load=true;
+                save=true;
             }
-        },"LOAD GAME");
-        addButton(200, new ClickListener() {
+        }, "SAVE");
+        addButton(200,new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                toMainMenu=true;
+            }
+        },"TO MENU");
+        addButton( 100, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
             }
         }, "QUIT");
-        Label label=new Label("TESTCR=FT", skin, "title");
-        label.setX((WIDTH-label.getPrefWidth())/2);
-        label.setY(HEIGHT-200);
-        stage.addActor(label);
     }
+
+
     @Override
-    public void goBack (ScreenManager screenManager, GameContainer gc)
+    public void goBack (ScreenManager screenManager, GameContainer gameContainer)
     {
         back=false;
-        File dest = new File("Default");
-        FileUtils.deleteQuietly(dest);
-        try {
-            FileUtils.forceMkdir(dest);
-        }
-        catch (IOException e)
-        {
-           e.printStackTrace();
-        }
-        screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
         multiplexer.removeProcessor(stage);
+        screenManager.getGameScreen(InGameScreen.ID).initialise(gameContainer);
         screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
     }
 
-    public void goLoad (ScreenManager screenManager)
+    public void goToMainMenu(ScreenManager screenManager)
     {
-        load=false;
+        toMainMenu=false;
         multiplexer.removeProcessor(stage);
-        screenManager.enterGameScreen(LoadGameScreen.ID, new NullTransition(), new NullTransition());
+        screenManager.enterGameScreen(MainMenuScreen.ID, new NullTransition(), new NullTransition());
     }
-
+    void goSave(ScreenManager screenManager)
+    {
+        save=false;
+        multiplexer.removeProcessor(stage);
+        screenManager.enterGameScreen(SaveGameScreen.ID, new NullTransition(), new NullTransition());
+    }
 
     @Override
     public void update(GameContainer gc,  ScreenManager screenManager, float delta) {
+
         if(!multiplexer.getProcessors().contains(stage,false))
             multiplexer.addProcessor(stage);
 
-        if(back)
-                goBack(screenManager,gc);
-        if(load)
-            goLoad(screenManager);
+        if(back || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            goBack(screenManager,gc);
+        if(toMainMenu)
+            goToMainMenu(screenManager);
+        if(save)
+            goSave(screenManager);
+
     }
 
     @Override

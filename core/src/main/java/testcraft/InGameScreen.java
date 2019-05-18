@@ -5,10 +5,11 @@ import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.menus.GameOverScreen;
 
 
 public class InGameScreen extends TestCraftScreen {
-    static int ID = 1;
+    public static int ID = 1;
 
 
     private World world;

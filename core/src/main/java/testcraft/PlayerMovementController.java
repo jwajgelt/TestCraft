@@ -7,6 +7,7 @@ import org.mini2Dx.core.screen.transition.NullTransition;
 import testcraft.blocks.Destroyable;
 import testcraft.blocks.Harvestable;
 import testcraft.blocks.Void;
+import testcraft.menus.InGameMenuScreen;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
 import static testcraft.InGameScreen.HEIGHT;

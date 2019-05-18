@@ -11,15 +11,15 @@ import org.mini2Dx.core.screen.BasicGameScreen;
 public abstract class TestCraftScreen extends BasicGameScreen {
 
 
-    static final float WIDTH = 1280; //copy-pasted from InGameScreen
-    static final float HEIGHT = 720;
-    float SCREEN_WIDTH = 1280;
-    float SCREEN_HEIGHT = 720;
-    float scale = 1f;
-    float transX = 0f;
-    float transY = 0f;
-    protected  static Skin skin;
-    protected Stage stage;
+    public static final float WIDTH = 1280; //copy-pasted from InGameScreen
+   public static final float HEIGHT = 720;
+    public float SCREEN_WIDTH = 1280;
+    public  float SCREEN_HEIGHT = 720;
+    public float scale = 1f;
+    public float transX = 0f;
+    public float transY = 0f;
+    public  static Skin skin;
+    public Stage stage;
 
     @Override
     public void initialise(GameContainer gc) {

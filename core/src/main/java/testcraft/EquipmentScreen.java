@@ -14,6 +14,7 @@ import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.menus.InGameMenuScreen;
 
 import java.util.LinkedList;
 

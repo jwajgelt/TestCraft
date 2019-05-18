@@ -1,69 +1,76 @@
-package testcraft;
+package testcraft.menus;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import org.apache.commons.io.FileUtils;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
-import org.mini2Dx.core.graphics.TextureRegion;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
+import testcraft.InGameScreen;
 
-import java.awt.font.ImageGraphicAttribute;
+import java.io.File;
+import java.io.IOException;
 
 import static testcraft.TestCraftGame.multiplexer;
 
-public class GameOverScreen extends   MenuScreen {
 
-    public static int ID = 7;
-    Texture blood;
+public class    MainMenuScreen extends MenuScreen {
+    public static int ID = 2;
+    boolean load=false;
 
     @Override
     public void initialise(GameContainer gc) {
         super.initialise(gc);
 
-        blood = new Texture(Gdx.files.absolute("assets/blood.png"));
-        Image a = new Image(blood);
-        a.setSize(WIDTH,HEIGHT);
-
-        System.out.println(a.getHeight()+" "+a.getWidth());
-
-        a.setPosition((WIDTH-a.getWidth())/2,(HEIGHT-a.getHeight())/2);
-        stage.addActor(a);
-
-
-        addButton( 150, new ClickListener() {
+        addButton(400,new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 back=true;
             }
-        }, "TO MENU");
-        addButton(50, new ClickListener() {
+        },"NEW GAME");
+        addButton(300,new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                load=true;
+            }
+        },"LOAD GAME");
+        addButton(200, new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
             }
         }, "QUIT");
-        Label label=new Label("GAME OVER", skin, "title");
+        Label label=new Label("TESTCR=FT", skin, "title");
         label.setX((WIDTH-label.getPrefWidth())/2);
-        label.setY(HEIGHT-400);
+        label.setY(HEIGHT-200);
         stage.addActor(label);
-
-
     }
-
     @Override
     public void goBack (ScreenManager screenManager, GameContainer gc)
     {
-        screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
         back=false;
+        File dest = new File("Default");
+        FileUtils.deleteQuietly(dest);
+        try {
+            FileUtils.forceMkdir(dest);
+        }
+        catch (IOException e)
+        {
+           e.printStackTrace();
+        }
+        screenManager.getGameScreen(InGameScreen.ID).initialise(gc);
         multiplexer.removeProcessor(stage);
-        screenManager.enterGameScreen(MainMenuScreen.ID, new NullTransition(), new NullTransition());
+        screenManager.enterGameScreen(InGameScreen.ID, new NullTransition(), new NullTransition());
+    }
+
+    public void goLoad (ScreenManager screenManager)
+    {
+        load=false;
+        multiplexer.removeProcessor(stage);
+        screenManager.enterGameScreen(LoadGameScreen.ID, new NullTransition(), new NullTransition());
     }
 
 
@@ -71,19 +78,19 @@ public class GameOverScreen extends   MenuScreen {
     public void update(GameContainer gc,  ScreenManager screenManager, float delta) {
         if(!multiplexer.getProcessors().contains(stage,false))
             multiplexer.addProcessor(stage);
+
         if(back)
-            goBack(screenManager,gc);
+                goBack(screenManager,gc);
+        if(load)
+            goLoad(screenManager);
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
         super.render(gc,g);
     }
-
     @Override
     public int getId(){
         return ID;
     }
-
-
 }
