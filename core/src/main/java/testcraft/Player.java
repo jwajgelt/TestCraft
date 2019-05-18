@@ -82,7 +82,14 @@ class Player implements Serializable {
     }
 
     void stopHorizontal(int a){
-
+        if(speedMultiplierHorizontal<0){
+            if(!playerSprite.isFlipX())
+                playerSprite.setFlip(true, false);
+        }
+        if(speedMultiplierHorizontal>0){
+            if(playerSprite.isFlipX())
+                playerSprite.setFlip(false, false);
+        }
         while(a>0) {
             if(speedMultiplierHorizontal==0)
                 return;

@@ -69,12 +69,10 @@ public class PlayerMovementController {
     void KeyboardInput(float delta, float posX, float posY){
 
         //move horizontal
-        if(Gdx.input.isKeyPressed(Input.Keys.A))
-        {
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             player.decreaseHorizontalSpeed();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.D))
-        {
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.increaseHorizontalSpeed();
         }
         moveHorizontal(delta, posX, posY);
