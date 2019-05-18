@@ -8,6 +8,7 @@ import org.mini2Dx.core.graphics.Sprite;
 
 import java.io.Serializable;
 
+import static com.badlogic.gdx.math.MathUtils.round;
 import static testcraft.Block.PIXEL_COUNT;
 
 
@@ -58,7 +59,7 @@ class Player implements Serializable {
 
     void moveVertical(float delta){
         posY+=delta;
-        //System.out.println(speedMultiplierVertical);      //Co to jest za spam w ogóle ~Juliusz
+        //System.out.println(speedMultiplierVertical);
     }
 
     void triggerJump(){
@@ -101,20 +102,17 @@ class Player implements Serializable {
     }
 
     void stopVertical(int a){
-        while(a>0) {
-            if(speedMultiplierVertical==0)
-                return;
-            if (speedMultiplierVertical < 0)
-                speedMultiplierVertical++;
-            if (speedMultiplierVertical > 0) {
-                speedMultiplierVertical--;
-            }
-            a--;
-        }
+        speedMultiplierVertical/=5;
     }
 
     float getVerticalSpeed(){
         return speedMultiplierVertical*PLAYER_SPEED_VERTICAL;
+    }
+
+    boolean isVerticalSpeedCloseZero() {
+        if(speedMultiplierVertical<2 && speedMultiplierVertical>-2)
+            return true;
+        return false;
     }
 
     Hp getHp() {
@@ -142,6 +140,15 @@ class Player implements Serializable {
 
     void groundHim(){
         grounded=true;
+    }
+
+    void lowerHp(float delta){
+        int damage=round(delta);
+        if(damage<0 || damage >0)
+            System.out.println(damage);
+        damage-=4;
+        if(damage>0)
+            hp.change(-5*damage);
     }
 
     boolean isGrounded(){return (grounded && speedMultiplierVertical==0);}

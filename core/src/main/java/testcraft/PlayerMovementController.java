@@ -20,7 +20,7 @@ public class PlayerMovementController {
         this.world=world;
         this.player=player;
     }
-
+    private float fallStart=360-Block.PIXEL_COUNT;
     private float left=640-Block.PIXEL_COUNT/2+1-0.01f;
     private float right=640+Block.PIXEL_COUNT/2-1+0.01f;
     private float top=360-Block.PIXEL_COUNT+1-0.01f;
@@ -55,11 +55,15 @@ public class PlayerMovementController {
             player.moveVertical(player.getVerticalSpeed() * delta);
             player.decreaseVerticalSpeed();
         }else{
-            if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) )
-                player.groundHim();
             player.stopVertical(12);
+            if(world.isBlockSolid((int)x1, (int)y1) || world.isBlockSolid((int)x2, (int)y1) ) {
+                player.groundHim();
+            }
         }
-
+        if(player.isVerticalSpeedCloseZero()){
+            player.lowerHp(player.getY() - HEIGHT/2/Block.PIXEL_COUNT - fallStart);
+            fallStart=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
+        }
     }
 
     void KeyboardInput(float delta, float posX, float posY){
