@@ -33,17 +33,22 @@ public class InGameScreen extends TestCraftScreen {
     @Override
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
 
+        //player updates
+        healthBar.setValue(player.getHp().getHealthPoints());
 
         playerMovementController.KeyboardInput(delta, posX, posY);
         playerMovementController.MouseInputAndMenus(screenManager, posX, posY, transX, transY, scale);
         posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;
         posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
+
+        //world updates
         world.setPos((int)posX, (int)posY);
         world.update(delta);
-        healthBar.setValue(player.getHp().getHealthPoints());
+
+        //check for game over screen
         if(player.getHp().isDead())
            screenManager.enterGameScreen(GameOverScreen.ID, new NullTransition(), new NullTransition());
-      player.getHp().change(-0.1f); //<- testing if player will die
+
     }
 
     @Override
@@ -65,12 +70,11 @@ public class InGameScreen extends TestCraftScreen {
         return ID;
     }
 
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return player;
     }
-    void addHealthBar ()
-    {
+
+    private void addHealthBar () {
         ProgressBar.ProgressBarStyle style = skin.get("health", ProgressBar.ProgressBarStyle.class);
         skin.getTiledDrawable("heart-bg").setMinWidth(0.0f);
         style.background = skin.getTiledDrawable("heart-bg");

@@ -3,9 +3,7 @@ package testcraft;
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
-import testcraft.blocks.DirtBlock;
-import testcraft.blocks.GrassBlock;
-import testcraft.blocks.GrassDirtBlock;
+import testcraft.blocks.*;
 import testcraft.blocks.Void;
 
 import java.io.Serializable;
@@ -116,6 +114,27 @@ public abstract class WorldChunk implements Serializable {
         if(j<1 || j >=CHUNK_SIZE-1)
             return false;
         return blocks[i][j] instanceof GrassDirtBlock || blocks[i][j - 1] instanceof GrassDirtBlock || blocks[i][j + 1] instanceof GrassDirtBlock;
+    }
+
+    protected void createCluster(int i, int j, int c){
+        if(i>0)
+            blocks[i-1][j]=pickBlock(c);
+        if(i<CHUNK_SIZE-1)
+            blocks[i+1][j]=pickBlock(c);
+        blocks[i][j]=pickBlock(c);
+        if(j>0)
+            blocks[i][j-1]=pickBlock(c);
+        if(j<CHUNK_SIZE-1)
+            blocks[i][j+1]=pickBlock(c);
+    }
+
+    private Block pickBlock(int c){
+        switch (c){
+            case 1: return new DirtBlock();
+            case 2: return new CobblestoneBlock();
+            case 3: return new CoalBlock();
+            default: return new Void();
+        }
     }
 
 }

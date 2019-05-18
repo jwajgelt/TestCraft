@@ -1,10 +1,8 @@
 package testcraft.chunks;
 
-import testcraft.Block;
 import testcraft.ChunkLoader;
 import testcraft.WorldChunk;
 import testcraft.blocks.*;
-import testcraft.blocks.Void;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -88,27 +86,6 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
                     createCluster(i, j, 3);
                 }
             }
-        }
-    }
-
-    private void createCluster(int i, int j, int c){
-        if(i>0)
-            blocks[i-1][j]=pickBlock(c);
-        if(i<CHUNK_SIZE-1)
-            blocks[i+1][j]=pickBlock(c);
-        blocks[i][j]=pickBlock(c);
-        if(j>0)
-            blocks[i][j-1]=pickBlock(c);
-        if(j<CHUNK_SIZE-1)
-            blocks[i][j+1]=pickBlock(c);
-    }
-
-    private Block pickBlock(int c){
-        switch (c){
-            case 1: return new DirtBlock();
-            case 2: return new CobblestoneBlock();
-            case 3: return new CoalBlock();
-            default: return new Void();
         }
     }
 }

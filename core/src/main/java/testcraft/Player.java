@@ -37,7 +37,7 @@ class Player implements Serializable {
     private int speedMultiplierVertical;
 
     private Equipment equipment;
-    protected Hp hp = new Hp(PLAYER_HP);
+    private Hp hp = new Hp(PLAYER_HP);
 
     Player(float posX, float posY){
         this.posX=posX;
@@ -116,8 +116,10 @@ class Player implements Serializable {
     float getVerticalSpeed(){
         return speedMultiplierVertical*PLAYER_SPEED_VERTICAL;
     }
-    Hp getHp()
-    {return  hp;}
+
+    Hp getHp() {
+        return  hp;
+    }
 
 
     Block getChooseBlock(){
