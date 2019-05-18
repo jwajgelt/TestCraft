@@ -117,9 +117,7 @@ class Player implements Serializable {
     }
 
     boolean isVerticalSpeedCloseZero() {
-        if(speedMultiplierVertical<2 && speedMultiplierVertical>-2)
-            return true;
-        return false;
+        return speedMultiplierVertical < 2 && speedMultiplierVertical > -2;
     }
 
     Hp getHp() {
@@ -151,9 +149,7 @@ class Player implements Serializable {
 
     void lowerHp(float delta){
         int damage=round(delta);
-        if(damage<0 || damage >0)
-            System.out.println(damage);
-        damage-=4;
+        damage-=5;
         if(damage>0)
             hp.change(-5*damage);
     }
