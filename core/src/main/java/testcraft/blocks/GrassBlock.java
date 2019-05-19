@@ -8,6 +8,7 @@ import java.util.Random;
 
 public class GrassBlock extends Block implements Destroyable {
 
+    private static Random random=new Random();
     private static int Id = 9;
     private static Texture texture = new Texture("GrassyBlock.png");
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture), new Sprite(new Texture("GrassyBlock2.png"))};
@@ -22,7 +23,7 @@ public class GrassBlock extends Block implements Destroyable {
         if(timer>0)
             timer--;
         else {
-            timer=new Random().nextInt(10)+5;
+            timer=random.nextInt(10)+5;
             pickSprite=(pickSprite+1)%2;
         }
     }

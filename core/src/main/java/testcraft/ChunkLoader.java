@@ -7,6 +7,7 @@ import org.nustaq.serialization.FSTObjectInput;
 import org.nustaq.serialization.FSTObjectOutput;
 import testcraft.blocks.*;
 import testcraft.blocks.Void;
+import testcraft.chunks.DeepUndergroundChunk;
 import testcraft.chunks.SkyChunk;
 import testcraft.chunks.SurfaceChunk;
 import testcraft.chunks.UndergroundChunk;
@@ -83,7 +84,8 @@ public class ChunkLoader {
             System.out.println("FAILED");
             System.out.println("GENERATING CHUNK (" + chunkX/CHUNK_SIZE + ", " + chunkY/CHUNK_SIZE + ")");
             if(chunkY/CHUNK_SIZE == 0) return new SurfaceChunk(chunkX, chunkY, this);
-            else if(chunkY/CHUNK_SIZE > 0) return new UndergroundChunk(chunkX, chunkY, this);
+            else if(chunkY/CHUNK_SIZE == 1) return new UndergroundChunk(chunkX, chunkY, this);
+            else if(chunkY/CHUNK_SIZE > 1) return new DeepUndergroundChunk(chunkX, chunkY, this);
             else return new SkyChunk(chunkX, chunkY);
         } catch (RuntimeException e){
             //System.out.println("First load problem with deserialization, if this happens somewhere later down the line, uncomment the line below");

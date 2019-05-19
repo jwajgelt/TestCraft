@@ -5,9 +5,11 @@ import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class CobblestoneBlock extends CollectibleBlock implements Serializable {
 
+    private static Random random=new Random();
     private static int Id = 2;
     private static Texture texture = new Texture("CobblestoneBlock1.png");
     private static Sprite[] blockSprites=new Sprite[]{
@@ -22,7 +24,7 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
 
     public CobblestoneBlock()
     {
-        this(0);
+        this(random.nextInt(2));
     }
 
     @Override
