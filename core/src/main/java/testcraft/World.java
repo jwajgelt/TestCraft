@@ -6,6 +6,7 @@ import testcraft.blocks.Destroyable;
 import testcraft.blocks.Void;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,63 +53,47 @@ class World {
         setPos(x, y);
     }
 
-
-   Rectangle getRectangle(int x, int y) {
-        for (WorldChunk B : chunks) {
+    List<Integer> coordinates (int x, int y) //returns list of three numbers: (chunk number, first coordinte in this chunk, second one)
+    {
+        for (int i=0;i<chunks.size();i++)
+        {
+            WorldChunk B=chunks.get(i);
             if (B.chunkPosX <= x && (B.chunkPosX + CHUNK_SIZE) > x && B.chunkPosY <= y && (B.chunkPosY + CHUNK_SIZE) > y) //check if chunk contain given  coordinates
             {
                 int a = x - B.chunkPosX; //block coordinates in the chunk
                 int b = y - B.chunkPosY; //block coordinates in the chunk
-                return B.getRectangle(a, b);
+                return  Arrays.asList(i,a,b);
             }
         }
-        System.out.println("Didn't find Rectangle.");
+        System.out.println("Didn't coordinates");
         return null;
+    }
+
+   Rectangle getRectangle(int x, int y) {
+        List<Integer> Q=coordinates(x,y);
+        return chunks.get(Q.get(0)).getRectangle(Q.get(1), Q.get(2));
     }
 
     boolean isBlockSolid (int x,int y)
     {
-        for (WorldChunk B : chunks) {
-            if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
-            {
-                int a=x-B.chunkPosX; //block coordinates in the chunk
-                int b=y-B.chunkPosY; //block coordinates in the chunk
-                return B.isBlockSolid(a, b);
-            }
-        }
-        System.out.println("Didn't find the chunk. Movement");
-        return false;
+        List<Integer> Q=coordinates(x,y);
+        return chunks.get(Q.get(0)).isBlockSolid(Q.get(1), Q.get(2));
     }
 
     void setBlock (int x,int y, Block c)
     {
-        for (WorldChunk B : chunks) {
-            if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
-            {
-                int a=x-B.chunkPosX; //block coordinates in the chunk
-                int b=y-B.chunkPosY; //block coordinates in the chunk
-                B.getRectangle(a,b);
-                B.setBlock(a, b, c);
-                return;
-            }
-        }
-        System.out.println("Didn't find the chunk. setting");
+        List<Integer> Q=coordinates(x,y);
+        chunks.get(Q.get(0)).getRectangle(Q.get(1), Q.get(2));
+        chunks.get(Q.get(0)).setBlock(Q.get(1), Q.get(2),c);
     }
 
     Block findBlock (int x,int y) //RETURNS FOUND BLOCK
     {
-        for (WorldChunk B : chunks) {
-            if(B.chunkPosX<=x && (B.chunkPosX+CHUNK_SIZE)>x && B.chunkPosY<=y && (B.chunkPosY+CHUNK_SIZE)>y) //check if chunk contain given  coordinates
-            {
-                int a=x-B.chunkPosX; //block coordinates in the chunk
-                int b=y-B.chunkPosY; //block coordinates in the chunk
-                Block result = B.getBlock(a, b);
-                //if(result instanceof Destroyable) B.setBlock(a, b, new Void());                             //findBlock probably shouldn't be used for destructing the block? Maybe use setBlock instead?
-                return result;
-            }
-        }
-        System.out.println("Didn't find the chunk. deleting");
-        return  null;
+        List<Integer> Q=coordinates(x,y);
+        Block result = chunks.get(Q.get(0)).getBlock(Q.get(1), Q.get(2));
+        //if(result instanceof Destroyable) B.setBlock(a, b, new Void());     //findBlock probably shouldn't be used for destructing the block? Maybe use setBlock instead?
+        return result;
+
     }
 
     /*
