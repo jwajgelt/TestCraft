@@ -17,7 +17,7 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
             new Sprite(texture),
             new Sprite(new Texture("CobblestoneBlock2.png"))};
 
-    private byte chooseSprite;
+    private byte chooseSprite; //to make serialization a bit faster
     protected float durability=100;
 
     public CobblestoneBlock(byte i){

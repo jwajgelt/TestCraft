@@ -2,6 +2,7 @@ package testcraft;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import org.mini2Dx.core.screen.ScreenManager;
 import org.mini2Dx.core.screen.transition.NullTransition;
 import testcraft.blocks.Destroyable;
@@ -16,10 +17,14 @@ import static testcraft.InGameScreen.WIDTH;
 public class PlayerMovementController {
     private World world;
     private Player player;
+    private Sound miningSound = Gdx.audio.newSound(Gdx.files.absolute("assets/pickaxe.ogg")); //tak sie wczytuje
+    private  float remainingMiningTime=0;
 
     PlayerMovementController(World world, Player player){
         this.world=world;
         this.player=player;
+        miningSound.loop();
+        miningSound.pause();
     }
     private float fallStart=360-Block.PIXEL_COUNT;
     private float left=640-Block.PIXEL_COUNT/2+1-0.01f;
@@ -92,6 +97,9 @@ public class PlayerMovementController {
 
     void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta){
 
+        soundHandler(delta);
+
+
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             int x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             int y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
@@ -99,13 +107,18 @@ public class PlayerMovementController {
             if(player.isReachable(world.getRectangle(x, y),world.isBlockSolid(x, y)) || Gdx.input.isKeyPressed(Input.Keys.G))
             {
                 Block block = world.findBlock(x, y);
-                if(block instanceof Destroyable)
-                   ((Destroyable)block).changeDurability(-delta,player.getEquipment().getItem());
+                if(block instanceof Destroyable) {
+                    ((Destroyable) block).changeDurability(-delta, player.getEquipment().getItem());
+                    remainingMiningTime=0.1f; //just because there is no isButtonJustPressed
+                    //in future might add sounds for every block smth like: if(sound!=block.getSound()){ sound.pause(); sound=block.getSound();}
+
+                }
 
                 if(block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
                     ((Destroyable)block).changeDurability(-20000,null); //be careful here passing null
 
                 if (block instanceof Destroyable && ((Destroyable)block).isDestroyed()) {
+                    remainingMiningTime=0f; //after destroying
                     world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void
                     if (block instanceof Harvestable && ((Harvestable)block).checkTool(player.getEquipment().getItem())) {
                         player.getEquipment().addItem(((Harvestable)block).getItem(), ((Harvestable)block).getQuantity());  //harvest the block, giving its item to the player
@@ -123,7 +136,7 @@ public class PlayerMovementController {
         if(Gdx.input.isKeyJustPressed(Input.Keys.C))
            player.wypiszLewyDolnyRog();
         if(Gdx.input.isKeyJustPressed(Input.Keys.S))
-            player.wypisz_speed();
+
 
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
@@ -132,6 +145,15 @@ public class PlayerMovementController {
              if(!world.isBlockSolid((int)x,(int)y) && player.getEquipment().isSolid() )
                  world.setBlock((int)x, (int)y, player.getChooseBlock());
         }
+
+    }
+    void soundHandler(float delta)
+    {
+        remainingMiningTime-=delta;
+        if(remainingMiningTime>0)
+            miningSound.resume();
+        else
+            miningSound.pause();
     }
 
 }
