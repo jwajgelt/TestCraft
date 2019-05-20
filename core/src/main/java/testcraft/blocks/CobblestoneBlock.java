@@ -3,6 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
+import testcraft.GameItem;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -16,17 +17,17 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
             new Sprite(texture),
             new Sprite(new Texture("CobblestoneBlock2.png"))};
 
-    private int chooseSprite;
+    private byte chooseSprite;
+    protected float durability=100;
 
-    public CobblestoneBlock(int i){
+    public CobblestoneBlock(byte i){
 
-        super(100);
-        chooseSprite=i%blockSprites.length;
+        chooseSprite=(byte)(i%blockSprites.length);
     }
 
     public CobblestoneBlock()
     {
-        this(random.nextInt(2));
+        this((byte)random.nextInt(2));
     }
 
     @Override
@@ -53,5 +54,16 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
     public int getId() {
         return Id;
     }
+    @Override
+    public float getDurability()
+    {
+        return  durability;
+    }
+
+    @Override
+    public boolean isDestroyed() { return durability<=0; }
+
+    @Override
+    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
 }

@@ -9,16 +9,9 @@ import testcraft.ItemPicker;
 
 public abstract class CollectibleBlock extends Block implements Harvestable {
 
-    protected  float durability;
 
-    CollectibleBlock()
-    {
-        durability=100;
-    }
-    CollectibleBlock(float durability)
-    {
-        this.durability=durability;
-    }
+
+
 
     @Override
     public BlockItem getItem(){
@@ -34,19 +27,6 @@ public abstract class CollectibleBlock extends Block implements Harvestable {
     public boolean checkTool(GameItem tool) {
         return true;
     }
-
-    @Override
-    public float getDurability()
-    {
-        return  durability;
-    }
-
-    @Override
-    public boolean isDestroyed() { return durability<=0; }
-
-    @Override
-    public float changeDurability(float delta){return durability+=delta;}  //changes Durability, and returns it
-
 
 
 }

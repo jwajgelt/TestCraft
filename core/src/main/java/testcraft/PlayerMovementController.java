@@ -90,8 +90,7 @@ public class PlayerMovementController {
 
     }
 
-    void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale){
-
+    void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta){
 
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             int x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
@@ -101,10 +100,10 @@ public class PlayerMovementController {
             {
                 Block block = world.findBlock(x, y);
                 if(block instanceof Destroyable)
-                    ((Destroyable)block).changeDurability(-2);  //multiplied by miningCoefficient from item?
+                    System.out.println(((Destroyable)block).changeDurability(-delta,player.getEquipment().getItem()));
 
                 if(block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
-                    ((Destroyable)block).changeDurability(-20000);
+                    ((Destroyable)block).changeDurability(-20000,null); //be careful here passing null
 
                 if (block instanceof Destroyable && ((Destroyable)block).isDestroyed()) {
                     world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void

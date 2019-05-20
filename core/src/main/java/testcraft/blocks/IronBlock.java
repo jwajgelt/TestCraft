@@ -3,6 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
+import testcraft.GameItem;
 
 import java.io.Serializable;
 
@@ -13,6 +14,7 @@ public class IronBlock extends CollectibleBlock implements Serializable {
     private static int Id = 10;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Iron Block";
+    private float durability=150;
 
     public IronBlock(){}
 
@@ -42,7 +44,14 @@ public class IronBlock extends CollectibleBlock implements Serializable {
     }
 
     @Override
-    public float getDurability() {
-        return 0;
+    public float getDurability()
+    {
+        return  durability;
     }
+
+    @Override
+    public boolean isDestroyed() { return durability<=0; }
+
+    @Override
+    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 }

@@ -3,6 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
+import testcraft.GameItem;
 
 import java.util.Random;
 
@@ -57,16 +58,15 @@ public class LeavesBlock extends Block implements Destroyable {
         return Id;
     }
 
-    @Override public float getDurability()
+    @Override
+    public float getDurability()
     {
         return  durability;
     }
+
     @Override
-    public boolean isDestroyed()
-    {
-        return durability<0;
-    }
+    public boolean isDestroyed() { return durability<=0; }
+
     @Override
-    public float changeDurability(float delta)//changes Durability, and returns it
-    {return durability+=delta;}
+    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 }

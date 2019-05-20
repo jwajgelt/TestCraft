@@ -3,6 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
+import testcraft.GameItem;
 
 public class WoodBlock extends CollectibleBlock {
 
@@ -10,10 +11,8 @@ public class WoodBlock extends CollectibleBlock {
     private static Texture texture = new Texture("WoodBlock.png");
     private static Sprite[] blockSprites = new Sprite[]{new Sprite(texture)};
     private static String blockName = "Wood";
+    private  float durability=45;
 
-    public WoodBlock(){
-        super(40);
-    }
 
     @Override
     public boolean isSolid() {
@@ -39,5 +38,16 @@ public class WoodBlock extends CollectibleBlock {
     public int getId() {
         return Id;
     }
+    @Override
+    public float getDurability()
+    {
+        return  durability;
+    }
+
+    @Override
+    public boolean isDestroyed() { return durability<=0; }
+
+    @Override
+    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
 }
