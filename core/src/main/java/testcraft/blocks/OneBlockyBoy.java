@@ -11,6 +11,9 @@ public class OneBlockyBoy extends CollectibleBlock {
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     static String blockName = "BlockyBoy";
 
+    OneBlockyBoy()
+    {super(60);}
+
     @Override
     public boolean isSolid() {
         return true;
@@ -36,8 +39,4 @@ public class OneBlockyBoy extends CollectibleBlock {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
-    }
 }

@@ -5,5 +5,7 @@ package testcraft.blocks;
 public interface Destroyable {
 
     public float getDurability();
+    public boolean isDestroyed();
+    public float changeDurability(float delta); //changes Durability, and returns it
 
 }

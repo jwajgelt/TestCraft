@@ -14,6 +14,7 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
     private static String blockName = "Dirt";
 
     public DirtBlock(){
+        super(60);
     }
 
     @Override
@@ -41,8 +42,5 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
-    }
+
 }

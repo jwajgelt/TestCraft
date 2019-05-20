@@ -26,6 +26,8 @@ public class Equipment implements Serializable {
     }
 
     void addItem(GameItem item, int qua) {
+        if(item==null)
+            return;
 
         for (int i=0;i<36;i++)
             if(items[i]!=null && item.getId()==items[i].getId())

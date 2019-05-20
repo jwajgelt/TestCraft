@@ -12,6 +12,7 @@ public class WoodBlock extends CollectibleBlock {
     private static String blockName = "Wood";
 
     public WoodBlock(){
+        super(40);
     }
 
     @Override
@@ -39,8 +40,4 @@ public class WoodBlock extends CollectibleBlock {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
-    }
 }

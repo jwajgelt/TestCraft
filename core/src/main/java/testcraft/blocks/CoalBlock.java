@@ -13,8 +13,9 @@ public class CoalBlock extends CollectibleBlock implements Serializable {
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Coal Block";
 
+
     public CoalBlock(){
-        super();
+        super(100);
     }
 
     @Override
@@ -42,8 +43,4 @@ public class CoalBlock extends CollectibleBlock implements Serializable {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
-    }
 }

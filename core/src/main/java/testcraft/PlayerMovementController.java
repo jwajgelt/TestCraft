@@ -100,7 +100,13 @@ public class PlayerMovementController {
             if(player.isReachable(world.getRectangle(x, y),world.isBlockSolid(x, y)) || Gdx.input.isKeyPressed(Input.Keys.G))
             {
                 Block block = world.findBlock(x, y);
-                if (block instanceof Destroyable) {
+                if(block instanceof Destroyable)
+                    ((Destroyable)block).changeDurability(-2);  //multiplied by miningCoefficient from item?
+
+                if(block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
+                    ((Destroyable)block).changeDurability(-20000);
+
+                if (block instanceof Destroyable && ((Destroyable)block).isDestroyed()) {
                     world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void
                     if (block instanceof Harvestable && ((Harvestable)block).checkTool(player.getEquipment().getItem())) {
                         player.getEquipment().addItem(((Harvestable)block).getItem(), ((Harvestable)block).getQuantity());  //harvest the block, giving its item to the player
@@ -124,7 +130,7 @@ public class PlayerMovementController {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
             if(player.isReachable(world.getRectangle((int)x,(int)y),player.getEquipment().isSolid()) || Gdx.input.isKeyPressed(Input.Keys.G) )
-             if(!world.isBlockSolid((int)x,(int)y))
+             if(!world.isBlockSolid((int)x,(int)y) && player.getEquipment().isSolid() )
                  world.setBlock((int)x, (int)y, player.getChooseBlock());
         }
     }

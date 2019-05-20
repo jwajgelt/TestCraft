@@ -14,6 +14,7 @@ public class GrassBlock extends Block implements Destroyable {
     private static String blockName = "Grass";
     private int timer=7;
     private int pickSprite=0;
+    private  float durability=15;
 
     public GrassBlock(){}
 
@@ -52,8 +53,16 @@ public class GrassBlock extends Block implements Destroyable {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
+    @Override public float getDurability()
+    {
+        return  durability;
     }
+    @Override
+    public boolean isDestroyed()
+    {
+        return durability<0;
+    }
+    @Override
+    public float changeDurability(float delta)//changes Durability, and returns it
+    {return durability+=delta;}
 }

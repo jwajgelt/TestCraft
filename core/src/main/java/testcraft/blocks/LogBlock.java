@@ -11,7 +11,7 @@ public class LogBlock extends CollectibleBlock {
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Log Block";
 
-    public LogBlock(){}
+    public LogBlock(){super(50);}
 
     @Override
     public boolean isSolid() {
@@ -38,8 +38,5 @@ public class LogBlock extends CollectibleBlock {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
-    }
+
 }

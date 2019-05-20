@@ -65,7 +65,7 @@ class World {
                 return  Arrays.asList(i,a,b);
             }
         }
-        System.out.println("Didn't coordinates");
+        System.out.println("Didn't find coordinates");
         return null;
     }
 
@@ -83,7 +83,6 @@ class World {
     void setBlock (int x,int y, Block c)
     {
         List<Integer> Q=coordinates(x,y);
-        chunks.get(Q.get(0)).getRectangle(Q.get(1), Q.get(2));
         chunks.get(Q.get(0)).setBlock(Q.get(1), Q.get(2),c);
     }
 

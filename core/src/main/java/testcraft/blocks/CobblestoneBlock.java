@@ -17,6 +17,8 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
     private int chooseSprite;
 
     public CobblestoneBlock(int i){
+
+        super(100);
         chooseSprite=i%blockSprites.length;
     }
 
@@ -50,8 +52,4 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
         return Id;
     }
 
-    @Override
-    public float getDurability() {
-        return 0;
-    }
 }

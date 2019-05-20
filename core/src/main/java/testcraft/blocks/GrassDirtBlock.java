@@ -10,7 +10,7 @@ public class GrassDirtBlock extends DirtBlock {
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(grassTexture)};
     private static String blockName = "Grass Block";
 
-    public GrassDirtBlock(){}
+    public GrassDirtBlock(){super();}
 
     @Override
     public boolean isSolid() {
@@ -21,4 +21,5 @@ public class GrassDirtBlock extends DirtBlock {
     public Sprite getBlockSprite() {
         return blockSprites[0];
     }
+
 }

@@ -2,6 +2,8 @@ package testcraft;
 
 import java.io.Serializable;
 
+import static java.lang.Math.min;
+
 public class Hp implements Serializable
 {
     private float maxHp;
@@ -33,6 +35,7 @@ public class Hp implements Serializable
     //o ile hp chcemy zmienić
     void change(float delta ) {
         healthPoints +=delta;
+        healthPoints=min(healthPoints,maxHp);
     }
 
     float getHealthPoints ()
