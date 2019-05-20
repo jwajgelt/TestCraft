@@ -100,7 +100,7 @@ public class PlayerMovementController {
             {
                 Block block = world.findBlock(x, y);
                 if(block instanceof Destroyable)
-                    System.out.println(((Destroyable)block).changeDurability(-delta,player.getEquipment().getItem()));
+                   ((Destroyable)block).changeDurability(-delta,player.getEquipment().getItem());
 
                 if(block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
                     ((Destroyable)block).changeDurability(-20000,null); //be careful here passing null
