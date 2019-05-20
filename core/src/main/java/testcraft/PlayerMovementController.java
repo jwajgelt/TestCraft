@@ -18,6 +18,7 @@ public class PlayerMovementController {
     private World world;
     private Player player;
     private Sound miningSound = Gdx.audio.newSound(Gdx.files.absolute("assets/pickaxe.ogg")); //tak sie wczytuje
+    private Sound catSound = Gdx.audio.newSound(Gdx.files.absolute("assets/cat.wav")); //tak sie wczytuje
     private  float remainingMiningTime=0;
 
     PlayerMovementController(World world, Player player){
@@ -76,6 +77,9 @@ public class PlayerMovementController {
 
         //move horizontal
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if(Gdx.input.isKeyJustPressed(Input.Keys.T) && Gdx.input.isKeyJustPressed(Input.Keys.C)) //easter egg
+            catSound.play();
+            else
             player.decreaseHorizontalSpeed();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -135,7 +139,7 @@ public class PlayerMovementController {
             screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
         if(Gdx.input.isKeyJustPressed(Input.Keys.C))
            player.wypiszLewyDolnyRog();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.S))
+        //if(Gdx.input.isKeyJustPressed(Input.Keys.S))
 
 
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
