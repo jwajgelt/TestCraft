@@ -12,16 +12,30 @@ public class GrassBlock extends Block implements Destroyable {
     private static Random random=new Random();
     private static int Id = 9;
     private static Texture texture = new Texture("GrassyBlock.png");
-    private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture), new Sprite(new Texture("GrassyBlock2.png"))};
+    private static Sprite[] blockSprites=new Sprite[]{
+            new Sprite(texture),
+            new Sprite(new Texture("GrassyBlock2.png")),
+            new Sprite(new Texture("YellowFlower.png")),
+            new Sprite(new Texture("RedFlower.png")),
+            new Sprite(new Texture("BlueFlower.png"))
+    };
     private static String blockName = "Grass";
     private byte timer=6;
     private byte pickSprite=0;
     private float durability=15;
+    private boolean isFlower;
 
-    public GrassBlock(){}
+    public GrassBlock(){
+        isFlower=random.nextBoolean();
+        if(isFlower){
+            pickSprite=(byte)((random.nextInt()%3)+2);
+        }
+    }
 
     @Override
     public void update(){
+        if (isFlower)
+            return;
         if(timer>0)
             timer--;
         else {
