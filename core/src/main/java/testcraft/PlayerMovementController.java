@@ -99,44 +99,51 @@ public class PlayerMovementController {
 
     }
 
-    void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta){
+    void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta) {
 
         soundHandler(delta);
 
 
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            int x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
-            int y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            int x = floor((Gdx.input.getX() / scale + transX) / (Block.PIXEL_COUNT) + (posX)); //
+            int y = floor((Gdx.input.getY() / scale + transY) / (Block.PIXEL_COUNT) + (posY)); //more elegant
 
-            if(player.isReachable(world.getRectangle(x, y),world.isBlockSolid(x, y)) || Gdx.input.isKeyPressed(Input.Keys.G))
-            {
+            if (player.isReachable(world.getRectangle(x, y), world.isBlockSolid(x, y)) || Gdx.input.isKeyPressed(Input.Keys.G)) {
                 Block block = world.findBlock(x, y);
-                if(block instanceof Destroyable) {
+                if (block instanceof Destroyable) {
                     ((Destroyable) block).changeDurability(-delta, player.getEquipment().getItem());
-                    remainingMiningTime=0.12f; //just because there is no isButtonJustPressed
+                    remainingMiningTime = 0.12f; //just because there is no isButtonJustPressed
                     //in future might add sounds for every block smth like: if(sound!=block.getSound()){ sound.pause(); sound=block.getSound();}
 
                 }
 
-                if(block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
-                    ((Destroyable)block).changeDurability(-20000,null); //be careful here passing null
+                if (block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
+                    ((Destroyable) block).changeDurability(-20000, null); //be careful here passing null
 
-                if (block instanceof Destroyable && ((Destroyable)block).isDestroyed()) {
-                    remainingMiningTime=0f; //after destroying
+                if (block instanceof Destroyable && ((Destroyable) block).isDestroyed()) {
+                    remainingMiningTime = 0f; //after destroying
                     world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void
-                    if (block instanceof Harvestable && ((Harvestable)block).checkTool(player.getEquipment().getItem())) {
-                        player.getEquipment().addItem(((Harvestable)block).getItem(), ((Harvestable)block).getQuantity());  //harvest the block, giving its item to the player
+                    if (block instanceof Harvestable && ((Harvestable) block).checkTool(player.getEquipment().getItem())) {
+                        player.getEquipment().addItem(((Harvestable) block).getItem(), ((Harvestable) block).getQuantity());  //harvest the block, giving its item to the player
                     }
                 }
             }
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.E)) //stop soundsefects if enetering menues/eq
+        {
+            remainingMiningTime = 0;
+            miningSound.pause();
+        }
+
+        if((Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) )) {
             screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());
             world.saveToDisk();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E) )
             screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.C))
            player.wypiszLewyDolnyRog();
         //if(Gdx.input.isKeyJustPressed(Input.Keys.S))

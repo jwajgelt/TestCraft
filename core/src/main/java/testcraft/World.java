@@ -47,7 +47,6 @@ class World {
         y=player.getY() - InGameScreen.HEIGHT/2/Block.PIXEL_COUNT;
         this.worldName = worldName;
         //noinspection ResultOfMethodCallIgnored
-        new File("."+File.separator+worldName).mkdir();
         chunks = new LinkedList<>();
         chunkLoader = new ChunkLoader(this, chunks);
         setPos(x, y);
