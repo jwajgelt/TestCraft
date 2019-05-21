@@ -13,7 +13,8 @@ public class CoalBlock extends CollectibleBlock implements Serializable {
     private static int Id = 3;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Coal Block";
-    protected  float durability=100;
+    private static float maxDurability=100;
+    protected  float durability=maxDurability;
 
 
     @Override
@@ -40,6 +41,7 @@ public class CoalBlock extends CollectibleBlock implements Serializable {
     public int getId() {
         return Id;
     }
+
     @Override
     public float getDurability()
     {
@@ -50,6 +52,8 @@ public class CoalBlock extends CollectibleBlock implements Serializable {
     public boolean isDestroyed() { return durability<=0; }
 
     @Override
-    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
+    public float changeDurability(float delta, GameItem gameItem){ return durability+=delta*70;}  //changes Durability, and returns it
 
+    @Override
+    public float getDurabilityPercentage(){ return durability/maxDurability;}
 }

@@ -31,4 +31,6 @@ public abstract class Block implements Serializable {
 
     public abstract int getId();
 
+    public float getDurabilityPercentage(){return 1f;}
+
 }

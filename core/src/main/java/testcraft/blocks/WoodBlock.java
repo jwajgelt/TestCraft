@@ -11,6 +11,8 @@ public class WoodBlock extends CollectibleBlock {
     private static Texture texture = new Texture("WoodBlock.png");
     private static Sprite[] blockSprites = new Sprite[]{new Sprite(texture)};
     private static String blockName = "Wood";
+
+    private static float maxDurability=45;
     private  float durability=45;
 
 
@@ -50,4 +52,6 @@ public class WoodBlock extends CollectibleBlock {
     @Override
     public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
+    @Override
+    public float getDurabilityPercentage(){ return durability/maxDurability;}
 }

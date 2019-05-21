@@ -14,7 +14,9 @@ public class IronBlock extends CollectibleBlock implements Serializable {
     private static int Id = 10;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Iron Block";
-    private float durability=150;
+
+    private static float maxDurability=150;
+    private float durability=maxDurability;
 
     public IronBlock(){}
 
@@ -54,4 +56,7 @@ public class IronBlock extends CollectibleBlock implements Serializable {
 
     @Override
     public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
+
+    @Override
+    public float getDurabilityPercentage(){ return durability/maxDurability;}
 }

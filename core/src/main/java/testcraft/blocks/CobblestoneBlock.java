@@ -18,9 +18,10 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
             new Sprite(new Texture("CobblestoneBlock2.png"))};
 
     private byte chooseSprite; //to make serialization a bit faster
-    protected float durability=100;
+    private static float maxDurability=100;
+    protected float durability=maxDurability;
 
-    public CobblestoneBlock(byte i){
+    private CobblestoneBlock(byte i){
 
         chooseSprite=(byte)(i%blockSprites.length);
     }
@@ -66,4 +67,6 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
     @Override
     public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
+    @Override
+    public float getDurabilityPercentage(){ return durability/maxDurability;}
 }

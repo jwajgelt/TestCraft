@@ -14,9 +14,9 @@ public class GrassBlock extends Block implements Destroyable {
     private static Texture texture = new Texture("GrassyBlock.png");
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture), new Sprite(new Texture("GrassyBlock2.png"))};
     private static String blockName = "Grass";
-    private int timer=7;
-    private int pickSprite=0;
-    private  float durability=15;
+    private byte timer=6;
+    private byte pickSprite=0;
+    private float durability=15;
 
     public GrassBlock(){}
 
@@ -25,8 +25,8 @@ public class GrassBlock extends Block implements Destroyable {
         if(timer>0)
             timer--;
         else {
-            timer=random.nextInt(10)+5;
-            pickSprite=(pickSprite+1)%2;
+            timer=(byte)(random.nextInt(6)+4);
+            pickSprite=(byte)((pickSprite+1)%2);
         }
     }
 

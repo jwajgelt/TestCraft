@@ -11,6 +11,8 @@ public class LogBlock extends CollectibleBlock {
     private static int Id = 6;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Log Block";
+
+    private static float maxDurability=50;
     private float durability=50;
 
 
@@ -50,5 +52,6 @@ public class LogBlock extends CollectibleBlock {
     @Override
     public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
-
+    @Override
+    public float getDurabilityPercentage(){ return durability/maxDurability;}
 }

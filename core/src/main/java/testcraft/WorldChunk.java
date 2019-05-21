@@ -1,5 +1,6 @@
 package testcraft;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
@@ -10,6 +11,11 @@ import java.io.Serializable;
 import java.util.Random;
 
 public abstract class WorldChunk implements Serializable {
+
+    private static Sprite lowBlockDmg=new Sprite(new Texture("LowBlockDmg.png"));
+    private static Sprite mediumBlockDmg=new Sprite(new Texture("MedBlockDmg.png"));
+    private static Sprite highBlockDmg=new Sprite(new Texture("HighBlockDmg.png"));
+
 
     public static int CHUNK_SIZE = 64;
 
@@ -55,6 +61,25 @@ public abstract class WorldChunk implements Serializable {
                 blockSprite.setScale(2f);
                 //finally, draw the sprite
                 g.drawSprite(blockSprite);
+
+                //draw damage
+                boolean skip=false;
+                Sprite visibleDmg=lowBlockDmg;
+                float percent=blocks[i][j].getDurabilityPercentage();
+                if(percent>=0.7f){
+                    skip=true;
+                } else if(percent<0.7f && percent>0.4f){
+                    visibleDmg=lowBlockDmg;
+                } else if(percent<=0.4f && percent>0.2f){
+                    visibleDmg=mediumBlockDmg;
+                } else {
+                    visibleDmg=highBlockDmg;
+                }
+                if(!skip) {
+                    visibleDmg.setPosition(posX + 2, posY + 2);
+                    visibleDmg.setScale(2f);
+                    g.drawSprite(visibleDmg);
+                }
             }
         }
     }

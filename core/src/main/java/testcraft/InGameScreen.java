@@ -1,5 +1,7 @@
 package testcraft;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
@@ -29,6 +31,9 @@ public class InGameScreen extends TestCraftScreen {
         posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
         world.setPos((int)posX, (int)posY);
         addHealthBar();
+        //setting graphic for cursor
+        Pixmap pm=new Pixmap(Gdx.files.classpath("Cursor.png"));
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0 ,0 ));
     }
 
     @Override

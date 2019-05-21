@@ -13,7 +13,9 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
     private static Texture texture = new Texture("DirtBlock.png");
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     private static String blockName = "Dirt";
-    private float durability=50;
+
+    private static float maxDurability=50;
+    private float durability=maxDurability;
 
     public DirtBlock(){
     }
@@ -54,5 +56,6 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
     @Override
     public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
-
+    @Override
+    public float getDurabilityPercentage(){ return durability/maxDurability;}
 }
