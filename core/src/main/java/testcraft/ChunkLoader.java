@@ -75,7 +75,7 @@ public class ChunkLoader {
      */
 
     private WorldChunk loadChunk(int chunkX, int chunkY){
-        String filename = "." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunkX + "_" + chunkY;
+        String filename = "." + File.separator +"Saves"+File.separator+ world.worldName + File.separator + world.worldName + "_" + chunkX + "_" + chunkY;
         try{
             InputStream stream = new FileInputStream(filename);
             System.out.println("RESTORING CHUNK (" + chunkX/CHUNK_SIZE + ", " + chunkY/CHUNK_SIZE + ")");
@@ -102,7 +102,7 @@ public class ChunkLoader {
 
     public void saveChunk(WorldChunk chunk){
         try {
-            String filename = "." + File.separator + world.worldName + File.separator + world.worldName + "_" + chunk.chunkPosX + "_" + chunk.chunkPosY;
+            String filename = "." + File.separator +"Saves"+File.separator+  world.worldName + File.separator + world.worldName + "_" + chunk.chunkPosX + "_" + chunk.chunkPosY;
             OutputStream stream = new FileOutputStream(filename);
             myWriteMethod(stream, chunk); //FASTER SERIALIZATION
             // stream.writeObject(chunk);

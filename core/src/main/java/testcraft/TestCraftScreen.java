@@ -24,7 +24,7 @@ public abstract class TestCraftScreen extends BasicGameScreen {
     @Override
     public void initialise(GameContainer gc) {
         try {
-            skin = new Skin(Gdx.files.absolute("craftacular/skin/craftacular-ui.json"));
+            skin = new Skin(Gdx.files.classpath("craftacular/skin/craftacular-ui.json"));
         }
         catch (Exception e) {
             e.printStackTrace();

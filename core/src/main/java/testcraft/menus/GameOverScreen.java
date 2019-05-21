@@ -27,7 +27,7 @@ public class GameOverScreen extends   MenuScreen {
     public void initialise(GameContainer gc) {
         super.initialise(gc);
 
-        blood = new Texture(Gdx.files.absolute("assets/blood.png"));
+        blood = new Texture(Gdx.files.classpath("blood.png"));
         Image a = new Image(blood);
         a.setSize(WIDTH,HEIGHT);
 

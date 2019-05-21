@@ -52,8 +52,8 @@ public class    MainMenuScreen extends MenuScreen {
     public void goBack (ScreenManager screenManager, GameContainer gc)
     {
         back=false;
-        File dest = new File("Default");
-        FileUtils.deleteQuietly(dest);
+        File dest = new File("Saves/Default");
+        FileUtils.deleteQuietly(dest);  //UWAGA NIE DZIALA POD WINDOWSAMI CHYBA
         try {
             FileUtils.forceMkdir(dest);
         }

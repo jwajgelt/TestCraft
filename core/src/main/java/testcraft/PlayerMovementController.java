@@ -17,8 +17,8 @@ import static testcraft.InGameScreen.WIDTH;
 public class PlayerMovementController {
     private World world;
     private Player player;
-    private Sound miningSound = Gdx.audio.newSound(Gdx.files.absolute("assets/pickaxe.ogg")); //tak sie wczytuje
-    private Sound catSound = Gdx.audio.newSound(Gdx.files.absolute("assets/cat.wav")); //tak sie wczytuje
+    private Sound miningSound = Gdx.audio.newSound(Gdx.files.classpath("pickaxe.ogg")); //tak sie wczytuje
+    private Sound catSound = Gdx.audio.newSound(Gdx.files.classpath("cat.wav")); //tak sie wczytuje
     private  float remainingMiningTime=0;
 
     PlayerMovementController(World world, Player player){
@@ -113,7 +113,7 @@ public class PlayerMovementController {
                 Block block = world.findBlock(x, y);
                 if(block instanceof Destroyable) {
                     ((Destroyable) block).changeDurability(-delta, player.getEquipment().getItem());
-                    remainingMiningTime=0.1f; //just because there is no isButtonJustPressed
+                    remainingMiningTime=0.12f; //just because there is no isButtonJustPressed
                     //in future might add sounds for every block smth like: if(sound!=block.getSound()){ sound.pause(); sound=block.getSound();}
 
                 }

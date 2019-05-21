@@ -51,7 +51,7 @@ public abstract  class  MenuScreen extends TestCraftScreen {
     @Override
     public void initialise(GameContainer gc) {
         super.initialise(gc);
-        bg = new Texture(Gdx.files.absolute("craftacular/raw/dirt.png"));
+        bg = new Texture(Gdx.files.classpath("craftacular/raw/dirt.png"));
         bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         bgRegion = new TextureRegion(bg);
         bgRegion.setRegion(0, 0, WIDTH, HEIGHT);
@@ -94,12 +94,12 @@ public abstract  class  MenuScreen extends TestCraftScreen {
             super.addListener( new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    File dest = new File("Default");
+                    File dest = new File("Saves/Default");
                     File source =new File("Saves/"+a);
 
                     if(save)
                     {
-                        source = new File("Default");
+                        source = new File("Saves/Default");
                         dest =new File("Saves/"+a);
                     }
 

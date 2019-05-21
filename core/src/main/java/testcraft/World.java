@@ -35,7 +35,7 @@ class World {
     World(String worldName){
         float x, y;
         try{
-            ObjectInputStream stream = new ObjectInputStream(new FileInputStream("."+File.separator+worldName+File.separator+"player.dat"));
+            ObjectInputStream stream = new ObjectInputStream(new FileInputStream("."+File.separator+"Saves"+File.separator+ worldName+File.separator+"player.dat"));
             player = (Player)stream.readObject();
         } catch (FileNotFoundException e){
             player = new Player(0f, 0f);
@@ -119,7 +119,7 @@ class World {
                 chunkLoader.saveChunk(chunk);
         }
         try{
-            ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+worldName+File.separator+"player.dat"));
+            ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("."+File.separator+"Saves"+File.separator+ worldName+File.separator+"player.dat"));
             stream.writeObject(player);
         } catch (IOException e){
             e.printStackTrace();
