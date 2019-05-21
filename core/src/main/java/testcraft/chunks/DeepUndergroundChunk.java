@@ -30,6 +30,9 @@ public class DeepUndergroundChunk extends WorldChunk implements Serializable {
                 if(random.nextInt(35)==0){
                     createCluster(i, j, 10);
                 }
+                if(random.nextInt(128)==0){
+                    createCluster(i, j, 17);
+                }
             }
         }
 

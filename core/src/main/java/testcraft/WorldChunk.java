@@ -161,6 +161,7 @@ public abstract class WorldChunk implements Serializable {
             case 2: return new CobblestoneBlock();
             case 3: return new CoalBlock();
             case 10: return new IronBlock();
+            case 17: return new DiamondBlock();
             default: return new Void();
         }
     }
