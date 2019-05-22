@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 import testcraft.GameItem;
+import testcraft.items.Pickaxe;
 
 import java.io.Serializable;
 
@@ -52,7 +53,18 @@ public class CoalBlock extends CollectibleBlock implements Serializable {
     public boolean isDestroyed() { return durability<=0; }
 
     @Override
-    public float changeDurability(float delta, GameItem gameItem){ return durability+=delta*70;}  //changes Durability, and returns it
+    public boolean checkTool(GameItem tool){
+        return tool instanceof Pickaxe;
+    }
+
+    @Override
+    public float changeDurability(float delta, GameItem gameItem){
+        float coefficients = 1;
+        if(gameItem instanceof Pickaxe){
+            coefficients *= ((Pickaxe)gameItem).getPickaxeCoefficient();
+        }
+        return durability+=delta*coefficients*70;
+    }  //changes Durability, and returns it
 
     @Override
     public float getDurabilityPercentage(){ return durability/maxDurability;}

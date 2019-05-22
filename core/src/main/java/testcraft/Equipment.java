@@ -2,7 +2,7 @@ package testcraft;
 
 
 import com.badlogic.gdx.graphics.Texture;
-import testcraft.blocks.CoalBlock;
+import testcraft.items.*;
 
 import java.io.Serializable;
 
@@ -16,13 +16,23 @@ public class Equipment implements Serializable {
     private int[] quantity = new int[36];
     Equipment () {
         try {
-            items[0]= new CoalBlock().getItem();
+            items[0] = new IronPickaxe();
+            quantity[0]=1;
+            items[1] = new DiamondPickaxe();
+            quantity[1]=1;
+            items[2] = new IronAxe();
+            quantity[2]=1;
+            items[3] = new DiamondAxe();
+            quantity[3]=1;
+            items[4] = new IronShovel();
+            quantity[4]=1;
+            items[5] = new DiamondShovel();
+            quantity[5]=1;
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        quantity[0]=123;
     }
 
     void addItem(GameItem item, int qua) {

@@ -13,11 +13,6 @@ public class GrassDirtBlock extends DirtBlock {
     public GrassDirtBlock(){super();}
 
     @Override
-    public boolean isSolid() {
-        return true;
-    }
-
-    @Override
     public Sprite getBlockSprite() {
         return blockSprites[0];
     }

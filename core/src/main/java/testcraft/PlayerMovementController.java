@@ -8,6 +8,7 @@ import org.mini2Dx.core.screen.transition.NullTransition;
 import testcraft.blocks.Destroyable;
 import testcraft.blocks.Harvestable;
 import testcraft.blocks.Void;
+import testcraft.items.LazrPickaxe;
 import testcraft.menus.InGameMenuScreen;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
@@ -147,6 +148,9 @@ public class PlayerMovementController {
         if(Gdx.input.isKeyJustPressed(Input.Keys.C))
            player.wypiszLewyDolnyRog();
         //if(Gdx.input.isKeyJustPressed(Input.Keys.S))
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.L))
+            player.getEquipment().addItem(new LazrPickaxe(), 1);
 
 
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {

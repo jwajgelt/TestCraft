@@ -9,10 +9,6 @@ import testcraft.ItemPicker;
 
 public abstract class CollectibleBlock extends Block implements Harvestable {
 
-
-
-
-
     @Override
     public BlockItem getItem(){
         return ItemPicker.getBlockItem(this);
@@ -27,6 +23,5 @@ public abstract class CollectibleBlock extends Block implements Harvestable {
     public boolean checkTool(GameItem tool) {
         return true;
     }
-
 
 }

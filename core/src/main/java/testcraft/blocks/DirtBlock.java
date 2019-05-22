@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 import testcraft.GameItem;
+import testcraft.items.Shovel;
 
 import java.io.Serializable;
 
@@ -54,7 +55,13 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
     public boolean isDestroyed() { return durability<=0; }
 
     @Override
-    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
+    public float changeDurability(float delta, GameItem gameItem){
+        float coefficient = 1f;
+        if(gameItem instanceof Shovel){
+            coefficient *= ((Shovel)gameItem).getShovelCoefficient();
+        }
+        return durability+=delta*coefficient*70;
+    }  //changes Durability, and returns it
 
     @Override
     public float getDurabilityPercentage(){ return durability/maxDurability;}
