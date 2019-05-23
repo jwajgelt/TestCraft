@@ -31,7 +31,6 @@ public class InGameScreen extends TestCraftScreen {
         posY=player.getY() - HEIGHT/2/Block.PIXEL_COUNT;
         world.setPos((int)posX, (int)posY);
         addHealthBar();
-
     }
 
     @Override
@@ -79,6 +78,7 @@ public class InGameScreen extends TestCraftScreen {
     }
 
     private void addHealthBar () {
+        if(healthBar!=null) return;
         ProgressBar.ProgressBarStyle style = skin.get("health", ProgressBar.ProgressBarStyle.class);
         skin.getTiledDrawable("heart-bg").setMinWidth(0.0f);
         style.background = skin.getTiledDrawable("heart-bg");

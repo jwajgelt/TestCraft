@@ -29,7 +29,8 @@ public abstract class TestCraftScreen extends BasicGameScreen {
         catch (Exception e) {
             e.printStackTrace();
         }
-        stage = gc.createStage(new ExtendViewport(WIDTH,HEIGHT));
+
+        stage = (stage==null)? gc.createStage(new ExtendViewport(WIDTH,HEIGHT)): stage;
 
     }
     @Override
