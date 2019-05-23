@@ -3,7 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 import testcraft.items.Pickaxe;
 
 import java.io.Serializable;
@@ -13,6 +13,7 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
 
     private static Random random=new Random();
     private static int Id = 2;
+    protected static final String blockName = "Cobblestone Block";
     private static Texture texture = new Texture("CobblestoneBlock1.png");
     private static Sprite[] blockSprites=new Sprite[]{
             new Sprite(texture),
@@ -56,6 +57,12 @@ public class CobblestoneBlock extends CollectibleBlock implements Serializable {
     public int getId() {
         return Id;
     }
+
+    @Override
+    public String toString(){
+        return blockName;
+    }
+
     @Override
     public float getDurability()
     {

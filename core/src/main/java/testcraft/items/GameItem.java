@@ -1,4 +1,4 @@
-package testcraft;
+package testcraft.items;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -9,5 +9,7 @@ public interface GameItem extends Serializable {
     Texture getTexture();
 
     int getId();
+
+    String getName();
 
 }

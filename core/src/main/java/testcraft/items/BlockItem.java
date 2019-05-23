@@ -1,4 +1,6 @@
-package testcraft;
+package testcraft.items;
+
+import testcraft.Block;
 
 public interface BlockItem extends GameItem {
 

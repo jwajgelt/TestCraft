@@ -12,7 +12,7 @@ public abstract class Block implements Serializable {
     static protected int Id;
     static protected Texture texture;
     static protected Sprite[] blockSprites;
-    static String blockName;
+    static protected final String blockName = "Block";
 
     public void update(){}
 

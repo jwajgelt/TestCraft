@@ -11,7 +11,7 @@ public class Void extends Block  implements Serializable {
     private static int Id = 0;
     private static Texture texture = new Texture("VoidBlock.png");
     private static Sprite[] blockSprites = new Sprite[]{new Sprite(texture)};
-    static String blockName = "Void";
+    protected static final String blockName = "Void";
 
     public Void(){
 
@@ -39,6 +39,11 @@ public class Void extends Block  implements Serializable {
     @Override
     public int getId() {
         return Id;
+    }
+
+    @Override
+    public String toString(){
+        return blockName;
     }
 
 }

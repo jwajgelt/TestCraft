@@ -1,9 +1,9 @@
 package testcraft.blocks;
 
 import testcraft.Block;
-import testcraft.BlockItem;
-import testcraft.GameItem;
-import testcraft.ItemPicker;
+import testcraft.items.BlockItem;
+import testcraft.items.GameItem;
+import testcraft.items.ItemPicker;
 
 //block, which upon harvesting gives its BlockItem
 

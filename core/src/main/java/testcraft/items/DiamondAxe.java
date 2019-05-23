@@ -6,6 +6,7 @@ public class DiamondAxe extends Axe {
 
     {
         axeCoefficient = 3f;
+        name = "Diamond Axe";
     }
 
     static private Texture texture = new Texture("DiamAxe.png");

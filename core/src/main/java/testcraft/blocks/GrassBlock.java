@@ -3,7 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 
 import java.util.Random;
 
@@ -19,7 +19,7 @@ public class GrassBlock extends Block implements Destroyable {
             new Sprite(new Texture("RedFlower.png")),
             new Sprite(new Texture("BlueFlower.png"))
     };
-    private static String blockName = "Grass";
+    protected static final String blockName = "Grass";
     private byte timer=6;
     private byte pickSprite=0;
     private float durability=15;
@@ -39,7 +39,7 @@ public class GrassBlock extends Block implements Destroyable {
         if(timer>0)
             timer--;
         else {
-            timer=(byte)(random.nextInt(6)+2);
+            timer=(byte)(random.nextInt(6)+4);
             pickSprite=(byte)((pickSprite+1)%2);
         }
     }
@@ -67,6 +67,11 @@ public class GrassBlock extends Block implements Destroyable {
     @Override
     public int getId() {
         return Id;
+    }
+
+    @Override
+    public String toString(){
+        return blockName;
     }
 
     @Override

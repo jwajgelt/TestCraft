@@ -1,7 +1,5 @@
 package testcraft.items;
 
-import testcraft.GameItem;
-
 public interface ToolItem extends GameItem {
 
     enum Material{

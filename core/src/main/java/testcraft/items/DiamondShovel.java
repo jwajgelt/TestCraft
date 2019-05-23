@@ -6,6 +6,7 @@ public class DiamondShovel extends Shovel {
 
     {
         shovelCoefficient = 3f;
+        name = "Diamond Shovel";
     }
 
     static private Texture texture = new Texture("DiamShvl.png");

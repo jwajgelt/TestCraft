@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.graphics.Sprite;
+import testcraft.items.BlockItem;
+import testcraft.items.GameItem;
 
 import java.io.Serializable;
 
@@ -127,7 +129,7 @@ class Player implements Serializable {
 
     Block getChooseBlock(){
         GameItem gameItem=equipment.getItem();
-        if(gameItem instanceof  BlockItem) {
+        if(gameItem instanceof BlockItem) {
             equipment.removeItem(1);
             //System.out.println(equipment.getQuantity(equipment.getChosenItem()));
             return ((BlockItem)gameItem).getBlock();

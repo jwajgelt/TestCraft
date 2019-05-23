@@ -1,7 +1,6 @@
 package testcraft.blocks;
 
-import testcraft.BlockItem;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 
 //interface representing blocks which can be harvested (they give an item upon destruction)
 

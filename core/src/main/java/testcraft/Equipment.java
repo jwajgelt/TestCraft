@@ -55,7 +55,7 @@ public class Equipment implements Serializable {
     }
 
     void removeItem(int qua) {
-        removeItem(chosenItem,qua);
+        removeItem(chosenItem, qua);
     }
     boolean isSolid ()
     {
@@ -84,11 +84,9 @@ public class Equipment implements Serializable {
         return items[pos]!=null;
     }
 
-
-
     GameItem getItem(int pos) {
         try {
-            return available(pos)? items[pos] : null;
+            return available(pos) ? items[pos] : null;
         }
         catch (Exception e)
         {

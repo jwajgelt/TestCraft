@@ -3,7 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 import testcraft.items.Shovel;
 
 import java.io.Serializable;
@@ -13,7 +13,7 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
     private static int Id = 1;
     private static Texture texture = new Texture("DirtBlock.png");
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
-    private static String blockName = "Dirt";
+    protected static final String blockName = "Dirt";
 
     private static float maxDurability=50;
     private float durability=maxDurability;
@@ -45,6 +45,12 @@ public class DirtBlock extends CollectibleBlock implements Serializable {
     public int getId() {
         return Id;
     }
+
+    @Override
+    public String toString(){
+        return blockName;
+    }
+
     @Override
     public float getDurability()
     {

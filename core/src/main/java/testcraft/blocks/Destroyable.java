@@ -2,7 +2,7 @@ package testcraft.blocks;
 
 //interface representing items which can be destroyed by the player
 
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 
 public interface Destroyable {
 

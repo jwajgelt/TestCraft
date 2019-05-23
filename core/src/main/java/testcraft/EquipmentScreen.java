@@ -105,7 +105,7 @@ public class EquipmentScreen extends TestCraftScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 equipment.setChosenItem(number);
-                System.out.println(number);
+                System.out.println(equipment.available(number) ? equipment.getItem().getName() : "No item");
             }});
 
             itemImage= new Image();

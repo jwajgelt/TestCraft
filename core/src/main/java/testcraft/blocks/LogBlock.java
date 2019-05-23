@@ -3,7 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 import testcraft.items.Axe;
 
 public class LogBlock extends CollectibleBlock {
@@ -11,7 +11,7 @@ public class LogBlock extends CollectibleBlock {
     private static Texture texture = new Texture("LogBlock.png");
     private static int Id = 6;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
-    private static String blockName = "Log Block";
+    protected static final String blockName = "Log Block";
 
     private static float maxDurability=50;
     private float durability=50;
@@ -41,6 +41,12 @@ public class LogBlock extends CollectibleBlock {
     public int getId() {
         return Id;
     }
+
+    @Override
+    public String toString(){
+        return blockName;
+    }
+
     @Override
     public float getDurability()
     {

@@ -6,6 +6,7 @@ public class IronAxe extends Axe {
 
     {
         axeCoefficient = 1.5f;
+        name = "Iron Axe";
     }
 
     static private Texture texture = new Texture("IronAxe.png");

@@ -1,7 +1,10 @@
-package testcraft;
+package testcraft.items;
 
 import com.badlogic.gdx.graphics.Texture;
+import testcraft.Block;
 import testcraft.blocks.CollectibleBlock;
+import testcraft.items.BlockItem;
+import testcraft.items.GameItem;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +34,11 @@ public class ItemPicker {
                 @Override
                 public Block getBlock() {
                     return block.getNewBlock();
+                }
+
+                @Override
+                public String getName(){
+                    return block.toString();
                 }
 
             });

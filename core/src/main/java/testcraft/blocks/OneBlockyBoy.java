@@ -3,15 +3,15 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 
 public class OneBlockyBoy extends CollectibleBlock {
 
     static int Id = 420;
-    static private Texture texture = new Texture("OneBlockyBoy.png");
+    static private Texture texture = new Texture("Void.png");
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
-    static String blockName = "BlockyBoy";
-    private  float durability=50;
+    protected static final String blockName = "BlockyBoy";
+    private float durability=50;
 
     @Override
     public boolean isSolid() {
@@ -37,6 +37,12 @@ public class OneBlockyBoy extends CollectibleBlock {
     public int getId() {
         return Id;
     }
+
+    @Override
+    public String toString(){
+        return blockName;
+    }
+    
     @Override
     public float getDurability()
     {

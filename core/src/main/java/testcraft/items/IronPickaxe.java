@@ -8,6 +8,7 @@ public class IronPickaxe extends Pickaxe {
 
     {
         pickaxeCoefficient = 1.5f;
+        name = "Iron Pickaxe";
     }
 
     @Override

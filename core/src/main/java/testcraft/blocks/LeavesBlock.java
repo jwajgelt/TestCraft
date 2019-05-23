@@ -3,7 +3,7 @@ package testcraft.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
-import testcraft.GameItem;
+import testcraft.items.GameItem;
 
 import java.util.Random;
 
@@ -13,10 +13,10 @@ public class LeavesBlock extends Block implements Destroyable {
     private static Texture texture = new Texture("LeavesBlock.png");
     private static int Id = 5;
     private static Sprite[] blockSprites=new Sprite[]{new Sprite(texture), new Sprite(new Texture("LeavesBlock2.png"))};
-    private static String blockName = "Leaves Block";
+    protected static final String blockName = "Leaves Block";
     private int timer=10;
     private int pickSprite=0;
-    private  float durability=15;
+    private float durability=15;
 
 
     public LeavesBlock(){
@@ -56,6 +56,11 @@ public class LeavesBlock extends Block implements Destroyable {
     @Override
     public int getId() {
         return Id;
+    }
+
+    @Override
+    public String toString(){
+        return blockName;
     }
 
     @Override

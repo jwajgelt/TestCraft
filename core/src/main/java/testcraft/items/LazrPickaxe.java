@@ -6,6 +6,7 @@ public class LazrPickaxe extends Pickaxe {
 
     {
         pickaxeCoefficient = 1000000f;
+        name = "LAZER Pickaxe";
     }
 
     private static Texture texture = new Texture("LazrPick.png");
