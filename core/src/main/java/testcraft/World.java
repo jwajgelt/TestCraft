@@ -2,8 +2,6 @@ package testcraft;
 
 import com.badlogic.gdx.math.Rectangle;
 import org.mini2Dx.core.graphics.Graphics;
-import testcraft.blocks.Destroyable;
-import testcraft.blocks.Void;
 
 import java.io.*;
 import java.util.Arrays;

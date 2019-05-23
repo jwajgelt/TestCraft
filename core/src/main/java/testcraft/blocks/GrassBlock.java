@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 import testcraft.GameItem;
-import testcraft.items.Shovel;
 
 import java.util.Random;
 
@@ -40,7 +39,7 @@ public class GrassBlock extends Block implements Destroyable {
         if(timer>0)
             timer--;
         else {
-            timer=(byte)(random.nextInt(6)+4);
+            timer=(byte)(random.nextInt(6)+2);
             pickSprite=(byte)((pickSprite+1)%2);
         }
     }
