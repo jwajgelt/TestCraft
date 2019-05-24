@@ -8,7 +8,7 @@ import testcraft.items.GameItem;
 public class OneBlockyBoy extends Block {
 
     static int Id = 420;
-    static private Texture texture = new Texture("Void.png");
+    static private Texture texture = new Texture("VoidBlock.png");
     static private Sprite[] blockSprites=new Sprite[]{new Sprite(texture)};
     protected static final String blockName = "BlockyBoy";
     private float durability=50;

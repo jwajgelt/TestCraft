@@ -144,20 +144,16 @@ public abstract class WorldChunk implements Serializable {
                     }
                 } else if(block instanceof DirtBlock){
                     if(checkGrass(i-1, j, chunkLoader) || checkGrass(i+1, j, chunkLoader)){
-                        if(j > 0 && !getBlock(i, j-1, chunkLoader).isSolid() && new Random().nextInt(20)==0) setBlock(i, j, new GrassDirtBlock(), chunkLoader);
+                        if(!getBlock(i, j-1, chunkLoader).isSolid() && new Random().nextInt(20)==0) setBlock(i, j, new GrassDirtBlock(), chunkLoader);
                     }
                 } else if(block instanceof GrassBlock || block instanceof Flower){
-                    if(j < CHUNK_SIZE-1 && !getBlock(i, j+1, chunkLoader).isSolid()) setBlock(i, j, new Void(), chunkLoader);
+                    if(!getBlock(i, j+1, chunkLoader).isSolid()) setBlock(i, j, new Void(), chunkLoader);
                 }
             }
         }
     }
 
     private boolean checkGrass(int i, int j, ChunkLoader chunkLoader){
-        if(i<0 || i >=CHUNK_SIZE)
-            return false;
-        if(j<1 || j >=CHUNK_SIZE-1)
-            return false;
         return getBlock(i, j, chunkLoader) instanceof GrassDirtBlock || getBlock(i, j-1, chunkLoader) instanceof GrassDirtBlock || getBlock(i, j+1, chunkLoader) instanceof GrassDirtBlock;
     }
 

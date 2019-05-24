@@ -116,5 +116,10 @@ public class Equipment implements Serializable {
         return chosenItem;
     }
 
+    String getItemName()
+    {
+        return available(chosenItem) ? getItem().getName() : "No item";
+    }
+
 
 }
