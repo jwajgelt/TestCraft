@@ -23,6 +23,9 @@ public class GrassBlock extends Block implements Destroyable {
     }
 
     @Override
+    public boolean isOccupied(){return false;}
+
+    @Override
     public void update(){
         if(timer>0)
             timer--;
