@@ -84,6 +84,7 @@ class World {
     void setBlock (int x,int y, Block c)
     {
         List<Integer> Q=coordinates(x,y);
+        if(Q == null) return;
         chunks.get(Q.get(0)).setBlock(Q.get(1), Q.get(2),c);
     }
 
