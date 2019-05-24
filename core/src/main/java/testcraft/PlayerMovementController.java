@@ -157,12 +157,12 @@ public class PlayerMovementController {
             float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
             float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
             if(player.isReachable(world.getRectangle((int)x,(int)y),player.getEquipment().isSolid()) || Gdx.input.isKeyPressed(Input.Keys.G) )
-             if(!world.isBlockSolid((int)x,(int)y) && player.getEquipment().isSolid() )
+             if(!world.isBlockOccupied((int)x,(int)y) && player.getEquipment().isSolid() )
                  world.setBlock((int)x, (int)y, player.getChooseBlock());
         }
 
     }
-    void soundHandler(float delta)
+    private void soundHandler(float delta)
     {
         remainingMiningTime-=delta;
         if(remainingMiningTime>0)

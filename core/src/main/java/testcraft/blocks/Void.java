@@ -18,6 +18,9 @@ public class Void extends Block  implements Serializable {
     }
 
     @Override
+    public boolean isOccupied(){return false;}
+
+    @Override
     public boolean isSolid() {
         return false;
     }

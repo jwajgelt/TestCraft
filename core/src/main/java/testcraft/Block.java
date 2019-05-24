@@ -16,6 +16,8 @@ public abstract class Block implements Serializable {
 
     public void update(){}
 
+    public boolean isOccupied(){ return true;}
+
     public abstract boolean isSolid();
 
     public abstract Sprite getBlockSprite();

@@ -77,6 +77,12 @@ class World {
         return chunks.get(Q.get(0)).isBlockSolid(Q.get(1), Q.get(2));
     }
 
+    boolean isBlockOccupied (int x,int y)
+    {
+        List<Integer> Q=coordinates(x,y);
+        return chunks.get(Q.get(0)).isBlockOccupied(Q.get(1), Q.get(2));
+    }
+
     void setBlock (int x,int y, Block c)
     {
         List<Integer> Q=coordinates(x,y);

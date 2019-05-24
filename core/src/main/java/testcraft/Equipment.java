@@ -59,7 +59,7 @@ public class Equipment implements Serializable {
     }
     boolean isSolid ()
     {
-        return (getItem()!=null && getItem() instanceof  BlockItem && ((BlockItem)getItem()).getBlock().isSolid());
+        return (getItem()!=null && getItem() instanceof  BlockItem/* && !((BlockItem)getItem()).getBlock().isOccupied()*/);
 
     }
 

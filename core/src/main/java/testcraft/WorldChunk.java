@@ -12,6 +12,7 @@ import java.util.Random;
 
 public abstract class WorldChunk implements Serializable {
 
+    private static Random random=new Random();
     private static Sprite lowBlockDmg=new Sprite(new Texture("LowBlockDmg.png"));
     private static Sprite mediumBlockDmg=new Sprite(new Texture("MedBlockDmg.png"));
     private static Sprite highBlockDmg=new Sprite(new Texture("HighBlockDmg.png"));
@@ -111,6 +112,8 @@ public abstract class WorldChunk implements Serializable {
         return blocks[a][b].isSolid();
     }
 
+    boolean isBlockOccupied(int a, int b){ return blocks[a][b].isOccupied(); }
+
     public void update(){
         //place to check some block-specific updates
         //not pretty, should figure something better out
@@ -121,7 +124,7 @@ public abstract class WorldChunk implements Serializable {
                 if(block instanceof GrassDirtBlock){
                     if(j > 0){
                         if(blocks[i][j-1].isSolid()) blocks[i][j] = new DirtBlock();
-                        else if(blocks[i][j-1] instanceof Void && new Random().nextInt(500) == 0) blocks[i][j-1] = new GrassBlock();
+                        else if(blocks[i][j-1] instanceof Void && new Random().nextInt(50) == 0) blocks[i][j-1] = getGrassOrFlower();
                     }
                 } else if(block instanceof DirtBlock){
                     if(checkGrass(i-1, j) || checkGrass(i+1, j)){
@@ -163,6 +166,20 @@ public abstract class WorldChunk implements Serializable {
             case 10: return new IronBlock();
             case 17: return new DiamondBlock();
             default: return new Void();
+        }
+    }
+
+    protected Block getGrassOrFlower(){
+        if(random.nextBoolean())
+            return new GrassBlock();
+        else{
+            int a=random.nextInt()%3;
+            switch (a){
+                case 0: return new RedFlower();
+                case 1: return new BlueFlower();
+                case 2: return new YellowFlower();
+                default: return new GrassBlock();
+            }
         }
     }
 

@@ -2,7 +2,10 @@ package testcraft.chunks;
 
 import testcraft.ChunkLoader;
 import testcraft.WorldChunk;
-import testcraft.blocks.*;
+import testcraft.blocks.DirtBlock;
+import testcraft.blocks.GrassDirtBlock;
+import testcraft.blocks.LeavesBlock;
+import testcraft.blocks.LogBlock;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -11,6 +14,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class SurfaceChunk extends WorldChunk implements Serializable {
+
 
     private final int[] surfaceLevel = new int[CHUNK_SIZE];
 
@@ -49,7 +53,7 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
             //top level should be grassy dirt
             blocks[i][surfaceLevel[i]] = new GrassDirtBlock();
             //throw some grass blocks on top
-            if(randy.nextInt(5) == 0) blocks[i][surfaceLevel[i]-1] = new GrassBlock();
+            if(randy.nextInt(5) == 0) blocks[i][surfaceLevel[i]-1] = getGrassOrFlower();
             for(int j = surfaceLevel[i]+1; j < CHUNK_SIZE; j++){
                 blocks[i][j] =  new DirtBlock() ;
             }
@@ -88,4 +92,5 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
             }
         }
     }
+
 }
