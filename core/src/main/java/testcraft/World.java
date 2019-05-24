@@ -73,14 +73,12 @@ class World {
 
     boolean isBlockSolid (int x,int y)
     {
-        List<Integer> Q=coordinates(x,y);
-        return chunks.get(Q.get(0)).isBlockSolid(Q.get(1), Q.get(2));
+        return findBlock(x,y).isSolid();
     }
 
     boolean isBlockOccupied (int x,int y)
     {
-        List<Integer> Q=coordinates(x,y);
-        return chunks.get(Q.get(0)).isBlockOccupied(Q.get(1), Q.get(2));
+        return findBlock(x,y).isOccupied();
     }
 
     void setBlock (int x,int y, Block c)
@@ -93,9 +91,7 @@ class World {
     {
         List<Integer> Q=coordinates(x,y);
         Block result = chunks.get(Q.get(0)).getBlock(Q.get(1), Q.get(2));
-        //if(result instanceof Destroyable) B.setBlock(a, b, new Void());     //findBlock probably shouldn't be used for destructing the block? Maybe use setBlock instead?
         return result;
-
     }
 
     /*

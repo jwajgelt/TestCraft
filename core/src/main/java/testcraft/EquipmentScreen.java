@@ -26,7 +26,10 @@ public class EquipmentScreen extends TestCraftScreen {
     public static int ID=6;
     private Equipment equipment;
     private  LinkedList<MyCell> l = new LinkedList<>();
-    ScreenManager screenManager;
+    private Label chosen=new Label("",skin);
+    private ScreenManager screenManager;
+    private final float WINDOW_WIDTH = 500;
+    private final float WINDOW_HEIGHT = 320;
 
     public void goBack ()
     {
@@ -46,10 +49,10 @@ public class EquipmentScreen extends TestCraftScreen {
         super.initialise(gc);
 
         Window window = new Window("", skin);
-        window.setSize(500,300);
-        window.setPosition(400,200);
+        window.setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+        window.setPosition((SCREEN_WIDTH-WINDOW_WIDTH)/2,(SCREEN_HEIGHT-WINDOW_HEIGHT)/2);
 
-        window.add(new Label("Inventory", skin)).left().padLeft(15.0f);
+        window.add(new Label("Equipment", skin)).left().padLeft(15.0f);
         window.row();
         Table table = new Table();
         for(int y = 0; y < 4; y++) {
@@ -61,6 +64,10 @@ public class EquipmentScreen extends TestCraftScreen {
             table.row();
         }
         window.add(table).pad(20.0f);
+        window.row();
+        chosen.setFontScale(0.5f);
+        window.add(chosen);
+
         stage.addActor(window);
     }
 
@@ -68,6 +75,7 @@ public class EquipmentScreen extends TestCraftScreen {
     public void update(GameContainer gc, ScreenManager screenManager, float delta) {
         this.screenManager=screenManager;
         equipment = ((InGameScreen) screenManager.getGameScreen(InGameScreen.ID)).getPlayer().getEquipment();
+        chosen.setText(equipment.getItemName());
         if (!multiplexer.getProcessors().contains(stage, false))
             multiplexer.addProcessor(stage);
         for (MyCell m : l)

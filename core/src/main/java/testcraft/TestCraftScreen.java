@@ -12,26 +12,18 @@ public abstract class TestCraftScreen extends BasicGameScreen {
 
 
     public static final float WIDTH = 1280; //copy-pasted from InGameScreen
-   public static final float HEIGHT = 720;
-    public float SCREEN_WIDTH = 1280;
-    public  float SCREEN_HEIGHT = 720;
+    public static final float HEIGHT = 720;
+    public static final float SCREEN_WIDTH = 1280;
+    public static final  float SCREEN_HEIGHT = 720;
     public float scale = 1f;
     public float transX = 0f;
     public float transY = 0f;
-    public  static Skin skin;
+    public static Skin skin = new Skin(Gdx.files.classpath("craftacular/skin/craftacular-ui.json"));
     public Stage stage;
 
     @Override
     public void initialise(GameContainer gc) {
-        try {
-            skin = new Skin(Gdx.files.classpath("craftacular/skin/craftacular-ui.json"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
         stage = (stage==null)? gc.createStage(new ExtendViewport(WIDTH,HEIGHT)): stage;
-
     }
     @Override
     public void interpolate(GameContainer gc, float alpha) {
