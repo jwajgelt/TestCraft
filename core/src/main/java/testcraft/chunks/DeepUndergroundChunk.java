@@ -11,7 +11,7 @@ public class DeepUndergroundChunk extends WorldChunk implements Serializable {
     private Random random=new Random();
 
     public DeepUndergroundChunk(int xPos, int yPos, ChunkLoader chunkLoader){
-        super(xPos, yPos);
+        super(xPos, yPos, chunkLoader);
         //fill with stone
         for(int i = 0; i < CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){

@@ -5,7 +5,7 @@ import org.mini2Dx.core.graphics.Sprite;
 import testcraft.Block;
 import testcraft.items.GameItem;
 
-public class OneBlockyBoy extends CollectibleBlock {
+public class OneBlockyBoy extends Block {
 
     static int Id = 420;
     static private Texture texture = new Texture("Void.png");
@@ -42,17 +42,5 @@ public class OneBlockyBoy extends CollectibleBlock {
     public String toString(){
         return blockName;
     }
-    
-    @Override
-    public float getDurability()
-    {
-        return  durability;
-    }
-
-    @Override
-    public boolean isDestroyed() { return durability<=0; }
-
-    @Override
-    public float changeDurability(float delta, GameItem gameItem){return durability+=delta*70;}  //changes Durability, and returns it
 
 }

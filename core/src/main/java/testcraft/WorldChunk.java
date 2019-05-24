@@ -21,10 +21,11 @@ public abstract class WorldChunk implements Serializable {
     public static int CHUNK_SIZE = 64;
 
     protected Block[][] blocks;                       //array containing chunk's blocks' information first coordinate is X, second Y
+    //protected ChunkLoader chunkLoader;                //nope - not serializable
 
     final int chunkPosX, chunkPosY;                 //chunk's left top corner's world coordinates
 
-    public WorldChunk(int xPos, int yPos, Block[][] blocks){
+    public WorldChunk(int xPos, int yPos, ChunkLoader chunkLoader, Block[][] blocks){
         this.blocks = blocks;
         chunkPosX = xPos;
         chunkPosY = yPos;
@@ -35,8 +36,8 @@ public abstract class WorldChunk implements Serializable {
 
     }
 
-    public WorldChunk(int xPos, int yPos){
-        this(xPos, yPos, new Block[CHUNK_SIZE][CHUNK_SIZE]);
+    public WorldChunk(int xPos, int yPos, ChunkLoader chunkLoader){
+        this(xPos, yPos, chunkLoader, new Block[CHUNK_SIZE][CHUNK_SIZE]);
     }
 
 
@@ -103,9 +104,24 @@ public abstract class WorldChunk implements Serializable {
         return blocks[x][y];
     }
 
-    void setBlock(int a, int b, Block c){
-        if(c!=null)
-            blocks[a][b]=c;
+    void setBlock(int x, int y, Block block){
+        if(block!=null)
+            blocks[x][y]=block;
+    }
+
+    //For World-aware checks
+    protected Block getBlock(int x, int y, ChunkLoader chunkLoader){
+        if(x >= 0 && x < CHUNK_SIZE && y >= 0 && y < CHUNK_SIZE)
+            return blocks[x][y];
+        Block result = chunkLoader.world.findBlock(chunkPosX + x, chunkPosY + y);
+        return result == null ? new OneBlockyBoy() : result;
+    }
+
+    protected void setBlock(int x, int y, Block block, ChunkLoader chunkLoader){
+        if(block!=null)
+            if(x >= 0 && x < CHUNK_SIZE && y >= 0 && y < CHUNK_SIZE)
+                blocks[x][y]=block;
+            else chunkLoader.world.setBlock(chunkPosX+x, chunkPosY+y, block);               //to not have issues with nullity
     }
 
     boolean isBlockSolid(int a, int b){
@@ -114,7 +130,7 @@ public abstract class WorldChunk implements Serializable {
 
     boolean isBlockOccupied(int a, int b){ return blocks[a][b].isOccupied(); }
 
-    public void update(){
+    public void update(ChunkLoader chunkLoader){
         //place to check some block-specific updates
         //not pretty, should figure something better out
         for(int i = 0; i < CHUNK_SIZE; i++){
@@ -123,27 +139,26 @@ public abstract class WorldChunk implements Serializable {
                 Block block = blocks[i][j];
                 if(block instanceof GrassDirtBlock){
                     if(j > 0){
-                        if(blocks[i][j-1].isSolid()) blocks[i][j] = new DirtBlock();
-                        else if(blocks[i][j-1] instanceof Void && new Random().nextInt(50) == 0) blocks[i][j-1] = getGrassOrFlower();
+                        if(getBlock(i, j-1, chunkLoader).isSolid()) setBlock(i, j, new DirtBlock(), chunkLoader);
+                        else if(getBlock(i, j-1, chunkLoader) instanceof Void && new Random().nextInt(50) == 0) setBlock(i, j-1, getGrassOrFlower(), chunkLoader);
                     }
                 } else if(block instanceof DirtBlock){
-                    if(checkGrass(i-1, j) || checkGrass(i+1, j)){
-                        if(j > 0 && !blocks[i][j-1].isSolid() && new Random().nextInt(20)==0) blocks[i][j] = new GrassDirtBlock();
+                    if(checkGrass(i-1, j, chunkLoader) || checkGrass(i+1, j, chunkLoader)){
+                        if(j > 0 && !getBlock(i, j-1, chunkLoader).isSolid() && new Random().nextInt(20)==0) setBlock(i, j, new GrassDirtBlock(), chunkLoader);
                     }
                 } else if(block instanceof GrassBlock || block instanceof Flower){
-                    if(j < CHUNK_SIZE-1 && !blocks[i][j+1].isSolid()) blocks[i][j] = new Void();
-
+                    if(j < CHUNK_SIZE-1 && !getBlock(i, j+1, chunkLoader).isSolid()) setBlock(i, j, new Void(), chunkLoader);
                 }
             }
         }
     }
 
-    private boolean checkGrass(int i, int j){
+    private boolean checkGrass(int i, int j, ChunkLoader chunkLoader){
         if(i<0 || i >=CHUNK_SIZE)
             return false;
         if(j<1 || j >=CHUNK_SIZE-1)
             return false;
-        return blocks[i][j] instanceof GrassDirtBlock || blocks[i][j - 1] instanceof GrassDirtBlock || blocks[i][j + 1] instanceof GrassDirtBlock;
+        return getBlock(i, j, chunkLoader) instanceof GrassDirtBlock || getBlock(i, j-1, chunkLoader) instanceof GrassDirtBlock || getBlock(i, j+1, chunkLoader) instanceof GrassDirtBlock;
     }
 
     protected void createCluster(int i, int j, int c){

@@ -86,14 +86,14 @@ public class ChunkLoader {
             if(chunkY/CHUNK_SIZE == 0) return new SurfaceChunk(chunkX, chunkY, this);
             else if(chunkY/CHUNK_SIZE == 1) return new UndergroundChunk(chunkX, chunkY, this);
             else if(chunkY/CHUNK_SIZE > 1) return new DeepUndergroundChunk(chunkX, chunkY, this);
-            else return new SkyChunk(chunkX, chunkY);
+            else return new SkyChunk(chunkX, chunkY, this);
         } catch (RuntimeException e){
             //System.out.println("First load problem with deserialization, if this happens somewhere later down the line, uncomment the line below");
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new SkyChunk(chunkX, chunkY);
+        return new SkyChunk(chunkX, chunkY, this);
     }
 
     /*

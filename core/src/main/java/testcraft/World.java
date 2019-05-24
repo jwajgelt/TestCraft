@@ -111,7 +111,7 @@ class World {
     void update(float delta){
         updateCounter += delta;
         if(updateCounter > updateConst){
-            for(WorldChunk chunk : chunks) chunk.update();
+            for(WorldChunk chunk : chunks) chunk.update(chunkLoader);
             updateCounter = 0;
         }
     }

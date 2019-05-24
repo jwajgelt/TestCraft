@@ -12,7 +12,7 @@ public class UndergroundChunk extends WorldChunk implements Serializable {
     private Random randy = new Random();
 
     public UndergroundChunk(int xPos, int yPos, ChunkLoader chunkLoader){
-        super(xPos, yPos);
+        super(xPos, yPos, chunkLoader);
         for(int i = 0; i < CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){
                 blocks[i][j] = new CobblestoneBlock();

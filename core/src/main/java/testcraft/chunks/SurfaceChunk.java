@@ -19,7 +19,7 @@ public class SurfaceChunk extends WorldChunk implements Serializable {
     private final int[] surfaceLevel = new int[CHUNK_SIZE];
 
     public SurfaceChunk(int xPos, int yPos, ChunkLoader chunkLoader){
-        super(xPos, yPos);
+        super(xPos, yPos, chunkLoader);
         surfaceLevel[0] = -1;
         //if the chunk to the left is already generated, continue at the same height
         Random randy = new Random();
