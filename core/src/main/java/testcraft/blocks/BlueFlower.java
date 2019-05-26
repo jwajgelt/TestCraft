@@ -31,4 +31,8 @@ public class BlueFlower extends Flower {
     public int getId() {
         return Id;
     }
+    @Override
+    public String toString(){
+        return blockName;
+    }
 }

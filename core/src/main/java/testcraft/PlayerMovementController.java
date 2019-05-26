@@ -9,6 +9,7 @@ import testcraft.blocks.Destroyable;
 import testcraft.blocks.Harvestable;
 import testcraft.blocks.Void;
 import testcraft.items.LazrPickaxe;
+import testcraft.menus.GameOverScreen;
 import testcraft.menus.InGameMenuScreen;
 
 import static com.badlogic.gdx.math.MathUtils.floor;
@@ -131,11 +132,14 @@ public class PlayerMovementController {
             }
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.E)) //stop soundsefects if enetering menues/eq
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.E) || player.getHp().isDead()) //stop soundsefects if enetering menues/eq
         {
             remainingMiningTime = 0;
             miningSound.pause();
         }
+
+        if(player.getHp().isDead())
+            screenManager.enterGameScreen(GameOverScreen.ID, new NullTransition(), new NullTransition());
 
         if((Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) )) {
             screenManager.enterGameScreen(InGameMenuScreen.ID, new NullTransition(), new NullTransition());

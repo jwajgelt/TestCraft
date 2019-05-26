@@ -48,9 +48,7 @@ public class InGameScreen extends TestCraftScreen {
         world.setPos((int)posX, (int)posY);
         world.update(delta);
 
-        //check for game over screen
-        if(player.getHp().isDead())
-           screenManager.enterGameScreen(GameOverScreen.ID, new NullTransition(), new NullTransition());
+
 
     }
 
