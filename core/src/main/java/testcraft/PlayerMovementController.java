@@ -35,6 +35,15 @@ public class PlayerMovementController {
     private float top=360-Block.PIXEL_COUNT+1-0.01f;
     private float bot=360+Block.PIXEL_COUNT-1+0.01f;
 
+
+
+    private boolean checkCollsions ( float y1, float y2,float y3, float y4, float x1, float x2)
+    {
+        return (!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
+                && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4));
+    }
+
+
     private void moveHorizontal(float delta, float posX, float posY){
         player.stopHorizontal(1);
         float y1= floor((top)/(Block.PIXEL_COUNT)+(posY));//top to bot
@@ -43,8 +52,9 @@ public class PlayerMovementController {
         float y4= floor(((2*top+bot)/3)/(Block.PIXEL_COUNT)+(posY));
         float x1= floor((left)/(Block.PIXEL_COUNT)+(posX)+delta*player.getHorizontalSpeed());//left to right
         float x2= floor((right)/(Block.PIXEL_COUNT)+(posX)+delta*player.getHorizontalSpeed());
-        if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
-            && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)){
+        //if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
+             //   && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)) {WAS
+        if(checkCollsions(y1,y2,y3,y4,x1,x2)){ //IS
             player.moveHorizontal(delta*player.getHorizontalSpeed());
         }else{
             player.stopHorizontal(2);
@@ -53,14 +63,15 @@ public class PlayerMovementController {
     }
 
     private void moveVertical(float delta, float posX, float posY){
-        float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));//left to right
-        float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
         float y1=floor((bot)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);//bot to top
         float y2=floor((top)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
         float y3= floor(((top+2*bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
         float y4= floor(((2*top+bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
-        if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
-                && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)) {
+        float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));//left to right
+        float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
+        //if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
+               // && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)) { WAS
+            if(checkCollsions(y1,y2,y3,y4,x1,x2)) { //IS
             player.moveVertical(player.getVerticalSpeed() * delta);
             player.decreaseVerticalSpeed();
         }else{
