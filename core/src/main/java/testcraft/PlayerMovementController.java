@@ -130,8 +130,8 @@ public class PlayerMovementController {
 
                 }
 
-                if (block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
-                    ((Destroyable) block).changeDurability(-20000, null); //be careful here passing null
+               // if (block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
+                   // ((Destroyable) block).changeDurability(-20000, null); //be careful here passing null
 
                 if (block instanceof Destroyable && ((Destroyable) block).isDestroyed()) {
                     remainingMiningTime = 0f; //after destroying
@@ -160,8 +160,8 @@ public class PlayerMovementController {
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) )
             screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.C))
-           player.wypiszLewyDolnyRog();
+        //if(Gdx.input.isKeyJustPressed(Input.Keys.C))
+         //  player.wypiszLewyDolnyRog();
         //if(Gdx.input.isKeyJustPressed(Input.Keys.S))
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.L))
