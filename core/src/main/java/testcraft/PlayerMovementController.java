@@ -19,8 +19,8 @@ import static testcraft.InGameScreen.WIDTH;
 public class PlayerMovementController {
     private World world;
     private Player player;
-    private Sound miningSound = Gdx.audio.newSound(Gdx.files.classpath("pickaxe.ogg")); //tak sie wczytuje
-    private Sound catSound = Gdx.audio.newSound(Gdx.files.classpath("cat.wav")); //tak sie wczytuje
+    private Sound miningSound = Gdx.audio.newSound(Gdx.files.classpath("pickaxe.ogg"));
+    private Sound catSound = Gdx.audio.newSound(Gdx.files.classpath("cat.wav"));
     private  float remainingMiningTime=0;
 
     PlayerMovementController(World world, Player player){
@@ -52,9 +52,8 @@ public class PlayerMovementController {
         float y4= floor(((2*top+bot)/3)/(Block.PIXEL_COUNT)+(posY));
         float x1= floor((left)/(Block.PIXEL_COUNT)+(posX)+delta*player.getHorizontalSpeed());//left to right
         float x2= floor((right)/(Block.PIXEL_COUNT)+(posX)+delta*player.getHorizontalSpeed());
-        //if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
-             //   && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)) {WAS
-        if(checkCollsions(y1,y2,y3,y4,x1,x2)){ //IS
+
+        if(checkCollsions(y1,y2,y3,y4,x1,x2)){
             player.moveHorizontal(delta*player.getHorizontalSpeed());
         }else{
             player.stopHorizontal(2);
@@ -69,9 +68,8 @@ public class PlayerMovementController {
         float y4= floor(((2*top+bot)/3)/(Block.PIXEL_COUNT)+(posY)+player.getVerticalSpeed()*delta);
         float x1=floor((left)/(Block.PIXEL_COUNT)+(posX));//left to right
         float x2=floor((right)/(Block.PIXEL_COUNT)+(posX));
-        //if(!world.isBlockSolid((int)x1, (int)y1) && !world.isBlockSolid((int)x1, (int)y2) && !world.isBlockSolid((int)x1, (int)y3) && !world.isBlockSolid((int)x1, (int)y4)
-               // && !world.isBlockSolid((int)x2, (int)y1) && !world.isBlockSolid((int)x2, (int)y2) && !world.isBlockSolid((int)x2, (int)y3) && !world.isBlockSolid((int)x2, (int)y4)) { WAS
-            if(checkCollsions(y1,y2,y3,y4,x1,x2)) { //IS
+
+        if(checkCollsions(y1,y2,y3,y4,x1,x2)) {
             player.moveVertical(player.getVerticalSpeed() * delta);
             player.decreaseVerticalSpeed();
         }else{
@@ -118,10 +116,10 @@ public class PlayerMovementController {
 
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            int x = floor((Gdx.input.getX() / scale + transX) / (Block.PIXEL_COUNT) + (posX)); //
+            int x = floor((Gdx.input.getX() / scale + transX) / (Block.PIXEL_COUNT) + (posX));
             int y = floor((Gdx.input.getY() / scale + transY) / (Block.PIXEL_COUNT) + (posY)); //more elegant
 
-            if (player.isReachable(world.getRectangle(x, y), world.isBlockSolid(x, y)) || Gdx.input.isKeyPressed(Input.Keys.G)) {
+            if (player.isReachable(world.getRectangle(x, y), world.isBlockSolid(x, y))) {
                 Block block = world.findBlock(x, y);
                 if (block instanceof Destroyable) {
                     ((Destroyable) block).changeDurability(-delta, player.getEquipment().getItem());
@@ -130,8 +128,6 @@ public class PlayerMovementController {
 
                 }
 
-               // if (block instanceof Destroyable && Gdx.input.isKeyPressed(Input.Keys.M))  //if you want want much faster mining just press M
-                   // ((Destroyable) block).changeDurability(-20000, null); //be careful here passing null
 
                 if (block instanceof Destroyable && ((Destroyable) block).isDestroyed()) {
                     remainingMiningTime = 0f; //after destroying
@@ -160,18 +156,15 @@ public class PlayerMovementController {
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) )
             screenManager.enterGameScreen(EquipmentScreen.ID, new NullTransition(), new NullTransition());
 
-        //if(Gdx.input.isKeyJustPressed(Input.Keys.C))
-         //  player.wypiszLewyDolnyRog();
-        //if(Gdx.input.isKeyJustPressed(Input.Keys.S))
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.L))
             player.getEquipment().addItem(new LazrPickaxe(), 1);
 
 
         if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-            float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX)); //
-            float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY)); //more elegant
-            if(player.isReachable(world.getRectangle((int)x,(int)y),player.getEquipment().isSolid()) || Gdx.input.isKeyPressed(Input.Keys.G) )
+            float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX));
+            float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY));
+            if(player.isReachable(world.getRectangle((int)x,(int)y),player.getEquipment().isSolid()))
              if(!world.isBlockOccupied((int)x,(int)y) && player.getEquipment().isSolid() )
                  world.setBlock((int)x, (int)y, player.getChooseBlock());
         }

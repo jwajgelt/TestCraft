@@ -62,7 +62,6 @@ class World {
                 return  Arrays.asList(i,a,b);
             }
         }
-        //System.out.println("Didn't find coordinates");
         return null;
     }
 

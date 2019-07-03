@@ -11,7 +11,7 @@ import org.mini2Dx.core.screen.BasicGameScreen;
 public abstract class TestCraftScreen extends BasicGameScreen {
 
 
-    public static final float WIDTH = 1280; //copy-pasted from InGameScreen
+    public static final float WIDTH = 1280;
     public static final float HEIGHT = 720;
     public static final float SCREEN_WIDTH = 1280;
     public static final  float SCREEN_HEIGHT = 720;

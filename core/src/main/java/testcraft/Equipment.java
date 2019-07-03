@@ -66,7 +66,6 @@ public class Equipment implements Serializable {
     GameItem getItem() {
         return getItem(chosenItem);
     }
-    ///POKI CO WAZNE SA TYLKO TE WYZEJ
 
     void setChosenItem(int pos) {
         chosenItem=pos;

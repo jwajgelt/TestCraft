@@ -131,7 +131,6 @@ class Player implements Serializable {
         GameItem gameItem=equipment.getItem();
         if(gameItem instanceof BlockItem) {
             equipment.removeItem(1);
-            //System.out.println(equipment.getQuantity(equipment.getChosenItem()));
             return ((BlockItem)gameItem).getBlock();
         }
         return null;
@@ -178,12 +177,5 @@ class Player implements Serializable {
        Intersector.intersectRectangles(A,P, tab[0]); Intersector.intersectRectangles(A,Q,tab[1]); Intersector.intersectRectangles(A,R,tab[2]);
         return ( ( (!(tab[0].area()>0)) || !isSolid)&& (tab[1].area()>epsilon || tab[2].area()>epsilon ));
     }
-    void wypiszLewyDolnyRog()
-    {
-        System.out.println("POZYCJA: "+((posX*Block.PIXEL_COUNT)-WIDTH/2)+" "+(posY*PIXEL_COUNT-HEIGHT/2));
-    }
-    void wypisz_speed ()
-    {
-        System.out.println(getVerticalSpeed()+" "+getHorizontalSpeed());
-    }
+
 }

@@ -122,7 +122,6 @@ public class ChunkLoader {
         for(WorldChunk chunk : chunks){
             if(chunk.chunkPosX == chunkX && chunk.chunkPosY == chunkY) return true;
         }
-        //TODO check chunks on disk?
         return false;
     }
 

@@ -38,7 +38,6 @@ public class InGameScreen extends TestCraftScreen {
 
         //player updates
         healthBar.setValue(player.getHp().getHealthPoints());
-
         playerMovementController.KeyboardInput(delta, posX, posY);
         playerMovementController.MouseInputAndMenus(screenManager, posX, posY, transX, transY, scale,delta);
         posX=player.getX() - WIDTH/2/Block.PIXEL_COUNT;

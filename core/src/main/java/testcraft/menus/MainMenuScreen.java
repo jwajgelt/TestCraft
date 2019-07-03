@@ -53,7 +53,7 @@ public class    MainMenuScreen extends MenuScreen {
     {
         back=false;
         File dest = new File("Saves/Default");
-        FileUtils.deleteQuietly(dest);  //UWAGA NIE DZIALA POD WINDOWSAMI CHYBA
+        FileUtils.deleteQuietly(dest);  //DOESN'T WORK FOR WINDOWS
         try {
             FileUtils.forceMkdir(dest);
         }

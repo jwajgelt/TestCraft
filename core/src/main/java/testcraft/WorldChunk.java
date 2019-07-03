@@ -21,7 +21,6 @@ public abstract class WorldChunk implements Serializable {
     public static int CHUNK_SIZE = 64;
 
     protected Block[][] blocks;                       //array containing chunk's blocks' information first coordinate is X, second Y
-    //protected ChunkLoader chunkLoader;                //nope - not serializable
 
     final int chunkPosX, chunkPosY;                 //chunk's left top corner's world coordinates
 
@@ -91,13 +90,7 @@ public abstract class WorldChunk implements Serializable {
         return new Rectangle((chunkPosX+a)*Block.PIXEL_COUNT,(chunkPosY+b)*Block.PIXEL_COUNT, 1*Block.PIXEL_COUNT,1 *Block.PIXEL_COUNT);
     }
 
-    //I'd say unnecessary - implemented getBlock to get blocks[x][y], can then be set using setBlock to 'new Void()'    ~Wajgelt
-    /*Block setVoid (int a, int b)
-    {
-        Block X= blocks[a][b];
-        blocks[a][b]=new Void();
-        return X;
-    }*/
+
 
     //Function to get block from chunk by its chunk coordinates
     Block getBlock(int x, int y){
@@ -132,7 +125,7 @@ public abstract class WorldChunk implements Serializable {
 
     public void update(ChunkLoader chunkLoader){
         //place to check some block-specific updates
-        //not pretty, should figure something better out
+
         for(int i = 0; i < CHUNK_SIZE; i++){
             for(int j = 0; j < CHUNK_SIZE; j++){
                 blocks[i][j].update();
