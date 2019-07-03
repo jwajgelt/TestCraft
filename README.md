@@ -1,6 +1,6 @@
 # TestCraft
 
-TestCraft is two-dimensional variation on the popular computer game "Minecraft".
+TestCraft is a two-dimensional variation on the popular computer game "Minecraft".
 
 It was originally developed as a project for Object Oriented Programming course at Theoretical Computer Science, Jagiellonian University.
 
@@ -29,20 +29,20 @@ Run Testcraft/bin/desktop.
 
 ![Screenshot1](assets/man1.png)
 
-Leaves and grass are swaying in the wind. Grass and flowers are spreading to a nearby dirt block. What a wonderful place to explore!
+Leaves and grass are swaying in the wind. Grass and flowers are spreading to a nearby dirt blocks. What a wonderful place to explore!
 
 ![Screenshot2](assets/man2.png)
 
-In equipment you can choose the item you have in your hand. It is important when you  destroy blocks. With axe you chop the tree faster, pickaxe allows you to mine rocks faster and collect them (otherwise they just disappear)
-etc. It also determine the block you place with the right mouse button. The number in the bottom right corner is the number of items/blocks you have in your equipment.
+In equipment you can choose the item you have in your hand. It is important when you  destroy blocks. With axe you chop the trees faster, pickaxe allows you to mine rocks faster and collect them (otherwise they just disappear)
+etc. It also determines the block you place. The number in the bottom right corner is the number of items/blocks you have in your equipment.
 
 ![Screenshot3](assets/man3.png)
 
-Deeply underground there are some more interesting and harder minerals, caves and much more. Also remember not to jump from a height because you might lose your Hp!
+Deep underground there are some more interesting and harder minerals, caves and much more. Also remember not to jump from a height because you might lose your Hp!
 
 ![Screenshot4](assets/man4.png)
 
-In-game menu allows you to save the game, or go back to main menu.
+In-game menu allows you to save the game or go back to main menu.
 
 ![Screenshot4](assets/man5.png)
 
