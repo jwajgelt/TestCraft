@@ -29,7 +29,7 @@ Run Testcraft/bin/desktop.
 
 ![Screenshot1](assets/man1.png)
 
-Leaves and grass are swaying in the wind. Grass and flowers are spreading to a nearby dirt block. What a wonderful place to explore!
+Leaves and grass are swaying in the wind. Grass and flowers are spreading to a nearby dirt blocks. What a wonderful place to explore!
 
 ![Screenshot2](assets/man2.png)
 
