@@ -110,34 +110,49 @@ public class PlayerMovementController {
 
     }
 
+    void destroying(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta)
+    {
+        int x = floor((Gdx.input.getX() / scale + transX) / (Block.PIXEL_COUNT) + (posX));
+        int y = floor((Gdx.input.getY() / scale + transY) / (Block.PIXEL_COUNT) + (posY)); //more elegant
+
+        if (player.isReachable(world.getRectangle(x, y), world.isBlockSolid(x, y))) {
+            Block block = world.findBlock(x, y);
+            if (block instanceof Destroyable) {
+                ((Destroyable) block).changeDurability(-delta, player.getEquipment().getItem());
+                remainingMiningTime = 0.12f; //just because there is no isButtonJustPressed
+                //in future might add sounds for every block smth like: if(sound!=block.getSound()){ sound.pause(); sound=block.getSound();}
+
+            }
+
+
+            if (block instanceof Destroyable && ((Destroyable) block).isDestroyed()) {
+                remainingMiningTime = 0f; //after destroying
+                world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void
+                if (block instanceof Harvestable && ((Harvestable) block).checkTool(player.getEquipment().getItem())) {
+                    player.getEquipment().addItem(((Harvestable) block).getItem(), ((Harvestable) block).getQuantity());  //harvest the block, giving its item to the player
+                }
+            }
+        }
+    }
+
+    void placing(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta){
+
+        float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX));
+        float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY));
+        if(player.isReachable(world.getRectangle((int)x,(int)y),player.getEquipment().isSolid()))
+            if(!world.isBlockOccupied((int)x,(int)y) && player.getEquipment().isSolid() )
+                world.setBlock((int)x, (int)y, player.getChooseBlock());
+    }
+
     void MouseInputAndMenus(ScreenManager screenManager, float posX, float posY, float transX, float transY, float scale, float delta) {
 
         soundHandler(delta);
 
 
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            int x = floor((Gdx.input.getX() / scale + transX) / (Block.PIXEL_COUNT) + (posX));
-            int y = floor((Gdx.input.getY() / scale + transY) / (Block.PIXEL_COUNT) + (posY)); //more elegant
-
-            if (player.isReachable(world.getRectangle(x, y), world.isBlockSolid(x, y))) {
-                Block block = world.findBlock(x, y);
-                if (block instanceof Destroyable) {
-                    ((Destroyable) block).changeDurability(-delta, player.getEquipment().getItem());
-                    remainingMiningTime = 0.12f; //just because there is no isButtonJustPressed
-                    //in future might add sounds for every block smth like: if(sound!=block.getSound()){ sound.pause(); sound=block.getSound();}
-
-                }
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            destroying(screenManager,posX,posY,transX,transY,scale,delta);
 
 
-                if (block instanceof Destroyable && ((Destroyable) block).isDestroyed()) {
-                    remainingMiningTime = 0f; //after destroying
-                    world.setBlock(x, y, new Void());                                                                       //"destroy" the block, i.e. set to Void
-                    if (block instanceof Harvestable && ((Harvestable) block).checkTool(player.getEquipment().getItem())) {
-                        player.getEquipment().addItem(((Harvestable) block).getItem(), ((Harvestable) block).getQuantity());  //harvest the block, giving its item to the player
-                    }
-                }
-            }
-        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.E) || player.getHp().isDead()) //stop soundsefects if enetering menues/eq
         {
@@ -161,15 +176,11 @@ public class PlayerMovementController {
             player.getEquipment().addItem(new LazrPickaxe(), 1);
 
 
-        if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-            float x= floor((Gdx.input.getX()/scale + transX)/(Block.PIXEL_COUNT)+(posX));
-            float y= floor((Gdx.input.getY()/scale + transY)/(Block.PIXEL_COUNT)+(posY));
-            if(player.isReachable(world.getRectangle((int)x,(int)y),player.getEquipment().isSolid()))
-             if(!world.isBlockOccupied((int)x,(int)y) && player.getEquipment().isSolid() )
-                 world.setBlock((int)x, (int)y, player.getChooseBlock());
-        }
+        if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT))
+            placing(screenManager,posX,posY,transX,transY,scale,delta);
 
     }
+
     private void soundHandler(float delta)
     {
         remainingMiningTime-=delta;
